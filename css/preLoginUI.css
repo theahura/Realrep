@@ -1,0 +1,222 @@
+ html,body
+{
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+}
+
+ul, li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+h1 {
+    color: white;
+    font-size: 22pt;
+}
+
+table {
+    width: 100%;
+}
+tr {
+    width: 100%;
+}
+td {
+    background-color: #4791FF;
+    color: white;
+    height: 75px;
+    font-weight: bold;
+    width: 33%;
+    text-align: center;
+    font-size: 15pt;
+    border-radius: 1px;
+}
+
+input {
+    width: 400px;
+    height: 20px;
+    margin: 10px;
+}
+
+input[type="file"] {
+    margin-top: 50px;
+    width: 100%;
+}
+p {
+    text-align: left;
+    font-size: 10pt;
+    color: #666666;
+    line-height: 150%
+}
+
+.button {
+    cursor: pointer;
+}
+    
+    .button-prelogin {
+        padding: 5px;
+        margin: 10px;
+        border-style: solid;
+        border-color: white;
+        border-radius: 2px;
+        color: white;
+        border-width: 1px;
+        -webkit-transition: color .1s;
+        transition: color .1s;
+        -webkit-transition: background-color .1s;
+        transition: background-color .1s;
+    }
+
+.button:hover {
+    background-color: white;
+    color: #4791FF;
+}
+
+.header {
+    background-color: #4791FF;
+    -webkit-box-shadow: 0px 3px 9px -2px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 3px 9px -2px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 3px 9px -2px rgba(0, 0, 0, 0.61);
+    width: 100%;
+    position: fixed;
+    left:0;
+    right: 0;
+    top: 0;
+}
+
+    .header-container {
+        width: 100%;
+        display: inline-block;
+    }
+
+        .header-container li {
+            display: inline-block;
+            text-align: center;
+            width: 33%;
+            height: 100%
+        }
+
+        .header-container-left {
+        }
+
+            #logo {
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+            }
+
+        .header-container-center {
+
+        }
+
+        .header-container-right {
+            height: 100%;
+        }
+
+            .header-container-right div {
+                display: inline;
+                height: 100%;
+            }
+
+            #UsernameField {
+                display: none;
+                height: 12pt;
+                width: 100px;
+            }
+            #PasswordField {
+                height: 12pt;
+                width: 100px;
+                display: none;
+            }
+
+            #Cancel {
+                display: none;
+            }
+
+            #SubmitLogin {
+                display: none;
+            }
+
+            #CurrentLogin {
+
+            }
+
+.prelogin-content {
+    padding-top: 75px;
+    width: 50%;
+    min-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .about {
+        background-color: white;
+        text-align: center;
+        color: #333333;
+        padding: 25px;
+        border-radius: 3px;
+    }
+
+    .inputfield {
+        padding: 5px;
+        margin: 10px;
+        border-radius: 3px;
+        background-color: white;
+        color: #B2B2B2;
+    }
+
+    #button-table {
+        background-color: #4791FF;
+        color: white;
+        width: 100%;
+    }
+
+    #delete {
+        width: 34%;
+    }
+
+.largebutton {
+    cursor: pointer;
+}
+.largebutton:active {
+    -webkit-box-shadow: inset 0px 3px 14px -3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 3px 14px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 3px 14px -3px rgba(0, 0, 0, 0.75);
+}
+
+.small-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.legal {
+    color: #CCCCCC;
+    font-size: 9pt;
+}
+
+#GetStartedButton {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+    background-color: #4791FF;
+    text-align: center;
+    line-height: 100px;
+    color: white;
+    font-weight: bold;
+    font-size: 15pt;
+    border-radius: 2px;
+}
+
+#UserCreator {
+    display: none;
+}
+
+.HiddenSubmit {
+    display: none;
+}

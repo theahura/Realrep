@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cumulus</title>
+		<link rel="icon" type="image/png" href="img/favicon.png">
+
+		<!-- FONTS -->
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="css/preLoginUI.css" />
+		<link rel="stylesheet" href="css/postLoginUI.css" />
+		<script src="http://54.86.173.127:5000/socket.io/socket.io.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://apis.google.com/js/client.js"></script> 
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="header-container">
+				<li class="header-container-left">
+					<div id="logo">
+		         		<h1> CUMULUS </h1>
+		    		</div>
+				</li>
+				<li class="header-container-center">
+					<div id="CurrentLogin" style="color: white">Not logged in</div>
+				</li>
+				<li class="header-container-right">
+				    <!-- <div id="UsernameField" class="inputfield" contenteditable="true">Username</div>
+				    <div id="PasswordField" class="inputfield" contenteditable="true">Password</div> -->
+				    <form id="TitlebarForm">
+                        <input type="text" name="username" id="UsernameField" placeholder="Name"/>
+                        <input type="password" name="password" id="PasswordField" placeholder="Password"/>
+                        <input class="HiddenSubmit" type="submit"/>
+                    </form>
+					<div id="Cancel" class="button button-prelogin">Cancel</div>
+				    <div id="SubmitLogin" class="button button-prelogin">Submit</div>
+				    <div id="NewUserButton" class="button button-prelogin">Create Account</div>
+				    <div id="LoginButton" class="button button-prelogin">Login</div>
+				</li>
+			</ul>
+		</div>
+		<div class="prelogin-content">
+		    <div class="about" id="FlavorText">
+		        <h2>It's a big cloud service.</h2>
+
+		        <h3><em>For you.</em></h3>
+
+		      
+		        <br>
+		        <br>
+		        <p>Cumulus is for those users who need gratuitous amounts of storage.</p>
+		        <p>Combining Google Drive, Dropbox, and maybe some other things, Cumulus offers a secure, unified storage space. Keeping track of your files has probably never been this easy!</p>
+		    </div>
+		    <div class="about" id="UserCreator">
+		    	<h2>Creating an account is fast and easy.</h2>
+		    	<br>
+		    	<form id="RegisterNewUser" name="userinfo" method="post">
+		    		<input id="NewFirstnameInput" type="text" name="firstname" placeholder="First name" required>
+		    		<br>
+		    		<input id="NewLastnameInput" type="text" name="lastname" placeholder="Last name" required> 
+		    		<br>
+		    		<input id="NewEmailInput" type="email" name="email" placeholder="Email" required> 
+		    		<br>
+		    		<input id="NewUsernameInput" type="username" name="username" placeholder="Username" required>
+		    		<br>
+		    		<input id="NewPasswordInput" type="password" name="password" placeholder="Password" required>
+		    		<br>
+		    		<br>
+		    		<br>
+		    		<input class="HiddenSubmit" type="submit"/>
+		    	</form>
+	    		<div id="NewSubmit" class="button">Submit</div>
+		    	<br>
+		    	<span class="legal">By creating an account, you agree to our <span id="terms" class="small-link">Terms of Use</span> and our <span id="privacy" class="small-link">Privacy Policy</span>.</span>
+		    	<br>
+		    	<span class="legal"><span class="small-link" id="CancelUserCreator">Cancel</span></span>
+		    </div>
+		</div>
+
+
+		<div class="postlogin-content">
+			<div class="header-2">
+				Cumulus
+				<div class="subtitle">
+					The Universal Cloud and Data Storage Collector
+				</div>
+			</div>
+
+			  
+			<div class="spacer-15"></div>
+
+			<div class="side-panel">
+
+				<div class="spacer-15"></div>
+				<div class="button upload" id="UploadButton"> Upload </div>
+				<input type="file" id="InputFile" name="files[]" multiple />
+
+				<div class="spacer-15"></div>
+
+				<div class="text-amount-left one">
+					You Have
+				</div>
+
+				<div class="number-amount-left"> 50 Gb </div>
+
+				<div class="text-amount-left two">
+				Left In Your Clouds
+				</div>
+
+				<div class="spacer-5"></div>
+
+				<div class="space-left-bar">
+					<div class="space-fill"></div>
+				</div>
+
+				<div class="spacer-10"></div>
+
+				<div class="button add-cloud" id="AddCloud"> Add a Cloud </div>
+
+				<div class="button-table">
+		            <table>
+		                <tr>
+		                    <td id="RetrieveButton" class="largebutton">Retrieve</td>
+		                    <td id="DeleteButton" class="largebutton">Delete</td>
+		                </tr>
+		            </table>
+		        </div>
+
+		        <input type="file" id="HiddenUploadButton" name="files[]" multiple />
+
+		        <a download="info.txt" id="downloadLink">Download Requested File</a>
+			</div>
+
+			<div class="center-panel">
+	            <ul class="file-list-container">
+	            	<li class="file-list-top">
+	            		<ul class="file-header-info">
+							<li class="file-name-header">Title</li>
+							<li class="file-size-header">File Size</li>
+							<li class="file-chunk-header"># of Chunks</li>
+						</ul>
+	            	</li>
+	            </ul>
+	        </div>
+
+			<div class="new-cloud-panel">
+			    <div class="new-cloud-cover">
+			    </div>
+			    <ul class="new-cloud-containers">
+		        	<li class="button Google">
+		        		<div class="image"></div>
+		        	</li>
+		        	<li class="button Dropbox">
+		        		<div class="image"></div>
+		        	</li>
+		        	<li class="button OneDrive">
+		        		<div class="image"></div>
+		        	</li>
+		        </ul>
+			</div>
+
+
+			<li class="button file-list-container-li" id="FileTemplate">
+				<div class="file-container">
+					<ul class="file-info">
+						<li class="file-name">testname.txt</li>
+						<li class="file-size">30 gb</li>
+						<li class="file-chunk">30</li>
+					</ul>
+				</div>
+			</li>
+
+		</div>
+
+
+		<script src="JS/global.js"></script>
+		<!--Libraries and such-->
+		<script src="JS/driveAPI.js"></script>
+		<script src="JS/baseAPIclass.js"></script>
+		<script src="JS/files.js"></script>
+		<script src="JS/user.js"></script>
+		<!--All the actual function calls are in here-->
+		<script src="JS/serverToClientHandler.js"></script>
+		<script src="JS/mainUI.js"></script>
+		<script src="JS/main.js"></script>
+	</body>
+</html>

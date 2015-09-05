@@ -13,6 +13,7 @@ var global_nextID;
 
 
 function requestUser() {
+
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.gif");
 		$("#HashtagOne").text("");
@@ -20,17 +21,18 @@ function requestUser() {
 		$("#HashtagThree").text("");
 	}
 	else {
-		nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
-		if (!isValidUserID(nextID)) {
+		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
+
+		if (!isValidUserID(global_nextID)) {
 			requestUser();
 		}
 		else {
-			usedTags = [];
+			global_usedTags = [];
 
 			socket.emit('clientToServer', {
 				name: 'getProfile', 
-				hash: nextID
+				hash: global_nextID
 			}, function(data) {
 
 				deferredArray = [];
@@ -59,23 +61,23 @@ function requestUser() {
 
 				$.when.apply($, deferredArray).then(function() {
 					delete data.userId;
-					userTags = Object.keys(data);
+					global_userTags = Object.keys(data);
 
-					if (userTags.length < 3) {
+					if (global_userTags.length < 3) {
 						requestUser();
 					}
 					else {
-						var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+						var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 						$("#HashtagOne").text(tag[0]);
-						usedTags.push(tag[0]);
+						global_usedTags.push(tag[0]);
 
-						var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+						var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 						$("#HashtagTwo").text(tag[0]);
-						usedTags.push(tag[0]);
+						global_usedTags.push(tag[0]);
 
-						var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+						var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 						$("#HashtagThree").text(tag[0]);
-						usedTags.push(tag[0]);
+						global_usedTags.push(tag[0]);
 					}
 				});
 			});
@@ -86,7 +88,7 @@ function requestUser() {
 function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: global_nextID,
+		hash: global_global_nextID,
 		attribute: hashname,
 		value: value
 	}, function(data, err) {

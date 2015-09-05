@@ -8,26 +8,31 @@
 
 function setUserProfile(data) {
 
+	delete data['userId']
+
 	var sortedKeys = Object.keys(data).sort(function(a,b){return data[a]-data[b]});
 
+	console.log(data)
+	console.log(data[sortedKeys])
+	console.log(data[sortedKeys.length - 1])
+
+	var max = data[sortedKeys[sortedKeys.length - 1]];
+	console.log(max)
+	var divisor = max/100;
+
 	for(var i = 0; i < sortedKeys.length; i++) {
-		$bar = $('#DynamicBarRowDefault').clone();
-      	console.log($bar.attr('id'))
 
-		$bar.attr('id', 'DynamicBarRow-' + i);
-      	console.log($bar.attr('id'))
+    	$(".friends-data > tbody:last-child").append(
+    		"<tr id=\"DataBar-" + i + "\">"+
+				"<td class=\"hashtag-name\">" + 
+				"</td>"+
+				"<td class=\"bar-container\">"+
+					"<div class=\"bar\"> </div>"+
+				"</td>"+
+			"</tr>");
 
-    	$bar.removeClass("hidden");
-      	console.log($bar.attr('id'))
-
-    	$bar.find('.hashtag-name').html(sortedKeys[i]);
-      	console.log($bar.attr('id'))
-
-    	$bar.find('.bar').css({'width':data[sortedKeys[i]]});
-      	console.log($bar.attr('id'))
-
-    	$(".friends-data > tbody:last-child").append($bar);
-
+    	$('#DataBar-' + i).find('.hashtag-name').html(sortedKeys[i]);
+    	$('#DataBar-' + i).find('.bar').width(data[sortedKeys[i]]/divisor + "%");
 	}
 }
 
@@ -83,7 +88,17 @@ function login() {
 			name: 'checkUser', 
 			hash: global_ID
 		}, function(data) {
-			loadData(data);
+			var dataObj = {};
+
+			for(key in data) {
+				if('S' in data[key]) {
+					dataObj[key] = data[key].S
+				}
+				else if('N' in data[key])
+					dataObj[key] = parseInt(data[key].N)
+			}
+
+			loadData(dataObj);
 		});
 	});
 

@@ -31,17 +31,41 @@ function requestUser() {
 		delete data.userId;	//PURGE THE USER ID
 		var userTags = Object.keys(data);	//returns an array of the keys
 
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagOne").text(tag[0]);
-		usedTags.push(tag[0]);
+		var deferredArray = [];
 
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagTwo").text(tag[0]);
-		usedTags.push(tag[0]);
+		for(key in userTags) {
 
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagThree").text(tag[0]);
-		usedTags.push(tag[0]);
+			var deferred = new $.Deferred();
+
+			socket.emit('clientToServer', {
+				name: 'getHashtag', 
+				hash: userTags[key]
+			}, function(data) {
+				jQuery.extend(userTags, data);
+				deferred.resolve();
+			});
+
+			deferredArray.push(deferred);
+		}
+
+		//store information about file to dynamo through a server
+		$.when.apply($, deferredArray).then(function() {
+
+			console.log(userTags)
+
+			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			$("#HashtagOne").text(tag[0]);
+			usedTags.push(tag[0]);
+
+			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			$("#HashtagTwo").text(tag[0]);
+			usedTags.push(tag[0]);
+
+			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			$("#HashtagThree").text(tag[0]);
+			usedTags.push(tag[0]);
+		
+		});
 	});
 }
 

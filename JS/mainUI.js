@@ -16,7 +16,6 @@ $('#ProfilePicture').click(function() {
 $('.temp').click(function() {
     $('.self-profile-page').slideToggle();  
     $('.judgrpage').slideToggle();
-
 });
 
 

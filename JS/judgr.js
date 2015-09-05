@@ -7,6 +7,7 @@
 */
 
 var usedTags
+var nextID
 
 
 function requestUser() {
@@ -16,7 +17,7 @@ function requestUser() {
 	//obtain the Facebook ID of a random friend from 
 	//the list defined at the start of user login AND REMOVE
 	//that friend so that you
-	var nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
+	nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
 	//set the profile picture to that user friend
 	FBgetProfilePicture(nextID, function(url) {
@@ -29,7 +30,7 @@ function requestUser() {
 	}, function(data) {
 		delete data.userId;	//PURGE THE USER ID
 		var userTags = Object.keys(data);	//returns an array of the keys (sans userID)
-		console.log(userTags);
+		console.log(data);
 
 		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 		$("#HashtagOne").text(tag[0]);
@@ -44,4 +45,19 @@ function requestUser() {
 		usedTags.push(tag[0]);
 	});
 }
+
+function associateHashtag() {
+
+	socket.emit('clientToServer', {
+		name: 'updateProfileScores',
+		hash: userHash
+	}), function(data) {
+		console.log(data);
+	}
+}
+
+
+
+
+
 

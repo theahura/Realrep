@@ -21,7 +21,7 @@ module.exports = {
 	retrieveData: function(incomingObj, table, callback) {
 		var requestObj = {Key: {}};
 
-		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};	//nened the [0]
+		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};
 
 
 		table.getItem(requestObj, function(err, data)  {

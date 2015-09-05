@@ -20,7 +20,7 @@ $("#FacebookLogin").click(function() {
 function setGlobalID() {
 	FB.api("/me", function(response) {
 		global_ID = response.id;
-		console.log(global_ID);
+		login(global_ID);
 	});
 };
 

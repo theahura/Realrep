@@ -57,18 +57,14 @@ module.exports = {
 	},
 	/**
 		Checks database if the current username is already taken. If so, sends newUserResponseFailure message. 
-
-		@param: table; dynamodb table; where to search for data
-		@param: username; string; the username to search for 
-		@param: callback; function; the function to call when the search is finished and successful
 	*/
-	checkUser: function(table, userId, callback) {
-		table.getItem({Key: {'userId':{'S':userId}}}, function(err, data)  {
+	checkUser: function(incomingObj, table, callback) {
+		table.getItem({Key: {'userId':{'S':incomingObj['hash']}}}, function(err, data)  {
 			if(err) {
 				callback(err);
 			}
 			else if(data.Item) {
-				callback(true);
+				callback(data.Item);
 			}
 			else {
 				callback(false);

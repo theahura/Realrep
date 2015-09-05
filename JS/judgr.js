@@ -50,16 +50,20 @@ function requestUser() {
 				name: 'getHashtag', 
 				hash: userTags[key]
 			}, function(data) {
-				jQuery.extend(userTags, data);
-				deferred.resolve();
-				console.log(deferred.state())
-				console.log(deferredArray[0].state())
-			});
 
+				var temptags = Object.keys(data);
+
+				jQuery.extend(userTags, data);
+
+				for(key in deferredArray) {
+					if(deferredArray[key].state() !== 'resolved') {
+						deferredArray[key].resolve();
+					}
+				}
+			});
 		}
 
 		$.when.apply($, deferredArray).then(function() {
-			alert() 
 			console.log(userTags)
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)

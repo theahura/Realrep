@@ -6,34 +6,34 @@
 	Description: Sets up data for judging
 */
 
-var usedTags
-var userTags
-var nextID
+var global_usedTags;
+var global_userTags;
+var global_userData;
+var global_nextID;
 
 
 function requestUser() {
 
-	usedTags = [];
+	global_usedTags = [];
+	global_userTags = [];
 
 	//obtain the Facebook ID of a random friend from 
 	//the list defined at the start of user login AND REMOVE
 	//that friend so that you
 
-	nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
+	global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
 	//set the profile picture to that user friend
-	FBgetProfilePicture(nextID, function(url) {
+	FBgetProfilePicture(global_nextID, function(url) {
 		$("#ProfilePicture").attr("src", url);
 	});
 
 	socket.emit('clientToServer', {
 		name: 'getProfile', 
-		hash: nextID
+		hash: global_nextID
 	}, function(data) {
 
 		deferredArray = [];
-
-		console.log(data)
 
 		for(key in data) {
 
@@ -59,19 +59,19 @@ function requestUser() {
 
 		$.when.apply($, deferredArray).then(function() {
 
-			userTags = Object.keys(data);
+			global_userTags = Object.keys(data);
 
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 			$("#HashtagOne").text(tag[0]);
-			usedTags.push(tag[0]);
+			global_usedTags.push(tag[0]);
 
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 			$("#HashtagTwo").text(tag[0]);
-			usedTags.push(tag[0]);
+			global_usedTags.push(tag[0]);
 
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 			$("#HashtagThree").text(tag[0]);
-			usedTags.push(tag[0]);
+			global_usedTags.push(tag[0]);
 		
 		});
 	});
@@ -80,7 +80,7 @@ function requestUser() {
 function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: nextID,
+		hash: global_nextID,
 		attribute: hashname,
 		value: value
 	}, function(data, err) {

@@ -20,5 +20,13 @@ $('.temp').click(function() {
 
 //when you press the new user select button, call request user
 $("#NewUserSelect").click(function() {
-	requestUser();
+	if (global_friendsList.length == 0) {
+		$("#ProfilePicture").attr("src", "../img/web1.gif");
+		$("#HashtagOne").text("");
+		$("#HashtagTwo").text("");
+		$("#HashtagThree").text("");
+	}
+	else {
+		requestUser();
+	}
 });

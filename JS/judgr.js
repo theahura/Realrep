@@ -80,14 +80,11 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
-	var updatePackage = {
-		hash: userTags,
-
-	}
-
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: userHash
+		hash: nextID,
+		attribute: hashname,
+		value: value
 	}), function(data) {
 		console.log(data);
 	}

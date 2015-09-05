@@ -34,7 +34,6 @@ $("#NewUserSelect").click(function() {
 $('.hashtag').click(function() {
 	var button = this; 
 	updateProfile($(this).html(), 1, function() {
-
 		if(userTags.length > 0) { 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 			$(button).html(tag[0]);
@@ -47,3 +46,8 @@ $('.hashtag').click(function() {
 		
 	});		//ASSUME THEY PRESSED YES
 });
+
+
+
+
+

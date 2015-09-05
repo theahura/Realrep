@@ -84,12 +84,20 @@ ul, li
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
+<<<<<<< HEAD
+        margin-top: 10px;
+=======
         margin-top: auto;
+>>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
         font-size: 2.5vw; 
         font-weight: bold;
         background-color: #42A6F3;
         color: white;
 
+<<<<<<< HEAD
+    }
+=======
     }
 
     
+>>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e

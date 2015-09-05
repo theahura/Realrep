@@ -32,5 +32,10 @@ $("#NewUserSelect").click(function() {
 });
 
 $('.hashtag').click(function() {
+<<<<<<< HEAD
+	console.log($(this).text());
+	updateProfile();
+=======
 	updateProfile($(this).text(), 1);		//ASSUME THEY PRESSED YES
+>>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
 });

@@ -66,4 +66,3 @@ function testBackend() {
 		});
 	});
 }
->>>>>>> c67e52f4aa81c05a138b5980475e209bc16f8e48

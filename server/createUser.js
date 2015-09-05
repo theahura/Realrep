@@ -11,6 +11,6 @@ dataObj = {};
 
 var username = "Ganesh"
 var password = "password";
-var userKey = bcrypt.hashSync(password, 10);
+var userKey = bcrypt.hashSync(password + username, 10);
 
 loginTools.regNewUser(userTable, username, userKey);

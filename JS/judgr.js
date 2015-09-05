@@ -7,14 +7,7 @@
 */
 
 var usedTags
-<<<<<<< HEAD
 var userTags
-=======
-<<<<<<< HEAD
-var userTags
-=======
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
->>>>>>> f06f66711321c236f452d0a722aee4acd45b56d5
 var nextID
 
 
@@ -37,23 +30,6 @@ function requestUser() {
 		name: 'getProfile', 
 		hash: nextID
 	}, function(data) {
-<<<<<<< HEAD
-		var userTags = Object.keys(data);	//returns an array of the keys
-		delete userTags.userId;	//PURGE THE USER ID
-		console.log(data);
-
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagOne").text(tag[0]);
-		usedTags.push(tag[0]);
-
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagTwo").text(tag[0]);
-		usedTags.push(tag[0]);
-
-		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-		$("#HashtagThree").text(tag[0]);
-		usedTags.push(tag[0]);
-=======
 		delete data.userId;	//PURGE THE USER ID
 		userTags = Object.keys(data);	//returns an array of the keys
 
@@ -92,12 +68,10 @@ function requestUser() {
 			usedTags.push(tag[0]);
 		
 		});
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
 	});
 }
 
 function updateProfile(hashname, value) {
-<<<<<<< HEAD
 	var updatePackage = {
 		hash: userTags.,
 
@@ -109,21 +83,6 @@ function updateProfile(hashname, value) {
 	}), function(data) {
 		console.log(data);
 	}
-=======
-	socket.emit('clientToServer', {
-		name: 'updateProfileScores',
-		hash: nextID, 
-		attribute: hashname, 
-		value: value
-	}, function(data, err) {
-		socket.emit('clientToServer', {
-			name: 'getProfile',
-			hash: nextID
-		}, function(data) {
-			console.log(data[hashname]);
-		})
-	})
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
 }
 
 

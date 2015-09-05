@@ -33,5 +33,4 @@ $("#NewUserSelect").click(function() {
 
 $('.hashtag').click(function() {
 	updateProfile($(this).text(), 1);		//ASSUME THEY PRESSED YES
-
 });

@@ -83,12 +83,14 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
+	console.log(hashname);
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
 		hash: nextID,
 		attribute: hashname,
 		value: value
-	}), function(data) {
+	}), function(err, data) {
+		console.log(err);
 		console.log(data);
 	}
 }

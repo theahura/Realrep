@@ -36,10 +36,7 @@ function requestUser() {
 		name: 'getProfile', 
 		hash: nextID
 	}, function(data) {
-		console.log("HELLO")
-		console.log(data)
 
-		delete data.userId;	//PURGE THE USER ID
 		userTags = Object.keys(data);	//returns an array of the keys
 
 		deferredArray = [];
@@ -83,7 +80,6 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
-<<<<<<< HEAD
 	var updatePackage = {
 		hash: userTags.,
 
@@ -95,21 +91,6 @@ function updateProfile(hashname, value) {
 	}), function(data) {
 		console.log(data);
 	}
-=======
-	socket.emit('clientToServer', {
-		name: 'updateProfileScores',
-		hash: nextID, 
-		attribute: hashname, 
-		value: value
-	}, function(data, err) {
-		socket.emit('clientToServer', {
-			name: 'getProfile',
-			hash: nextID
-		}, function(data) {
-			console.log(data[hashname]);
-		})
-	})
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
 }
 
 

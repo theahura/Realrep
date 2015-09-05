@@ -55,29 +55,47 @@ ul, li
     text-align: center;
 }
 
-.header {
+@media(min-width: 900px) {.header {
     color: white;
     font-size: 3.5vw; 
     text-align: center; 
 
+    }
+}
+@media(max-width: 900px) {.header {
+    color: white;
+    font-size: 31.5px; 
+    text-align: center; 
 
+    }
 }
 
-.flavortext {
+@media (min-width: 900px) {
+    .flavortext {
     color: white;
     font-size: 2vw; 
     text-align: center; 
 }
+    }
+@media (max-width: 900px) {
+    .flavortext {
+    color: white;
+    font-size: 18px; 
+    text-align: center; 
+}
+    }
 
 .loginpage {
     background-image: url("../img/background_login.jpg");
 }
 
+@media (min-width: 900px){
+
 .login-button {
 
         margin-top: 1%;
-        width: 15%;
-        height: 6%;
+        width: 150px;
+        height: 150px;
         background: white;
         border-radius: 5px;
         padding: .5%;
@@ -87,9 +105,36 @@ ul, li
         margin-top: auto;
         font-size: 2.5vw; 
         font-weight: bold;
+        vertical-align: middle;
+        line-height: 150px;
         background-color: #42A6F3;
         color: white;
+        border-radius: 75px;
 
     }
+}
+@media (max-width:900px){
+    .login-button {
+
+        margin-top: 1%;
+        width: 150px;
+        height: 150px;
+        background: white;
+        border-radius: 5px;
+        padding: .5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+        margin-top: auto;
+         line-height: 150px;
+        font-size: 22.5px; 
+        font-weight: bold;
+        background-color: #42A6F3;
+        color: white;
+         border-radius: 75px;
+
+    }
+
+} 
 
     

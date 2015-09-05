@@ -37,6 +37,10 @@ ul, li
     height: 40%;
 }
 
+.spacer-20 {
+    height: 20%;
+}
+
 .spacer-10 {
     height: 10%;
 }
@@ -51,18 +55,39 @@ ul, li
     text-align: center;
 }
 
+.header {
+    color: white;
+    font-size: 3.5vw; 
+    text-align: center; 
+
+
+}
+
+.flavortext {
+    color: white;
+    font-size: 2vw; 
+    text-align: center; 
+}
+
 .loginpage {
     background-image: url("../img/background_login.jpg");
 }
 
-    .login-button {
+.login-button {
 
         margin-top: 1%;
-
-        width: 10%;
+        width: 15%;
+        height: 6%;
         background: white;
         border-radius: 5px;
-
         padding: .5%;
-        margin-left: 44.5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+        margin-top: auto;
+        font-size: 2.5vw; 
+        font-weight: bold;
+        background-color: #42A6F3;
+        color: white;
+
     }

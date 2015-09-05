@@ -116,7 +116,7 @@ module.exports = {
 				callback(null, err);
 			}
 			else if(data) {
-				callback(data);
+				callback(itemParams.Item);
 			}
 		});
 	}

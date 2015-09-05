@@ -30,3 +30,7 @@ $("#NewUserSelect").click(function() {
 		requestUser();
 	}
 });
+
+$('.hashtag').click(function() {
+	console.log($(this).text());
+});

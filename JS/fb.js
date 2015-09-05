@@ -15,6 +15,14 @@ function FBgetName(id, callback) {
 	});
 };
 
+function FBgetProfilePicture(id, callback) {
+	var query = "/" + id + "/picture?type=large";
+	FB.api(query, function(response) {
+		callback(response.data.url);
+		//console.log(response.data.url);
+	});
+};
+
 function FBgetFriends(id, callback) {
 	var query = "/" + id + "/friends";
 	FB.api(query, function(response) {

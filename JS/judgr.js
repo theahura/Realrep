@@ -81,7 +81,7 @@ function requestUser() {
 
 function updateProfile(hashname, value) {
 	var updatePackage = {
-		hash: userTags.,
+		hash: userTags,
 
 	}
 

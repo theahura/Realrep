@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+    //on window load, verify the app
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '893485884040333',
+          xfbml      : true,
+          status     : true,
+          version    : 'v2.4'
+        });
+          
+        //once loaded, login to Facebook
+        FB.login(function(response) {
+            //handle response here
+        }, {scope: 'public_profile,user_friends'})
+      };
+
+    //asynchronously loads the javascript sdk
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+</body>
+</html>

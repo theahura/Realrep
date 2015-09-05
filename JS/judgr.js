@@ -19,17 +19,11 @@ function requestUser() {
 	//the list defined at the start of user login AND REMOVE
 	//that friend so that you
 
-	console.log("HELLO")
-
 	nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
-
-	console.log(nextID)
 
 	//set the profile picture to that user friend
 	FBgetProfilePicture(nextID, function(url) {
-		console.log(url)
 		$("#ProfilePicture").attr("src", url);
-		console.log(url);
 	});
 
 	socket.emit('clientToServer', {
@@ -37,23 +31,25 @@ function requestUser() {
 		hash: nextID
 	}, function(data) {
 
-		userTags = Object.keys(data);	//returns an array of the keys
-
 		deferredArray = [];
 
-		for(key in userTags) {
+		console.log(data)
+
+		for(key in data) {
 
 			deferred = new $.Deferred();
 			deferredArray.push(deferred);
 
+			console.log(key)
+
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
-				hash: userTags[key]
-			}, function(data) {
+				hash: key
+			}, function(data_2) {
 
-				var temptags = Object.keys(data);
+				var temptags = Object.keys(data_2)
 
-				jQuery.extend(userTags, data);
+				jQuery.extend(data, data_2);
 
 				for(key in deferredArray) {
 					if(deferredArray[key].state() !== 'resolved') {
@@ -64,6 +60,10 @@ function requestUser() {
 		}
 
 		$.when.apply($, deferredArray).then(function() {
+			console.log(data)
+
+			var userTags = Object.keys(data);
+
 			console.log(userTags)
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)

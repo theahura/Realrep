@@ -40,15 +40,9 @@ Data base:
 	Two tables, one for usernames, one for hashtags
 
 	User table:
-		Hash: username - facebook?
-		Range: Location (how???)
+		Hash: FACEBOOK ID
 		Values: 
-			fb data (?) - image
-			location
-			bio
 			{} with keys as hashtag names and values as numbers (# of friends who think that the person is associated with the hashtag)
-			{} with keys as hashtag names and values as numbers (# of anons)
-			[] with hashtags in order (with 4 being the most voted hashtag)
 	
 	Hashtag table: 
 		Hash: hashtag

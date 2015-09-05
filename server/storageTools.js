@@ -21,7 +21,7 @@ module.exports = {
 	retrieveData: function(incomingObj, table, callback) {
 		var requestObj = {Key: {}};
 
-		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};
+		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};	//nened the [0]
 
 
 		table.getItem(requestObj, function(err, data)  {
@@ -41,7 +41,8 @@ module.exports = {
 		Updates the scores of a specific data attribute with numeric values
 
 		incomingObj must contain: 
-			'hash': string
+			'hash': string -> the userID OR the hashtag
+			'attribute': string -> the attribute being edited (so, for a user, which hashtag is being increased or decrased)
 			'value': number
 	*/
 	updateScores: function(incomingObj, table, callback) {

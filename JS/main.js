@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+//WHEN DAT BUTTON PRESS, LOG IN
+$("#FacebookLogin").click(function() {
+	FBlogin(function(id) {
+		global_ID = id;
+	});
+});
+=======
 
 function login(userId) {
 	socket.emit('clientToServer', {
@@ -75,3 +83,4 @@ function testBackend() {
 		});
 	});
 }
+>>>>>>> c67e52f4aa81c05a138b5980475e209bc16f8e48

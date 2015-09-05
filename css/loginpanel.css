@@ -1,0 +1,87 @@
+ html,body
+{
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+
+    font-size: 1vw;
+
+    padding: 0;
+    margin: 0;
+}
+
+ul, li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.spacer-50 {
+    height: 50%;
+}
+
+.spacer-40 {
+    height: 40%;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.loginpage {
+    background-image: url("../img/background_login.jpg");
+}
+
+    .loginpage>label {
+        font-size: 1.5vw;
+    }
+
+    .login-form {
+    }
+
+        .login-form ul {
+            text-align: center;
+            display: inline-block;
+        }
+
+            .login-form ul li {
+                margin-top: 5%;
+                width: 48%;
+                height: 100%;
+                display: inline-block;
+            }
+
+                .login-form ul li label {
+                    font-size: 1.2vw;
+                }
+
+                .login-form ul li input {
+                    margin-top: 5%;
+                }
+
+        .login-button {
+
+            margin-top: 1%;
+
+            width: 10%;
+            background: white;
+            border-radius: 5px;
+
+            padding: .5%;
+            margin-left: 44.5%;
+        }

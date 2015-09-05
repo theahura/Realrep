@@ -37,8 +37,7 @@ function setUserProfile(data) {
 }
 
 function loadData(data) {
-
-	if(data) {
+	if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
 		setUserProfile(data);
 

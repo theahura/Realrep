@@ -14,7 +14,6 @@ module.exports = {
 		Pulls down last 5 days in order of most recent
 
 		@param: incomingObj; {}
-			@param: patient; string; the patient name (hash)
 		@param: table; dynamo db table; where to get data
 		@param: callback; function(data, err)
 	*/

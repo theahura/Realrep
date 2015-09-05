@@ -40,8 +40,6 @@ function requestUser() {
 			deferred = new $.Deferred();
 			deferredArray.push(deferred);
 
-			console.log(key)
-
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
 				hash: key
@@ -60,11 +58,8 @@ function requestUser() {
 		}
 
 		$.when.apply($, deferredArray).then(function() {
-			console.log(data)
 
-			var userTags = Object.keys(data);
-
-			console.log(userTags)
+			userTags = Object.keys(data);
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 			$("#HashtagOne").text(tag[0]);
@@ -82,15 +77,18 @@ function requestUser() {
 	});
 }
 
-function updateProfile(hashname, value) {
+function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
 		hash: nextID,
 		attribute: hashname,
 		value: value
-	}), function(data) {
+	}, function(data, err) {
+		console.log(err);
 		console.log(data);
-	}
+
+		callback();
+	});
 }
 
 

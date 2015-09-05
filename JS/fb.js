@@ -1,3 +1,15 @@
+/**
+	@author: Derek Hong
+	@date: 9-5-15
+	@version: 0.1
+
+	Description: API to hook into facebook graph api. Used to get various data. 
+*/
+
+
+/**
+	Logs a user in and returns the id for that user
+*/
 function FBlogin(callback) {
 	FB.login(function(response) {
    		FB.api("/me", function(response) {
@@ -7,6 +19,9 @@ function FBlogin(callback) {
    }, {scope: 'public_profile,user_friends'});
 };
 
+/**
+	Gets a name for a given id and returns the name
+*/
 function FBgetName(id, callback) {
 	var query = "/" + id;
 	FB.api(query, function(response) {
@@ -15,6 +30,9 @@ function FBgetName(id, callback) {
 	});
 };
 
+/**
+	Gets a profile picture for a given id and returns the link to that picture
+*/
 function FBgetProfilePicture(id, callback) {
 	var query = "/" + id + "/picture?type=large";
 	FB.api(query, function(response) {
@@ -23,6 +41,10 @@ function FBgetProfilePicture(id, callback) {
 	});
 };
 
+
+/**
+	Gets a list of friends for a given id and returns the []
+*/
 function FBgetFriends(id, callback) {
 	var query = "/" + id + "/friends";
 	FB.api(query, function(response) {
@@ -36,6 +58,11 @@ function FBgetFriends(id, callback) {
 		//console.log(idList);
 	});
 };
+
+
+//==================================================================================
+//Facebook settings
+//==================================================================================
 
 //asynchronously loads the javascript sdk
 (function(d, s, id){

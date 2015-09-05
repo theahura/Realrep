@@ -1,5 +1,34 @@
+/**
+	@author: Amol Kapoor
+	@date: 9-5-15
+	@version: 0.1
+
+	Description: Sets up user data
+*/
+
 function setUserProfile(data) {
-	console.log(data);
+
+	var sortedKeys = Object.keys(data).sort(function(a,b){return data[a]-data[b]});
+
+	for(var i = 0; i < sortedKeys.length; i++) {
+		$bar = $('#DynamicBarRowDefault').clone();
+      	console.log($bar.attr('id'))
+
+		$bar.attr('id', 'DynamicBarRow-' + i);
+      	console.log($bar.attr('id'))
+
+    	$bar.removeClass("hidden");
+      	console.log($bar.attr('id'))
+
+    	$bar.find('.hashtag-name').html(sortedKeys[i]);
+      	console.log($bar.attr('id'))
+
+    	$bar.find('.bar').css({'width':data[sortedKeys[i]]});
+      	console.log($bar.attr('id'))
+
+    	$(".friends-data > tbody:last-child").append($bar);
+
+	}
 }
 
 function loadData(data) {
@@ -41,6 +70,14 @@ function login() {
 	//fb.js
 	FBlogin(function(id) {
 		global_ID = id;
+
+		FBgetName(id, function(name) {
+			global_name = name;
+		});
+
+		FBgetFriends(id, function(list) {
+			global_friendsList = list; 
+		});
 
 		socket.emit('clientToServer', {
 			name: 'checkUser', 

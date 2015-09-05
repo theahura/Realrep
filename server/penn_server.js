@@ -1,3 +1,12 @@
+/**
+	@author: Amol Kapoor
+	@date: 9-5-15
+	@version: 0.1
+
+	Description: Server for handling hashtag data
+*/
+
+
 //AWS
 //export AWS_ACCESS_KEY_ID
 //export AWS_SECRET_ACCESS_KEY

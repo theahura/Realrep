@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
 		<link rel="stylesheet" href="css/userprofile.css" />
+		<link rel="stylesheet" href="css/selfprofile.css" />
 
 		<script src="http://54.86.173.127:6010/socket.io/socket.io.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -30,8 +31,10 @@
 				</li>
 				<li class="friends">
 					<label> How Your Friends See You </label>
-					<ul class="friends-container">
-					</ul>
+					<table class="friends-data">
+						<tbody>
+						</tbody>
+					</table>
 				</li>
 				<li class="world">
 					<label> How The World Sees You </label>
@@ -39,6 +42,7 @@
 					</ul>
 				</li>
 			</ul>
+			<div class='temp'> Go to judgr </div> 
 		</div>
 		
 		<div class="other-profile-page panel hidden">
@@ -66,5 +70,14 @@
         <script src="JS/fb.js"></script>
 		<script src="JS/mainUI.js"></script>
 		<script src="JS/main.js"></script>
+
+
+		<tr id="DynamicBarRowDefault" class="hidden">
+			<td class="hashtag-name"> Hashtag </td>
+			<td class="bar-container"> 
+				<div class="bar"> </div>
+			</td>
+		</tr>
+		
 	</body>
 </html>

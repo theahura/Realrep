@@ -44,6 +44,7 @@ function requestUser() {
 		for(key in userTags) {
 
 			deferred = new $.Deferred();
+			deferredArray.push(deferred);
 
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
@@ -51,9 +52,10 @@ function requestUser() {
 			}, function(data) {
 				jQuery.extend(userTags, data);
 				deferred.resolve();
+				console.log(deferred.state())
+				console.log(deferredArray[0].state())
 			});
 
-			deferredArray.push(deferred);
 		}
 
 		$.when.apply($, deferredArray).then(function() {

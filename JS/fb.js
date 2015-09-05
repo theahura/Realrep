@@ -12,7 +12,7 @@ function getName(id, callback) {
 		callback(response.name);
 		console.log(response.name);
 	});
-});
+};
 
 
 

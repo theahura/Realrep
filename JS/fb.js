@@ -7,7 +7,7 @@ function FBlogin(callback) {
    }, {scope: 'public_profile,user_friends'});
 };
 
-function getName(id, callback) {
+function FBgetName(id, callback) {
 	var query = "/" + id;
 	FB.api(query, function(response) {
 		callback(response.name);
@@ -15,7 +15,7 @@ function getName(id, callback) {
 	});
 };
 
-function getFriends(id, callback) {
+function FBgetFriends(id, callback) {
 	var query = "/" + id + "/friends";
 	FB.api(query, function(response) {
 		var friendsList = response.data;

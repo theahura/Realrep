@@ -14,7 +14,8 @@ function loadData(data) {
 	else {
 		//Otherwise, create new data for the user
 		var incomingObj = {
-			name: 'addUser'
+			name: 'addUser',
+			hash: global_ID
 		}
 
 		for(var i in [0, 1, 2, 3, 4]) {
@@ -24,7 +25,7 @@ function loadData(data) {
 
 		socket.emit('clientToServer', incomingObj, function(data, err) {
 			if(err) {
-				alert(err);
+				console.log(err);
 			}
 			else {
 				setUserProfile(data);
@@ -43,7 +44,7 @@ function login() {
 
 		socket.emit('clientToServer', {
 			name: 'checkUser', 
-			hash: userId
+			hash: global_ID
 		}, function(data) {
 			loadData(data);
 		});

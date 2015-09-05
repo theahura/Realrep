@@ -87,7 +87,7 @@ module.exports = {
 			if(key === 'hash' || key === 'name')
 				continue;
 
-			dataObj[key] = {'N':incomingObj[key]};
+			dataObj[key] = {'N':incomingObj[key] + ""};
 
 			for(other_keys in incomingObj) {
 				if(other_keys === 'hash' || other_keys === 'name' || other_keys === key) 

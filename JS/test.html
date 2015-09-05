@@ -15,11 +15,19 @@
           version    : 'v2.4'
         });
           
-        //once loaded, login to Facebook
-        FB.login(function(response) {
-            //handle response here
-        }, {scope: 'public_profile,user_friends'})
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            console.log('Logged in.');
+          }
+          else {
+            //please log in
       };
+    
+    //will need to be called ONLY when the HTML button is pressed
+            //asked for the appropriate permissions from the user and logs in
+    FB.login(function(response) {
+                  //handle response here
+            }, {scope: 'public_profile,user_friends'})
 
     //asynchronously loads the javascript sdk
       (function(d, s, id){

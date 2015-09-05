@@ -12,10 +12,6 @@ function setUserProfile(data) {
 
 	var sortedKeys = Object.keys(data).sort(function(a,b){return data[a]-data[b]});
 
-	console.log(data)
-	console.log(data[sortedKeys])
-	console.log(data[sortedKeys.length - 1])
-
 	var max = data[sortedKeys[sortedKeys.length - 1]];
 	console.log(max)
 	var divisor = max/100;
@@ -77,6 +73,7 @@ function login() {
 
 		FBgetName(id, function(name) {
 			global_name = name;
+			$('.profile label').html(global_name);
 		});
 
 		FBgetFriends(id, function(list) {

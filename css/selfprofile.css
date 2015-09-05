@@ -12,7 +12,8 @@
 		}
 
 			.profile label {
-
+				font-size: 3vw;
+				margin-bottom: 30%
 			}
 
 			.profile .bio {
@@ -23,7 +24,12 @@
 		.friends {
 			height: 100%;
 			overflow: auto;
+			margin-top: 5%;
 		}
+
+			.friends label {
+				font-size: 2vw;
+			}
 
 			.friends-data {
 				width: 80%;

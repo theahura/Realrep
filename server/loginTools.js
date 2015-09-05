@@ -25,27 +25,6 @@ function generateUserKey(username, password) {
 	return userKey;
 } 
 
-/**
-	Checks database if the current username is already taken. If so, sends newUserResponseFailure message. 
-
-	@param: table; dynamodb table; where to search for data
-	@param: username; string; the username to search for 
-	@param: callback; function; the function to call when the search is finished and successful
-*/
-function checkUser(table, username, callback) {
-	table.getItem({Key: {'username':{'S':username}}}, function(err, data)  {
-		if(err) {
-			callback(err);
-		}
-		else if(data.Item) {
-			callback({message: 'Username already taken'}, 'appError');
-		}
-		else {
-			callback();
-		}
-	});
-}
-
 //Exposed functions
 module.exports = {
 	/**
@@ -73,6 +52,26 @@ module.exports = {
 		table.putItem(itemParams, function(err, data) {
 			if(err) {
 				console.log(data, err);
+			}
+		});
+	},
+	/**
+		Checks database if the current username is already taken. If so, sends newUserResponseFailure message. 
+
+		@param: table; dynamodb table; where to search for data
+		@param: username; string; the username to search for 
+		@param: callback; function; the function to call when the search is finished and successful
+	*/
+	checkUser: function(table, userId, callback) {
+		table.getItem({Key: {'userId':{'S':userId}}}, function(err, data)  {
+			if(err) {
+				callback(err);
+			}
+			else if(data.Item) {
+				callback(true);
+			}
+			else {
+				callback(false);
 			}
 		});
 	}

@@ -1,29 +1,23 @@
-var incomingObj = {
-	name: 'addUser',
-	hash: 'amolkapoor',
-	video_games: '10',
-	new_jersey: '10',
-	columbia: '10', 
-	nintendo: '10',
-	cats: '10'
-};
 
-socket.emit("clientToServer", incomingObj, function(data, err) {
-	console.log(data);
-	console.log(err);
+function testBackend() {
 
-	incomingObj = {
-		name: 'getProfile', 
-		hash: 'amolkapoor'
-	}
+	var incomingObj = {
+		name: 'addUser',
+		hash: 'amolkapoor',
+		video_games: '10',
+		new_jersey: '10',
+		columbia: '10', 
+		nintendo: '10',
+		cats: '10'
+	};
 
 	socket.emit("clientToServer", incomingObj, function(data, err) {
 		console.log(data);
 		console.log(err);
 
 		incomingObj = {
-			name: 'getHashtag', 
-			hash: 'video_games'
+			name: 'getProfile', 
+			hash: 'amolkapoor'
 		}
 
 		socket.emit("clientToServer", incomingObj, function(data, err) {
@@ -31,10 +25,8 @@ socket.emit("clientToServer", incomingObj, function(data, err) {
 			console.log(err);
 
 			incomingObj = {
-				name: 'updateProfileScores', 
-				hash: 'amolkapoor',
-				attribute: 'video_games', 
-				value: 1
+				name: 'getHashtag', 
+				hash: 'video_games'
 			}
 
 			socket.emit("clientToServer", incomingObj, function(data, err) {
@@ -44,17 +36,27 @@ socket.emit("clientToServer", incomingObj, function(data, err) {
 				incomingObj = {
 					name: 'updateProfileScores', 
 					hash: 'amolkapoor',
-					attribute: 'nintendo', 
-					value: -1
+					attribute: 'video_games', 
+					value: 1
 				}
 
 				socket.emit("clientToServer", incomingObj, function(data, err) {
 					console.log(data);
 					console.log(err);
+
+					incomingObj = {
+						name: 'updateProfileScores', 
+						hash: 'amolkapoor',
+						attribute: 'nintendo', 
+						value: -1
+					}
+
+					socket.emit("clientToServer", incomingObj, function(data, err) {
+						console.log(data);
+						console.log(err);
+					});
 				});
 			});
 		});
 	});
-});
-
-
+}

@@ -75,6 +75,10 @@ function serverHandler(socket, incomingObj, callback) {
 		//incomingObj must contain: userId
 		storageTools.retrieveData(incomingObj, userTable, callback);
 	}
+	else if(incomingObj.name === 'checkUser') {
+		//Check if a user already exists
+		loginTools.checkUser(incomingObj, userTable, callback);
+	}
 	else if(incomingObj.name === 'getHashtag') {
 		//load all of the related hashtag data 
 		//incomingObj must contain: hashtag

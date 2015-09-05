@@ -10,6 +10,8 @@
 
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
+		<link rel="stylesheet" href="css/userprofile.css" />
+
 		<script src="http://54.86.173.127:6010/socket.io/socket.io.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	</head>
@@ -17,36 +19,37 @@
 	<body>
 		
 		<div class="loginpage panel">
-			<div class="spacer-40"></div>
-			<label> Log In to Facebook </label> 
-			<form class="login-form">
-				<ul>
-					<li>
-						<label> User Name </label>
-						<input type="text" id="FacebookUserName" class="login-input"> </input>
-					</li>
-					<li>
-						<label> Password </label>
-						<input type="text" id="FacebookPassword" class="login-input"> </input>
-					</li>
-				</ul>
-				<input type="submit" class="hidden" id="HiddenFacebookLogin"></input>
-				<div class="button login-button" id="FacebookLogin">Submit</div>
-			</form>
+			<div class="spacer-50"></div>
+			<div class="button login-button" id="FacebookLogin">Login</div>
 		</div>
 		
 		<div class="self-profile-page panel hidden">
 			<ul class="profile-container">
-				<li>
+				<li class="profile">
+					<label> Name </label>
+					<div class="bio"> 
+						<div class="bio-text">
+							Lorem Ipsum
+						</div>
+					</div>
 				</li>
 				<li class="friends">
 					<label> How Your Friends See You </label>
 					<ul class="friends-container">
+						<li> 
+							<div class="hashtag-name"> Hashtag </div>
+							<div class="overall-bar">
+								<div class="progress-bar">
+								</div>
+							</div>
+						</li>
 					</ul>
 				</li>
 				<li class="world">
 					<label> How The World Sees You </label>
 					<ul class="world-container">
+						<li>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -59,6 +62,16 @@
 		</div>
 
 		<div class="judgrpage panel hidden">
+			<div class="spacer-10"></div>
+			<div class="image-container">
+				<img class="profile-picture" id="ProfilePicture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile"></img>
+			</div>
+
+			<div class="hashtag" id="HashtagOne"> Test </div>
+			<div class="hashtag" id="HashtagTwo"> Test </div>
+			<div class="hashtag" id="HashtagThree"> Test </div>
+			<div class="spacer-5"></div>
+			<div class="button new-user" id="NewUserSelect"> Get a New User </div>
 
 		</div>
 

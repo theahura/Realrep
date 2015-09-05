@@ -1,3 +1,24 @@
 .judgrpage {
     background-image: url("../img/background_judgr.png");
 }
+
+	.image-container {
+		width: 30%;
+	    height: 50%;
+	    margin-left: 35%;
+	}
+
+		.image-container img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+
+	.hashtag {
+		padding: 1%;
+	    border-radius: 5px;
+	    background: white;
+	    width: 12%;
+	    margin-top: 1%;
+	    margin-left: 43%;
+	}

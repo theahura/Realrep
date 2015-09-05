@@ -40,18 +40,19 @@ function requestUser() {
 
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
-				hash: key
+				hash: userTags[key]
 			}, function(data) {
-				console.log(data)
+				jQuery.extend(userTags, data);
 				deferred.resolve();
 			});
 
 			deferredArray.push(deferred);
-
 		}
 
 		//store information about file to dynamo through a server
 		$.when.apply($, deferredArray).then(function() {
+
+			console.log(userTags)
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 			$("#HashtagOne").text(tag[0]);
@@ -70,7 +71,7 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
-	console.log(userTags.hashname`);
+	console.log(userTags.hashname);
 
 	var updatePackage = {
 		hash: userTags.hashname,

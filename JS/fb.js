@@ -2,6 +2,7 @@ function FBlogin(callback) {
 	FB.login(function(response) {
    		FB.api("/me", function(response) {
 			callback(response.id);
+			//console.log(response.id);
 		});
    }, {scope: 'public_profile,user_friends'});
 };
@@ -10,9 +11,23 @@ function getName(id, callback) {
 	var query = "/" + id;
 	FB.api(query, function(response) {
 		callback(response.name);
-		console.log(response.name);
+		//console.log(response.name);
 	});
-});
+};
+
+function getFriends(id, callback) {
+	var query = "/" + id + "/friends";
+	FB.api(query, function(response) {
+		var friendsList = response.data;
+		var idList = [];
+		for (i=0; i<friendsList.length; i++) {
+			idList[i] = friendsList[i].id;
+		}
+		callback(idList);
+		//console.log(friendsList);
+		//console.log(idList);
+	});
+};
 
 //asynchronously loads the javascript sdk
 (function(d, s, id){

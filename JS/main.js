@@ -7,7 +7,7 @@
 */
 
 
-//WHEN DAT BUTTON PRESS, LOG IN
+//WHEN DAT BUTTON PRESS, LOG IN, MON
 $("#FacebookLogin").click(function() {
 	//user.js
 	login();
@@ -33,4 +33,5 @@ $("#NewUserSelect").click(function() {
 
 $('.hashtag').click(function() {
 	console.log($(this).text());
+	updateProfile($(this).text(), 1);		//ASSUME THEY PRESSED YES
 });

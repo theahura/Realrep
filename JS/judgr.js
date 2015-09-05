@@ -7,6 +7,7 @@
 */
 
 var usedTags
+var userTags
 var nextID
 
 
@@ -28,9 +29,8 @@ function requestUser() {
 		name: 'getProfile', 
 		hash: nextID
 	}, function(data) {
-		delete data.userId;	//PURGE THE USER ID
-		var userTags = Object.keys(data);	//returns an array of the keys (sans userID)
-		console.log(data);
+		userTags = Object.keys(data);	//returns an array of the keys
+		delete userTags.userId;	//PURGE THE USER ID
 
 		for(key in userTags) {
 			
@@ -50,11 +50,18 @@ function requestUser() {
 	});
 }
 
-function associateHashtag() {
+function updateProfile(hashname, value) {
+	console.log(userTags.hashname`);
+
+	var updatePackage = {
+		hash: userTags.hashname,
+		attribute: hashname,
+		value: value
+	};
 
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: userHash
+		hash: updatePackage
 	}), function(data) {
 		console.log(data);
 	}

@@ -6,17 +6,20 @@ var AWS = require('aws-sdk');
 var loginTools = require('./loginTools');
 var storageTools = require('./storageTools');
 
-
 //AWS config
 AWS.config.region = 'us-east-1';
-var userTable = new AWS.DynamoDB({params: {TableName: 'JAGUsers'}});
-var fileTable = new AWS.DynamoDB({params: {TableName: 'JAGClientData'}});
-var archiveTable = new AWS.DynamoDB({params: {TableName: 'JAGClientArchiveData'}});
 
 var global_loggedInRoomName = 'loggedIn';
 
 //Sockets
-var io = require('socket.io').listen(4000);
+var io = require('socket.io').listen(6010);
+
+var hashtagTable = new AWS.DynamoDB({params: {TableName: 'pennapps2015hashtags'}});
+var userTable = new AWS.DynamoDB({params: {TableName: 'pennapps2015users'}});
+
+userTable.hashVal = "userId";
+hashtagTable.hashVal = "hashtag";
+
 
 /**
 	Checks an input string to make sure it is sanitized for database input
@@ -67,88 +70,28 @@ function serverError(socket, message) {
 */
 function serverHandler(socket, incomingObj, callback) {
 	//Login pipe
-	if(incomingObj.name === 'login') {
-
-		loginTools.loginUser(userTable, fileTable, incomingObj, function(data, err, key) {
-			if(data && data.userKey) {
-				socket.userKey = data.userKey.S;
-
-				socket.join(global_loggedInRoomName);
-
-				callback(data, err, key);
-			} 
-			else {
-				callback(null, {message: "Username or password incorrect"}, "appError")
-			}
-		});
-
+	if(incomingObj.name === 'getProfile') {
+		//load all of the hashtag data for a given user and send it back in callback
+		//incomingObj must contain: userId
+		storageTools.retrieveData(incomingObj, userTable, callback);
 	}
-	//Post login
-	else if(incomingObj.userKey) {
-
-		if(!checkUserKey(socket, incomingObj.userKey)) {
-			callback(null, {name: 'loginFailure', message: "Userkey incorrect, command failed"})
-		}
-
-		//store data
-		if(incomingObj.name === 'store') {
-			storageTools.storeData(incomingObj, fileTable, function(data, err, key) {
-				if(err) {
-					callback(null, err, key);
-				}
-				else {
-					data['name'] = 'updateSearch';
-					io.to(global_loggedInRoomName).emit('serverToClient', data);
-					callback(data);
-				}
-
-			});
-		}
-		//pull data
-		else if(incomingObj.name === 'retrieve') {
-			storageTools.retrieveData(incomingObj, fileTable, callback);
-		}
-		else if(incomingObj.name === 'formDelete') {
-			storageTools.deleteData(incomingObj, fileTable, function(data, err, key) {
-				if(err) {
-					callback(null, err, key);
-				}
-				else {
-					console.log(incomingObj.apptDate)
-					io.to(global_loggedInRoomName).emit('serverToClient', {
-						name: 'removeFromSearch', 
-						patient: incomingObj.patient,
-						apptDate: incomingObj.apptDate
-					});
-
-					callback();
-				}
-			});
-		}
-		else if (incomingObj.name === 'closeInjury') {
-			storageTools.closePatientInjury(incomingObj, fileTable, archiveTable, function(data, err, key) {
-				if(err) {
-					callback(null, err, key);
-				}
-				else {
-					io.to(global_loggedInRoomName).emit('serverToClient', {
-						name: 'removeFromSearch', 
-						patient: incomingObj.patient
-					});
-
-					callback();
-				}
-			});
-		}
-		//logout
-		else if(incomingObj.name === 'logout') {
-			socket.userKey = null; 
-
-			callback();
-		}
-		else {
-			callback(null, {message: 'Login first/Name not recognized'}, 'appError');
-		}
+	else if(incomingObj.name === 'getHashtag') {
+		//load all of the related hashtag data 
+		//incomingObj must contain: hashtag
+		storageTools.retrieveData(incomingObj, hashtagTable, callback);
+	}
+	else if(incomingObj.name === 'updateProfileScores') {
+		//update the hashtag data in a profile
+		//incomingObj must contain userId
+		storageTools.updateScores(incomingObj, userTable, callback);
+	}
+	else if(incomingObj.name === 'updateHashtagScores') {
+		//update the hashtag data in a hashtag
+		//incomingObj must contain hashtag
+		storageTools.updateScores(incomingObj, hashtagTable, callback);
+	}
+	else if(incomingObj.name === 'addUser') {
+		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);
 	}
 	//Error pipe
 	else {

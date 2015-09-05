@@ -86,7 +86,6 @@ function updateProfile(hashname, value, callback) {
 	}, function(data, err) {
 		console.log(err);
 		console.log(data);
-
 		callback();
 	});
 }

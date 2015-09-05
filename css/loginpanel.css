@@ -102,11 +102,8 @@ ul, li
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
-<<<<<<< HEAD
         margin-top: 10px;
-=======
-        margin-top: auto;
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
+
         font-size: 2.5vw; 
         font-weight: bold;
         vertical-align: middle;
@@ -115,9 +112,7 @@ ul, li
         color: white;
         border-radius: 75px;
 
-<<<<<<< HEAD
-    }
-=======
+    
     }
 }
 @media (max-width:900px){
@@ -144,5 +139,3 @@ ul, li
 
 } 
 
-    
->>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e

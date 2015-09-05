@@ -1,8 +1,29 @@
+html, body{
+
+	    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+
+    font-size: 1vw;
+
+    padding: 0;
+    margin: 0;
+}
+
 .other-profile-page {
     background-image: url("../img/background_judgr.png");
 }
 
-}
+	.HELLO{
+		font-family: "Raleway", "sans-serif";
+		color: black;
+		height: 50%;
+		weight: 25%;
+	}
 
 	.linebreak-10{
 		width: 100%;
@@ -35,13 +56,6 @@
 		height:15%;
 		border-radius:7.5%;
 		
-		.baby1{
-           margin-left: 30%;
-		}
-		.baby2{
-			margin-left:60%;
-
-		}
 	}
 
 		.hashtag {

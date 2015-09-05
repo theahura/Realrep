@@ -7,6 +7,7 @@
 */
 
 var usedTags
+var userTags
 var nextID
 
 
@@ -28,6 +29,7 @@ function requestUser() {
 	FBgetProfilePicture(nextID, function(url) {
 		console.log(url)
 		$("#ProfilePicture").attr("src", url);
+		console.log(url);
 	});
 
 	socket.emit('clientToServer', {
@@ -81,6 +83,19 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
+<<<<<<< HEAD
+	var updatePackage = {
+		hash: userTags.,
+
+	}
+
+	socket.emit('clientToServer', {
+		name: 'updateProfileScores',
+		hash: userHash
+	}), function(data) {
+		console.log(data);
+	}
+=======
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
 		hash: nextID, 
@@ -94,6 +109,7 @@ function updateProfile(hashname, value) {
 			console.log(data[hashname]);
 		})
 	})
+>>>>>>> 1afba40c997b285398959afd473bdd2f8b04045e
 }
 
 

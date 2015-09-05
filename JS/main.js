@@ -13,7 +13,12 @@ $("#FacebookLogin").click(function() {
 	login();
 });
 
-
+//when you go to the judgr page, request a User
 $('.temp').click(function() {
-	
+	requestUser();
+});
+
+//when you press the new user select button, call request user
+$("#NewUserSelect").click(function() {
+	requestUser();
 });

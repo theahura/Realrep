@@ -33,14 +33,10 @@ function requestUser() {
 
 		deferredArray = [];
 
-		console.log(data)
-
 		for(key in data) {
 
 			deferred = new $.Deferred();
 			deferredArray.push(deferred);
-
-			console.log(key)
 
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
@@ -60,11 +56,9 @@ function requestUser() {
 		}
 
 		$.when.apply($, deferredArray).then(function() {
-			console.log(data)
 
-			var userTags = Object.keys(data);
-
-			console.log(userTags)
+			delete data.userId;
+			userTags = Object.keys(data);
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 			$("#HashtagOne").text(tag[0]);

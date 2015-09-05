@@ -18,40 +18,51 @@ function requestUser() {
 	//obtain the Facebook ID of a random friend from 
 	//the list defined at the start of user login AND REMOVE
 	//that friend so that you
+
 	nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
 	//set the profile picture to that user friend
 	FBgetProfilePicture(nextID, function(url) {
 		$("#ProfilePicture").attr("src", url);
-		console.log(url);
 	});
 
 	socket.emit('clientToServer', {
 		name: 'getProfile', 
 		hash: nextID
 	}, function(data) {
-		delete data.userId;	//PURGE THE USER ID
-		userTags = Object.keys(data);	//returns an array of the keys
 
-		var deferredArray = [];
+		deferredArray = [];
 
-		for(key in userTags) {
+		console.log(data)
 
-			var deferred = new $.Deferred();
+		for(key in data) {
+
+			deferred = new $.Deferred();
+			deferredArray.push(deferred);
+
+			console.log(key)
 
 			socket.emit('clientToServer', {
 				name: 'getHashtag', 
-				hash: userTags[key]
-			}, function(data) {
-				jQuery.extend(userTags, data);
-				deferred.resolve();
-			});
+				hash: key
+			}, function(data_2) {
 
-			deferredArray.push(deferred);
+				var temptags = Object.keys(data_2)
+
+				jQuery.extend(data, data_2);
+
+				for(key in deferredArray) {
+					if(deferredArray[key].state() !== 'resolved') {
+						deferredArray[key].resolve();
+					}
+				}
+			});
 		}
 
-		//store information about file to dynamo through a server
 		$.when.apply($, deferredArray).then(function() {
+			console.log(data)
+
+			var userTags = Object.keys(data);
 
 			console.log(userTags)
 
@@ -72,14 +83,11 @@ function requestUser() {
 }
 
 function updateProfile(hashname, value) {
-	var updatePackage = {
-		hash: userTags.,
-
-	}
-
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: userHash
+		hash: nextID,
+		attribute: hashname,
+		value: value
 	}), function(data) {
 		console.log(data);
 	}

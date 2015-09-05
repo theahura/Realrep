@@ -56,6 +56,7 @@ function requestUser() {
 		}
 
 		$.when.apply($, deferredArray).then(function() {
+			delete data.user.Id;
 			userTags = Object.keys(data);
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)

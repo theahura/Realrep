@@ -27,6 +27,7 @@ function setUserProfile(data) {
 				"</td>"+
 			"</tr>");
 
+    	$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]]);
     	$('#DataBar-' + i).find('.hashtag-name').html(sortedKeys[i]);
     	$('#DataBar-' + i).find('.bar').width(data[sortedKeys[i]]/divisor + "%");
 	}

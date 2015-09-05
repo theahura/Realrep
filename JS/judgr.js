@@ -32,6 +32,10 @@ function requestUser() {
 		var userTags = Object.keys(data);	//returns an array of the keys (sans userID)
 		console.log(data);
 
+		for(key in userTags) {
+			
+		}
+
 		var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
 		$("#HashtagOne").text(tag[0]);
 		usedTags.push(tag[0]);

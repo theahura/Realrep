@@ -49,11 +49,8 @@ function requestUser() {
 				name: 'getHashtag', 
 				hash: userTags[key]
 			}, function(data) {
-				alert('1')
 				jQuery.extend(userTags, data);
-				alert('2')
 				deferred.resolve();
-				alert('3')
 			});
 
 			deferredArray.push(deferred);

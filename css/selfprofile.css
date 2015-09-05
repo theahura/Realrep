@@ -4,7 +4,6 @@
 }
 
 	.profile-container {
-		height: 80%;
 	}
 
 		.profile {
@@ -25,6 +24,7 @@
 			height: 100%;
 			overflow: auto;
 			margin-top: 5%;
+			margin-bottom: 5%;
 		}
 
 			.friends label {
@@ -60,4 +60,11 @@
 							height: 100%;
 							border-radius: 5px;
 						}
+
+		.facebook-web-container div {
+			font-size: 2vw;
+			margin-bottom: 5%;
+		}
+
+
 

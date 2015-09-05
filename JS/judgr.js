@@ -7,6 +7,7 @@
 */
 
 var usedTags
+var userTags
 var nextID
 
 
@@ -22,6 +23,7 @@ function requestUser() {
 	//set the profile picture to that user friend
 	FBgetProfilePicture(nextID, function(url) {
 		$("#ProfilePicture").attr("src", url);
+		console.log(url);
 	});
 
 	socket.emit('clientToServer', {
@@ -29,7 +31,7 @@ function requestUser() {
 		hash: nextID
 	}, function(data) {
 		delete data.userId;	//PURGE THE USER ID
-		var userTags = Object.keys(data);	//returns an array of the keys
+		userTags = Object.keys(data);	//returns an array of the keys
 
 		var deferredArray = [];
 

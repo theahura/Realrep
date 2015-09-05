@@ -32,5 +32,18 @@ $("#NewUserSelect").click(function() {
 });
 
 $('.hashtag').click(function() {
-	updateProfile($(this).text(), 1);		//ASSUME THEY PRESSED YES
+	var button = this; 
+	updateProfile($(this).html(), 1, function() {
+
+		if(userTags.length > 0) { 
+			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
+			$(button).html(tag[0]);
+			usedTags.push(tag[0]);
+		}
+		else {
+			$(button).html("");
+		}
+	
+		
+	});		//ASSUME THEY PRESSED YES
 });

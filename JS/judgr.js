@@ -56,8 +56,6 @@ function requestUser() {
 		}
 
 		$.when.apply($, deferredArray).then(function() {
-
-			delete data.userId;
 			userTags = Object.keys(data);
 
 			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
@@ -76,17 +74,17 @@ function requestUser() {
 	});
 }
 
-function updateProfile(hashname, value) {
-	console.log(hashname);
+function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
 		hash: nextID,
 		attribute: hashname,
 		value: value
-	}), function(err, data) {
+	}, function(data, err) {
 		console.log(err);
 		console.log(data);
-	}
+		callback();
+	});
 }
 
 

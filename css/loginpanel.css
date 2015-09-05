@@ -1,0 +1,93 @@
+ html,body
+{
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+
+    font-size: 1vw;
+
+    padding: 0;
+    margin: 0;
+}
+
+ul, li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.spacer-50 {
+    height: 50%;
+}
+
+.spacer-40 {
+    height: 40%;
+}
+
+.spacer-20 {
+    height: 20%;
+}
+
+.spacer-10 {
+    height: 10%;
+}
+
+.spacer-5 {
+    height: 5%;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.header {
+    color: white;
+    font-size: 3.5vw; 
+    text-align: center; 
+
+
+}
+
+.flavortext {
+    color: white;
+    font-size: 2vw; 
+    text-align: center; 
+}
+
+.loginpage {
+    background-image: url("../img/background_login.jpg");
+}
+
+.login-button {
+
+        margin-top: 1%;
+        width: 15%;
+        height: 6%;
+        background: white;
+        border-radius: 5px;
+        padding: .5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+        margin-top: 10px;
+        font-size: 2.5vw; 
+        font-weight: bold;
+        background-color: #42A6F3;
+        color: white;
+
+    }

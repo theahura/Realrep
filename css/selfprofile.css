@@ -1,0 +1,63 @@
+.self-profile-page {
+    background-image: url("../img/background_user.jpg");
+    color: white;
+}
+
+	.profile-container {
+		height: 80%;
+	}
+
+		.profile {
+
+		}
+
+			.profile label {
+				font-size: 3vw;
+				margin-bottom: 30%
+			}
+
+			.profile .bio {
+
+			}
+
+
+		.friends {
+			height: 100%;
+			overflow: auto;
+			margin-top: 5%;
+		}
+
+			.friends label {
+				font-size: 2vw;
+			}
+
+			.friends-data {
+				width: 80%;
+			    height: 80%;
+			    margin-left: 10%;
+			}
+
+				.friends-data tr {
+					height: 5%;
+					width: 80%;
+					margin-left: 10%;
+					display: table;
+				}
+
+					.friends-data .hashtag-name {
+						width: 20%;
+					}
+
+					.friends-data .bar-container {
+						width: 79%;
+						background: grey;
+						border-radius: 5px;    
+						padding: .7%;
+					}
+
+						.friends-data .bar {
+							background: blue;
+							height: 100%;
+							border-radius: 5px;
+						}
+

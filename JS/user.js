@@ -109,14 +109,7 @@ function login() {
 
 }
 
-var global_correlationTopFive;
-var global_correlationData;
-
 function loadProfileMap() {
-
-
-
-	global_correlationTopFive = [];
 
 	socket.emit('clientToServer', {
 		name: 'getProfile',
@@ -139,8 +132,6 @@ function loadProfileMap() {
 				dataObj[key] = parseInt(data[key].N)			
 			}
 		}
-
-		global_correlationData = dataObj;
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
@@ -183,7 +174,7 @@ function loadProfileMap() {
 
       	network = new vis.Network(container, data, options);
 
-      	network.moveTol({
+      	network.moveTo({
 		  scale: 3.0
 		});
 	});

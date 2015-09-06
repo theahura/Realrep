@@ -9,7 +9,9 @@
 
 $('#ProfilePicture').click(function() { 
     $('.judgrpage').slideToggle();
-    $('.other-profile-page').slideToggle();
+    $('.other-profile-page').slideToggle(function() {
+        loadOtherProfileMap();
+    });
 });
 
 
@@ -26,6 +28,11 @@ $('#view-judgr').click(function() {
 $('.view-correlator').click(function() {
     $('.self-profile-page').slideToggle();
     $('.correlation-page').slideToggle();
+});
+
+$('.correlation-to-profile').click(function() {
+    $('.correlation-page').slideToggle();
+    $('.self-profile-page').slideToggle();
 });
 
 function postLogin() {

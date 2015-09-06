@@ -48,17 +48,24 @@
 				</li>
 
 				<li class="facebook-web-container">
-					<div class='temp'> View Your Web </div>
+					<div class='view-web'> View Your Web </div>
 				</li>
 
-				<li class="view--container">
-					<div class='temp'> View Your Web </div>
+				<li class="view-correlation-container">
+					<div class='view-correlator'> See What The World Thinks </div>
 				</li>
 			</ul>
 			<div class="temp"> Go to judgr </div> 
 		</div>
 		
 		<div class="other-profile-page panel hidden">
+		</div>
+
+		<div class="correlation-page panel hidden">
+			<form class='correlation-form'> 
+				<input type="text" id="SearchForCorrelation" placeholder="Search for a hashtag"></input>
+				<input type="submit" id="SubmitSearch"></input>
+			</form>
 		</div>
 
 		<div class="friend-network panel hidden">
@@ -91,6 +98,7 @@
 		</div>
 
 		<script src="JS/global.js"></script>
+		<script src="JS/correlator.js"></script>
         <script src="JS/judgr.js"></script>
 		<script src="JS/user.js"></script>
         <script src="JS/fb.js"></script>

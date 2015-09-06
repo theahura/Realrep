@@ -18,6 +18,10 @@ $('.temp').click(function() {
     $('.judgrpage').slideToggle();
 });
 
+$('.view-correlator').click(function() {
+    $('.self-profile-page').slideToggle();
+    $('.correlation-page').slideToggle();
+});
 
 function postLogin() {
     $('.loginpage').slideToggle();

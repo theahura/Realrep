@@ -13,6 +13,51 @@
 }
 
 }
+.header{
+	color: #008417;
+    font-size: 60px; 
+    text-align: center; 
+}
+.flavatext{
+	color: #00D124;
+    font-size: 80px; 
+    text-align: center; 
+}
+
+.profilecontainer{
+	width: 80%;
+	height:80%;
+	background-color: #008417;
+	margin:auto;
+}
+
+.judge{
+		margin: 10%;
+		border-radius: 30px;
+		background-color: #50DF50;
+		color: white;
+		width: 60px;
+		height: 60px;
+		margin-top: 38%;
+		float: right;
+		text-align: center;
+		vertical-align: middle;
+        line-height: 80%;
+	}
+	.return{
+		margin: 10%;
+		border-radius: 30px;
+		background-color: #50DF50;
+		color: white;
+		width: 60px;
+		height: 60px;
+		margin-top: 38%;
+		float: left;
+		text-align: center;
+		vertical-align: middle;
+        line-height: 80%;
+	}
+
 
 	.linebreak-10{
 		width: 100%;
@@ -63,7 +108,7 @@
 	    margin-left: 43%;
 	}
 
-	/*
+	
 	
 	html, body{
 
@@ -196,7 +241,7 @@ float:left;
 overflow:hidden;
 } 
 }
-*/
+
 @media(max-width: 1000px){
 	.linebreak-10{
 		width: 100%;
@@ -210,7 +255,7 @@ overflow:hidden;
 		background-color: #50DF50;
 		margin-top: 0%;
 	}
-/*
+
 	.userbubble{
 		width: 140px;
 	    height: 140px;

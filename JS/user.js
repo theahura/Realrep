@@ -188,3 +188,16 @@ function loadProfileMap() {
 		});
 	});
 }
+
+$(".judge").mouseenter(function() {
+       $(this).animate({width: '150px'}, "fast");
+    });
+    $(".judge").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });
+    $(".return").mouseenter(function() {
+       $(this).animate({width: '150px'}, "fast");
+    });
+    $(".return").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });

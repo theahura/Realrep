@@ -34,16 +34,16 @@ $("#NewUserSelect").click(function() {
 $('.hashtag').click(function() {
 	var button = this; 
 	updateProfile($(this).html(), 1, function() {
-		if(userTags.length > 0) { 
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-			$(button).html(tag[0]);
-			usedTags.push(tag[0]);
+		if(global_userTags.length > 0) { 
+			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
+			$(button).text(tag[0]);
+			global_usedTags.push(tag[0]);
+
+			associatedTags = [];
 		}
 		else {
-			$(button).html("");
+			$(button).text("");
 		}
-	
-		
 	});		//ASSUME THEY PRESSED YES
 });
 

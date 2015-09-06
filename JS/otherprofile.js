@@ -7,37 +7,32 @@
 */
 
 function loadOtherProfileMap() {
-	alert();
 	socket.emit('clientToServer', {
 		name: 'getProfile',
 		hash: global_nextID
 	}, function(data, err) {
 
-		alert("1")
 		console.log(data)
 		console.log(err)
 
 		var dataObj = {};
 
-		delete data['userID'];
+		delete data['userId'];
 		delete data['hashtag'];
 
 		console.log(data);
-		alert("2")
 
 		for(key in data) {
 			if('S' in data[key]) {
 				dataObj[key] = data[key].S
 			}
 			else if('N' in data[key]) {
-				if(data[key].N === '0')
+				if(parseInt(data[key].N) <= 0)
 					continue;
 
 				dataObj[key] = parseInt(data[key].N);			
 			}
 		}
-
-			alert("HELLO3");
 
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
@@ -48,47 +43,43 @@ function loadOtherProfileMap() {
 		var nodes = [];
 		var edges = [];
 
-		alert("HELLO4");
 
+		FBgetName(global_nextID, function(name) {
+			nodes.push({id: 0, label: name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
 
-		nodes.push({id: 0, label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
+			for(index in sortedKeys) {
+				if(sortedKeys[index] === name)
+					continue;
 
-		for(index in sortedKeys) {
-			if(sortedKeys[index] === global_name)
-				continue;
+				index = parseInt(index);
 
-			index = parseInt(index);
+				nodes.push({id: index + 1, label: dataObj[sortedKeys[index]], title: sortedKeys[index], value: dataObj[sortedKeys[index]]});
+				edges.push({from: index + 1, to: 0});
+			}
 
-			nodes.push({id: index + 1, label: dataObj[sortedKeys[index]], title: sortedKeys[index], value: dataObj[sortedKeys[index]]});
-			edges.push({from: index + 1, to: 0});
-		}
+		    // Instantiate our network object.
+		    var container = document.getElementById('OtherProfileMap');
+		    var data = {
+		        nodes: nodes,
+		        edges: edges
+		    };
+		    var options = {
+		        nodes: {
+		            shape: 'dot',
+		          	scaling:{
+		            	label: {
+		              			min:8,
+		              			max:20
+		            	}
+		          	}
+	        	}
+	    	};
 
-		alert("HELLO5");
+	      	var network = new vis.Network(container, data, options);
 
-
-	    // Instantiate our network object.
-	    var container = document.getElementById('OtherProfileMap');
-	    var data = {
-	        nodes: nodes,
-	        edges: edges
-	    };
-	    var options = {
-	        nodes: {
-	            shape: 'dot',
-	          	scaling:{
-	            	label: {
-	              			min:8,
-	              			max:20
-	            	}
-	          	}
-        	}
-    	};
-		alert("HELLO6");
-
-      	network = new vis.Network(container, data, options);
-
-      	network.moveTo({
-		  scale: 3.0
+	      	network.on("afterDrawing", function() {
+	      		network.focus(0, {scale: 2.0, offset: {y:20}});
+	      	});
 		});
 	});
 }

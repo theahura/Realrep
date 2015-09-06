@@ -92,12 +92,12 @@ html, body{
 
 	.judge{
 		margin: 10%;
-		border-radius: 25px;
+		border-radius: 30px;
 		background-color: #FFEF00;
 		color: white;
-		width: 50px;
-		height: 50px;
-		margin-top: 25%;
+		width: 60px;
+		height: 60px;
+		margin-top: 30%;
 		float: right;
 		text-align: center;
 		vertical-align: middle;
@@ -105,12 +105,12 @@ html, body{
 	}
 	.return{
 		margin: 10%;
-		border-radius: 25px;
+		border-radius: 30px;
 		background-color: #FFEF00;
 		color: white;
-		width: 50px;
-		height: 50px;
-		margin-top: 25%;
+		width: 60px;
+		height: 60px;
+		margin-top: 30%;
 		float: left;
 		text-align: center;
 		vertical-align: middle;
@@ -207,12 +207,12 @@ overflow:hidden;
 	}
 	.judge{
 		margin: 10%;
-		border-radius: 25px;
+		border-radius: 30px;
 		background-color: #AA04C7;
 		color: white;
-		width: 50px;
-		height: 50px;
-		margin-top: 25%;
+		width: 60px;
+		height: 60px;
+		margin-top: 30%;
 		float: right;
 		text-align: center;
 		vertical-align: middle;
@@ -220,12 +220,12 @@ overflow:hidden;
 	}
 	.return{
 		margin: 10%;
-		border-radius: 25px;
+		border-radius: 30px;
 		background-color: #FFEF00;
 		color: white;
-		width: 50px;
-		height: 50px;
-		margin-top: 25%;
+		width: 60px;
+		height: 60px;
+		margin-top: 30%;
 		float: left;
 		text-align: center;
 		vertical-align: middle;

@@ -26,7 +26,7 @@ html, body{
 	.linebreak-30{
 		width: 100%;
 		height: 6%;
-		background-color: #FF7C18;
+		background-color: #50DF50;
 		margin-top: 0%;
 	}
 	.userbubble{
@@ -34,7 +34,7 @@ html, body{
 	    height: 180px;
 	    margin: auto;
 	    border-radius: 90px; 
-	    background-color: #FF7C18;
+	    background-color: #1119BF;
 }
 		.userbubble img {
 			max-width: 100%;
@@ -45,7 +45,7 @@ html, body{
 		width: 90px;
 		height:90px;
 		border-radius: 45px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 27%;
 		
 		
@@ -54,14 +54,14 @@ html, body{
 		width: 90px;
 		height:90px;
 		border-radius: 45px;
-		background-color: #466FCD;
+		background-color: #4C53DA;
 		margin-left: 50%;
 	}
 	.bubble3{
 		width: 90px;
 		height:90px;
 		border-radius: 45px;
-		background-color: #466FCD;
+		background-color: #4C53DA;
 		margin-left: 60%;
 		margin-top: 6%
 	}
@@ -69,14 +69,14 @@ html, body{
 		width: 90px;
 		height:90px;
 		border-radius: 45px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 34%;
 	}
 	.bubble5{
 		width: 90px;
 		height:90px;
 		border-radius: 45px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 70%;
 
 	}
@@ -93,11 +93,11 @@ html, body{
 	.judge{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #2555C4;
+		background-color: #50DF50;
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 30%;
+		margin-top: 38%;
 		float: right;
 		text-align: center;
 		vertical-align: middle;
@@ -106,11 +106,11 @@ html, body{
 	.return{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #31E015;
+		background-color: #50DF50;
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 30%;
+		margin-top: 38%;
 		float: left;
 		text-align: center;
 		vertical-align: middle;
@@ -136,8 +136,8 @@ overflow:hidden;
 	}
 	.linebreak-30{
 		width: 100%;
-		height: 5%;
-		background-color: #FF7C18;
+		height: 6%;
+		background-color: #50DF50;
 		margin-top: 0%;
 	}
 	.userbubble{
@@ -145,7 +145,7 @@ overflow:hidden;
 	    height: 140px;
 	    margin: auto;
 	    border-radius: 70px; 
-	    background-color: #FF7C18;
+	    background-color: #1119BF;
 }
 		.userbubble img {
 			max-width: 100%;
@@ -156,7 +156,7 @@ overflow:hidden;
 		width: 80px;
 		height:80px;
 		border-radius: 40px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 10%;
 		
 		
@@ -168,14 +168,14 @@ overflow:hidden;
 		border-top-right-radius: 50%;
 		border-bottom-right-radius: 50%;
 		border-bottom-left-radius: 50%;
-		background-color: #466FCD;
+		background-color: #4C53DA;
 		margin-left: 50%;
 	}
 	.bubble3{
 		width: 80px;
 		height:80px;
 		border-radius: 40px;
-		background-color: #466FCD;
+		background-color: #4C53DA;
 		margin-left: 70%;
 		margin-top: 6%;
 		margin-bottom: -10%;
@@ -184,14 +184,14 @@ overflow:hidden;
 		width: 80px;
 		height:80px;
 		border-radius: 40px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 10%;
 	}
 	.bubble5{
 		width: 80px;
 		height:80px;
 		border-radius: 40px;
-		background-color: #54E53D;
+		background-color: #4C53DA;
 		margin-left: 74%;
 		margin-top: -8%;
 
@@ -208,11 +208,11 @@ overflow:hidden;
 	.judge{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #2555C4;
+		background-color: #50DF50;
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 30%;
+		margin-top: 38%;
 		float: right;
 		text-align: center;
 		vertical-align: middle;
@@ -221,11 +221,11 @@ overflow:hidden;
 	.return{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #31E015;
+		background-color: #50DF50;
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 30%;
+		margin-top: 38%;
 		float: left;
 		text-align: center;
 		vertical-align: middle;

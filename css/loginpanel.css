@@ -56,14 +56,14 @@ ul, li
 }
 
 @media(min-width: 900px) {.header {
-    color: white;
+    color: #008417;
     font-size: 3.5vw; 
     text-align: center; 
 
     }
 }
 @media(max-width: 900px) {.header {
-    color: white;
+    color: #008417;
     font-size: 31.5px; 
     text-align: center; 
 
@@ -72,22 +72,18 @@ ul, li
 
 @media (min-width: 900px) {
     .flavortext {
-    color: white;
+    color: #008417;
     font-size: 2vw; 
     text-align: center; 
 }
     }
 @media (max-width: 900px) {
     .flavortext {
-    color: white;
+    color: #008417;
     font-size: 18px; 
     text-align: center; 
 }
     }
-
-.loginpage {
-    background-image: url("../img/background_login.jpg");
-}
 
 @media (min-width: 900px){
 
@@ -107,7 +103,7 @@ ul, li
         font-weight: bold;
         vertical-align: middle;
         line-height: 150px;
-        background-color: #42A6F3;
+        background-color: #50DF50;
         color: white;
         border-radius: 75px;
 
@@ -130,11 +126,14 @@ ul, li
          line-height: 150px;
         font-size: 22.5px; 
         font-weight: bold;
-        background-color: #42A6F3;
+        background-color: #50DF50;
         color: white;
          border-radius: 75px;
 
     }
 
+}
+.highlighted {
+    background-color: red;
 } 
 

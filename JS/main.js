@@ -47,7 +47,9 @@ $('.hashtag').click(function() {
 	});		//ASSUME THEY PRESSED YES
 });
 
-
-
+$('.correlation-form').submit(function(event) {
+	event.preventDefault();
+	loadMap();
+});
 
 

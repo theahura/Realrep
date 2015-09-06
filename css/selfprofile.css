@@ -1,5 +1,5 @@
 .self-profile-page {
-    color: white;
+    color: #2e6391;
 }
 
 	.profile-container {
@@ -60,6 +60,7 @@
 							background: blue;
 							height: 100%;
 							border-radius: 5px;
+                            color: bisque;
 						}
 
 
@@ -69,6 +70,11 @@
 			color: black;
 		}
 
+<<<<<<< HEAD
+        .judgr-container div {
+            font-size: 2vw;
+        }
+=======
 /*
 html, body{
 
@@ -335,5 +341,6 @@ overflow:hidden;
 /*
 
 */
+>>>>>>> 8208460dac98b82baf93a57b8abf3b0ef6f0a981
 
 

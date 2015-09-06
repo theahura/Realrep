@@ -8,15 +8,19 @@
 
 
 $('#ProfilePicture').click(function() { 
-    $('.judgrpage').slideToggle().button({label:'judgrpage'});
+    $('.judgrpage').slideToggle();
     $('.other-profile-page').slideToggle();
 });
 
 
-$('.temp').click(function().button({label:'judgrpage'}) {
+$('.temp').click(function() {
     $('.self-profile-page').slideToggle();  
     $('.judgrpage').slideToggle();
 });
+
+$('.button').button({
+    $('.judgrpage').slideToggle();
+})
 
 
 function postLogin() {

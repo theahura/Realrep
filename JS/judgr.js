@@ -26,6 +26,7 @@ var global_topFive;
 function requestUser() {
 
 	if (global_friendsList.length == 0) {
+		console.log("no friends");
 		$("#ProfilePicture").attr("src", "../img/web1.gif");
 		$("#HashtagOne").text("");
 		$("#HashtagTwo").text("");
@@ -70,8 +71,8 @@ function requestUser() {
 			}
 
 			$.when.apply($, deferredArray).then(function() {
-				delete data.userId;
-				delete data.hashtag;
+				delete data['userId'];
+				delete data['hashtag'];
 				global_userTags = Object.keys(data);
 
 				if (global_userTags.length < 3) {
@@ -108,7 +109,9 @@ function requestUser() {
 
 					var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
-					global_topFive = sortedKeys.splice(sortedKeys.length, -5);
+					console.log("keys have been sorted")
+
+					global_topFive = sortedKeys.slice(sortedKeys.length-5, sortedKeys.length);
 				}
 			});
 		});
@@ -130,11 +133,20 @@ function updateProfile(hashname, value, callback) {
 			var kickedHashtag = global_topFive[0];
 			var newTopFive = hashname;
 
+			console.log(global_topFive)
+			console.log(kickedHashtag)
+			console.log(newTopFive)
+			
 			for(key in global_topFive) {
+				console.log(global_topFive[key]);
+
+				if(global_topFive[key] === kickedHashtag)
+					continue; 
+
 				//update other top5 keys
 				socket.emit('clientToServer', {
 					name: 'updateHashtagScores', 
-					hash: key,
+					hash: global_topFive[key],
 					attribute: newTopFive,
 					value: 1
 				}, function(data, err) {
@@ -144,7 +156,7 @@ function updateProfile(hashname, value, callback) {
 
 				socket.emit('clientToServer', {
 					name: 'updateHashtagScores', 
-					hash: key,
+					hash: global_topFive[key],
 					attribute: kickedHashtag,
 					value: -1
 				}, function(data, err) {
@@ -156,7 +168,7 @@ function updateProfile(hashname, value, callback) {
 				socket.emit('clientToServer', {
 					name: 'updateHashtagScores', 
 					hash: newTopFive,
-					attribute: key,
+					attribute: global_topFive[key],
 					value: 1
 				}, function(data, err) {
 					console.log(data);
@@ -166,18 +178,13 @@ function updateProfile(hashname, value, callback) {
 				socket.emit('clientToServer', {
 					name: 'updateHashtagScores', 
 					hash: kickedHashtag,
-					attribute: key,
+					attribute: global_topFive[key],
 					value: -1
 				}, function(data, err) {
 					console.log(data);
 					console.log(err);
 				});
 			}
-			
-			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
-
-			global_topFive = sortedKeys.splice(sortedKeys.length, -5);
-
 		}
 
 		callback();

@@ -48,7 +48,7 @@ function loadData(data) {
 			hash: global_ID
 		}
 
-		for(var i in [0, 1, 2, 3, 4]) {
+		for(var i in [0, 1, 2, 3, 4, 5]) {
 			var key = prompt("Describe yourself in one word:");
 			incomingObj[key] = 10;
 		}

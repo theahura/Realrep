@@ -56,14 +56,14 @@ ul, li
 }
 
 @media(min-width: 900px) {.header {
-    color: #1119BF;
+    color: #008417;
     font-size: 3.5vw; 
     text-align: center; 
 
     }
 }
 @media(max-width: 900px) {.header {
-    color: #1119BF;
+    color: #008417;
     font-size: 31.5px; 
     text-align: center; 
 
@@ -72,14 +72,14 @@ ul, li
 
 @media (min-width: 900px) {
     .flavortext {
-    color: #1119BF;
+    color: #00D124;
     font-size: 2vw; 
     text-align: center; 
 }
     }
 @media (max-width: 900px) {
     .flavortext {
-    color: #1119BF;
+    color: #00D124;
     font-size: 18px; 
     text-align: center; 
 }
@@ -102,15 +102,13 @@ ul, li
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
-        margin-top: 10px;
-        font-size: 2.5vw; 
-        font-weight: bold;
-        vertical-align: middle;
+        margin-top: auto;
         line-height: 150px;
+        font-size: 22.5px; 
+        font-weight: bold;
         background-color: #50DF50;
         color: white;
         border-radius: 75px;
-
     
     }
 }
@@ -127,14 +125,17 @@ ul, li
         margin-right: auto;
         margin-bottom: auto;
         margin-top: auto;
-         line-height: 150px;
+        line-height: 150px;
         font-size: 22.5px; 
         font-weight: bold;
         background-color: #50DF50;
         color: white;
-         border-radius: 75px;
+        border-radius: 75px;
 
     }
 
+}
+.highlighted {
+    background-color: red;
 } 
 

@@ -61,14 +61,12 @@
     margin-left: 35%;
 }
 
-	.image-container img {
+.image-container img {
 		max-width: 100%;
 		max-height: 100%;
 
-	}
+}
 
-
-<<<<<<< HEAD
 .hashtag {
 	padding: 1%;
     border-radius: 5px;
@@ -81,20 +79,6 @@
 .judgr {
 	color: black;
 }
-=======
-	.hashtag {
-		padding: 1%;
-	    border-radius: 5px;
-	    background: cyan;
-	    width: 12%;
-	    margin-top: 1%;
-	    margin-left: 43%;
-	}
-
-	.judgr {
-		color: red;
-	}
->>>>>>> 06d686b52aae296198f2f914adabed3d5452b025
 
 @media(min-width: 900px) {.header {
     color: #008417;

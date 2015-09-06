@@ -28,6 +28,10 @@ function requestUser() {
 		global_userTags = [];
 		global_userData = {};
 
+		FBgetProfilePicture(global_nextID, callback(url) {
+			$("#ProfilePicture").attr("src", url);
+		});
+
 		socket.emit('clientToServer', {
 			name: 'getProfile', 
 			hash: global_nextID

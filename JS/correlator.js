@@ -69,18 +69,14 @@ function loadMap() {
 	            shape: 'dot',
 	          	scaling:{
 	            	label: {
-	              			min:8,
-	              			max:20
+              			min:20,
+              			max:400
 	            	}
 	          	}
         	}
     	};
 
       	network = new vis.Network(container, data, options);
-
-      	network.moveTol({
-		  scale: 3.0
-		});
 	});
 }
 

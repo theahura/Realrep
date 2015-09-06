@@ -60,16 +60,24 @@ ul, li
     text-align: center;
 }
 
-@media(min-width: 900px) {.header {
-    color: #008417;
-    font-size: 3.5vw; 
-    text-align: center; 
+.profile-button {
+    font-size: 1.5vw;
+    border-radius: 10px;
+    border: solid;
+    width: 10%;
+    margin-top: 3%;
+    margin-left: 45%;
+}
 
+@media(min-width: 900px) {
+    .header {
+        font-size: 3.5vw; 
+        text-align: center; 
     }
 }
-@media(max-width: 900px) {.header {
-    color: #008417;
-    font-size: 31.5px; 
+@media(max-width: 900px) {
+    .header {
+    font-size: 3.5px; 
     text-align: center; 
 
     }

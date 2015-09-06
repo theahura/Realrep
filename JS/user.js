@@ -40,17 +40,18 @@ function setUserProfile(data) {
 }
 
 function loadData(data) {
-	getInitTags();
-	/*if(!jQuery.isEmptyObject(data)) {
+	if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
-		setUserProfile(data);
+	
+		alert();
+		loadProfileMap();
 
 		//mainUI.js
 		postLogin();
 	}
 	else {
 		getInitTags();
-	}*/
+	}
 }
 
 function login() {
@@ -86,3 +87,87 @@ function login() {
 	});
 
 }
+
+function loadProfileMap() {
+
+	socket.emit('clientToServer', {
+		name: 'getProfile',
+		hash: global_ID
+	}, function(data, err) {
+
+		var dataObj = {};
+
+		delete data['userID'];
+		delete data['hashtag'];
+
+		for(key in data) {
+			if('S' in data[key]) {
+				dataObj[key] = data[key].S
+			}
+			else if('N' in data[key]) {
+				if(data[key].N === '0')
+					continue;
+
+				dataObj[key] = parseInt(data[key].N)			
+			}
+		}
+
+		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+
+		var color = 'gray';
+		var len = undefined;
+
+		var nodes = [];
+		var edges = [];
+
+		nodes.push({id: 0, label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
+
+		for(index in sortedKeys) {
+			if(sortedKeys[index] === global_name)
+				continue;
+
+			index = parseInt(index);
+
+			nodes.push({id: index + 1, label: dataObj[sortedKeys[index]], title: sortedKeys[index], value: dataObj[sortedKeys[index]]});
+			edges.push({from: index + 1, to: 0});
+		}
+
+
+	    // Instantiate our network object.
+	    var container = document.getElementById('ProfileNetwork');
+	    var data = {
+	        nodes: nodes,
+	        edges: edges
+	    };
+	    var options = {
+	        nodes: {
+	            shape: 'dot',
+	          	scaling:{
+	            	label: {
+	              			min:8,
+	              			max:20
+	            	}
+	          	}
+        	}
+    	};
+
+      	network = new vis.Network(container, data, options);
+
+      	network.moveTo({
+		  scale: 3.0
+		});
+	});
+}
+
+$(".judge").mouseenter(function() {
+       $(this).animate({width: '150px'}, "fast");
+    });
+    $(".judge").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });
+    $(".return").mouseenter(function() {
+       $(this).animate({width: '150px'}, "fast");
+    });
+    $(".return").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });

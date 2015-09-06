@@ -10,6 +10,7 @@
 
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
+		<link rel="stylesheet" href="css/otherprofilepanel.css" />
 		<link rel="stylesheet" href="css/userprofile.css" />
 		<link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
@@ -23,16 +24,14 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	</head>
 
-	<body>
+	<body style="background-color: #D4D4D4">
 		
 		<div class="loginpage panel">
 			<div class="spacer-5"></div>
 			<div class= "header" >
-				<img src="/img/logo1.png" style ="width: 425px; height: 290px"></img>
+				<img src="img/logo1.png" style ="width: 410px; height: 290px"></img>
 
 			</div>
-			<div class="spacer-5"></div>
-
 			<div class="button login-button" id="FacebookLogin">Login</div>
 			<div class="spacer-5"></div>
 			<div class = "flavortext">
@@ -87,37 +86,40 @@
 		
 		<div class="self-profile-page panel hidden">
 			<ul class="profile-container">
-                <div class= "spacer-5"></div> 
-				<li class="profile">
-					<label>  </label>
-				</li>
-				<li class="friends">
-					<label> My Rep </label>
-                    <div>Connections judged by friends</div>
-					<div class="spacer-5"> </div>
-					<table class="friends-data">
-						<tbody>
-						</tbody>
-					</table>
-				</li>
-                
-                <li class="judgr-container">
-                    <div id="view-judgr"> Judge Your Friends </div> 
-                </li>
+                <div class= "linebreak-30"></div> 
+					<div class="header"> <p> My Rep </p> </div>
+                   
 
+
+				<div id="ProfileNetwork"></div>
+                
+                    <div class = "header" id="view-judgr"> Judge Your Friends </div> 
+
+
+
+					<div class="judge" id="JudgrSwipe"> Judgr </div>
+		
+
+					<div class='return'> What the World Thinks </div>
+					<div class='view-web'> My Web </div>
+
+				<li class="judgr"> 
+					<div class="view-judgr return" id="JudgrSwipe"> Judgr </div>
+				</li>
+				
 				<li class="facebook-web-container">
 					<div class='view-web'> My Web </div>
 				</li>
 
 				<li class="view-correlation-container">
-					<div class='view-correlator'> What the World Thinks </div>
+					<div class='view-correlator return'> What the World Thinks </div>
 				</li>
+
 			</ul>
 		</div>
 
-
-		
 		<div class="other-profile-page panel hidden">
+			<div id="OtherProfileMap"></div>
 		</div>
 
 		<div class="correlation-page panel hidden">
@@ -126,41 +128,42 @@
 				<input type="submit" id="SubmitSearch"></input>
 			</form>
 
-			<div id="mynetwork"></div>
+			<div class="button correlation-to-profile"> Back to Profile </div>
+
+			<div id="CorrelationNetwork"></div>
 		</div>
 
 		<div class="friend-network panel hidden">
-
-			<div class ="linebreak-10"></div>
-			<div class ="linebreak-10"></div> 
-
-			<div class ="userbubble"> </div> 
-			<div class ="babybubble"> </div>
-
-
-			<div class ="userbubble"> 
-				<img class = "profile-picture" src ="../img/unknownprofile.jpg" class="button" alt="Unknown profile"> </img> 
-			</div> 
-			<div class ="babybubble"></div>
 		</div>
 
 		<div class="judgrpage panel hidden">
-			<div class="spacer-10"></div>
-			<div class="image-container">
+			<div class="divider1"> </div>
+			<div class="divider2"> </div>
+
+			<div class="imagecontainer"> 
 				<img class="profile-picture" id="ProfilePicture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile"></img>
 			</div>
+			
+			<div class="divider2"> </div>
+			
+			<div class="hashtagbutton button endorse" id ="HashtagOne"></div>
+			
+			<div class="divider3"> </div>
+			
+			<div class="hashtagbutton button endorse" id ="HashtagTwo"></div>
+			
+			<div class="divider3"> </div>
+			
+			<div class="hashtagbutton button endorse" id ="HashtagThree"></div>
 
-			<div class="hashtag button" id="HashtagOne"> </div>
-			<div class="hashtag button" id="HashtagTwo"> </div>
-			<div class="hashtag button" id="HashtagThree"> </div>
-			<div class="spacer-5"></div>
-			<div class="judgr" id="judgr button"></div>
-			<div class="button new-user" id="NewUserSelect"> Get a New User </div>
+			<div class ="judge"></div>
+			<div class ="return"></div>
 
 		</div>
 
 
 		<script src="JS/global.js"></script>
+		<script src="JS/otherprofile.js"></script>
 		<script src="JS/correlator.js"></script>
         <script src="JS/judgr.js"></script>
 		<script src="JS/user.js"></script>

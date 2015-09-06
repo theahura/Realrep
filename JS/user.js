@@ -43,8 +43,6 @@ function loadData(data) {
 	if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
 	
-		alert();
-		loadProfileMap();
 
 		//mainUI.js
 		postLogin();
@@ -66,8 +64,6 @@ function loadData(data) {
 				console.log(err);
 			}
 			else {
-				alert();
-				loadProfileMap();				
 				//mainUI.js
 				postLogin();
 			}
@@ -165,30 +161,30 @@ function loadProfileMap() {
 	            shape: 'dot',
 	          	scaling:{
 	            	label: {
-	              			min:8,
-	              			max:20
+	              		min:50,
+	              		max:200
 	            	}
 	          	}
         	}
     	};
 
-      	network = new vis.Network(container, data, options);
+      	var network = new vis.Network(container, data, options);
 
-      	network.moveTo({
-		  scale: 3.0
-		});
+      	network.on("afterDrawing", function() {
+      		network.focus(0, {scale: 1.0, offset: {y:20}});
+      	});
 	});
 }
 
 $(".judge").mouseenter(function() {
        $(this).animate({width: '150px'}, "fast");
-    });
-    $(".judge").mouseleave(function() {
-       $(this).animate({width: '60px'}, "fast");;
-    });
-    $(".return").mouseenter(function() {
-       $(this).animate({width: '150px'}, "fast");
-    });
-    $(".return").mouseleave(function() {
-       $(this).animate({width: '60px'}, "fast");;
-    });
+ });
+$(".judge").mouseleave(function() {
+   $(this).animate({width: '60px'}, "fast");;
+});
+$(".return").mouseenter(function() {
+   $(this).animate({width: '150px'}, "fast");
+});
+$(".return").mouseleave(function() {
+   $(this).animate({width: '60px'}, "fast");;
+});

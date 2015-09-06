@@ -37,8 +37,10 @@ $('.correlation-to-profile').click(function() {
 
 function postLogin() {
     $('.loginpage').slideToggle();
-    $('.self-profile-page').slideToggle();  
+    $('.self-profile-page').slideToggle(); 
+    loadProfileMap();               
 }
+
 $('.FacebookLogin').click(function() {
     $('.self-profile-page').loadFirst();
 });

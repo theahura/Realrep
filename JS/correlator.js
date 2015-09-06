@@ -69,11 +69,11 @@ function loadMap() {
         	}
     	};
 
-      	network = new vis.Network(container, data, options);
-
-       	network.moveTo({
-		  scale: 3.0
-		});
+      	var network = new vis.Network(container, data, options);
+		
+		network.on("afterDrawing", function() {
+      		network.focus(0, {scale: 2.0, offset: {y:20}});
+      	});
 	});
 }
 

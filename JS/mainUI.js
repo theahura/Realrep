@@ -33,11 +33,13 @@ $('.view-correlator').click(function() {
 $('.correlation-to-profile').click(function() {
     $('.correlation-page').slideToggle();
     $('.self-profile-page').slideToggle();
+    loadProfileMap();               
 });
 
 function postLogin() {
     $('.loginpage').slideToggle();
-    $('.self-profile-page').slideToggle();  
+    $('.self-profile-page').slideToggle(); 
+    loadProfileMap();               
 }
 
 function postInitTags() {
@@ -88,8 +90,6 @@ $('#tag-submit').click(function() {
         alert("FILL IN ALL THE BOXES, YO!!");
     }
 });
-
-
 
 
 $('.FacebookLogin').click(function() {

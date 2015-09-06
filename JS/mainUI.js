@@ -8,12 +8,12 @@
 
 
 $('#ProfilePicture').click(function() { 
-    $('.judgrpage').slideToggle();
+    $('.judgrpage').slideToggle().button({label:'judgrpage'});
     $('.other-profile-page').slideToggle();
 });
 
 
-$('.temp').click(function() {
+$('.temp').click(function().button({label:'judgrpage'}) {
     $('.self-profile-page').slideToggle();  
     $('.judgrpage').slideToggle();
 });

@@ -1,3 +1,13 @@
+.self-profile-page {
+	width: 100%;
+	height: 100%;
+}
+	
+	#ProfileNetwork {
+	    width: 100%;
+	    height: 90%;
+	}
+
 .other-profile-page {
     color: blue;
 }
@@ -186,17 +196,21 @@ float:left;
 overflow:hidden;
 } 
 }
+*/
 @media(max-width: 1000px){
 	.linebreak-10{
 		width: 100%;
 		height: 10%;
 	}
+
+
 	.linebreak-30{
 		width: 100%;
 		height: 6%;
 		background-color: #50DF50;
 		margin-top: 0%;
 	}
+/*
 	.userbubble{
 		width: 140px;
 	    height: 140px;

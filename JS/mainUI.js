@@ -32,3 +32,6 @@ function postLogin() {
     $('.loginpage').slideToggle();
     $('.self-profile-page').slideToggle();  
 }
+$('.FacebookLogin').click(function() {
+    $('.self-profile-page').loadFirst();
+});

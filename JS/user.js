@@ -42,7 +42,9 @@ function setUserProfile(data) {
 function loadData(data) {
 	if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
-		setUserProfile(data);
+	
+		alert();
+		loadProfileMap();
 
 		//mainUI.js
 		postLogin();
@@ -64,9 +66,8 @@ function loadData(data) {
 				console.log(err);
 			}
 			else {
-
-				loadProfileMap();
-				
+				alert();
+				loadProfileMap();				
 				//mainUI.js
 				postLogin();
 			}
@@ -75,7 +76,6 @@ function loadData(data) {
 }
 
 function login() {
-	alert("IT WORKDS");
 	//fb.js
 	FBlogin(function(id) {
 		global_ID = id;
@@ -153,7 +153,7 @@ function loadProfileMap() {
 		nodes.push({id: 0, label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
 
 		for(index in sortedKeys) {
-			if(sortedKeys[index] === global_name
+			if(sortedKeys[index] === global_name)
 				continue;
 
 			index = parseInt(index);

@@ -15,14 +15,15 @@
     color: blue;
 }
 
-}
 .header{
-	color: #008417;
+	color: white;
+	background-color: #00AA1E;
     font-size: 60px; 
     text-align: center; 
+    font-style: bold; 
 }
 .flavatext{
-	color: #00D124;
+	color: #00AA1E;
     font-size: 80px; 
     text-align: center; 
 }
@@ -30,7 +31,7 @@
 .profilecontainer{
 	width: 80%;
 	height:80%;
-	background-color: #008417;
+	background-color: #00AA1E;
 	margin:auto;
 }
 

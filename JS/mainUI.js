@@ -30,6 +30,11 @@ $('.view-correlator').click(function() {
     $('.correlation-page').slideToggle();
 });
 
+$('.correlation-to-profile').click(function() {
+    $('.correlation-page').slideToggle();
+    $('.self-profile-page').slideToggle();
+});
+
 function postLogin() {
     $('.loginpage').slideToggle();
     $('.self-profile-page').slideToggle();  

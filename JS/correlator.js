@@ -72,7 +72,8 @@ function loadMap() {
       	var network = new vis.Network(container, data, options);
 		
 		network.on("afterDrawing", function() {
-      		network.focus(0, {scale: 1.5, offset: {y:-20}});
+      		if(network.getScale() !== 1.5)
+	      		network.focus(0, {scale: 1.5, offset: {y:-20}});
       	});
 	});
 }

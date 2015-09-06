@@ -152,7 +152,8 @@ function loadProfileMap() {
       	var network = new vis.Network(container, data, options);
 
       	network.on("afterDrawing", function() {
-      		network.focus(0, {scale: 1.0, offset: {y:20}});
+      		if(network.getScale() !== 1.0)
+      			network.focus(0, {scale: 1.0, offset: {y:20}});
       	});
 	});
 }

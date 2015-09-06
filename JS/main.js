@@ -31,7 +31,7 @@ $("#NewUserSelect").click(function() {
 	}
 });
 
-$('.hashtagbutton').click(function() {
+$('.endorsebutton').click(function() {
 	var button = this; 
 	updateProfile($(this).html(), 1, function() {
 		if(global_userTags.length > 0) { 

@@ -87,7 +87,6 @@ $('#tag-submit').click(function() {
             else {
                 console.log(incomingObj);
                 postInitTags();
-                alert();
                 loadProfileMap();
             }
         });

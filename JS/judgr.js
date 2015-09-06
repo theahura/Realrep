@@ -42,13 +42,13 @@ function requestUser() {
 		global_userData = {};
 		global_topFive = [];
 
-		console.log("user initialized");
+		initUserTags();
 
-		fetchTopFive(function() {console.log("QWERQWERQWERQWERQWER")});
+		console.log("user initialized");
 	}
 }
 
-function fetchTopFive(callback) {
+function initUserTags() {
 	socket.emit('clientToServer', {
 			name: 'getProfile', 
 			hash: global_nextID
@@ -103,7 +103,45 @@ function fetchTopFive(callback) {
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#Endorse3").text(tag[0]);
 					global_usedTags.push(tag[0]);
+				}
+			});
+		});
+}
 
+function fetchTopFive(callback) {
+	socket.emit('clientToServer', {
+			name: 'getProfile', 
+			hash: global_nextID
+		}, function(data) {
+			
+			global_userData = data; 
+
+			deferredArray = [];
+
+			for(key in data) {
+				deferred = new $.Deferred();
+				deferredArray.push(deferred);
+
+				socket.emit('clientToServer', {
+					name: 'getHashtag', 
+					hash: key
+				}, function(data_2) {
+
+					var temptags = Object.keys(data_2)
+
+					jQuery.extend(data, data_2);
+
+					for(key in deferredArray) {
+						if(deferredArray[key].state() !== 'resolved') {
+							deferredArray[key].resolve();
+						}
+					}
+				});
+			}
+
+			$.when.apply($, deferredArray).then(function() {
+				delete data['userId'];
+				delete data['hashtag'];
 					var dataObj = {};
 					
 					for(key in global_userData) {
@@ -124,7 +162,6 @@ function fetchTopFive(callback) {
 					console.log(global_topFive);
 					
 					callback();
-				}
 			});
 		});
 }

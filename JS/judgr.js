@@ -34,7 +34,7 @@ function requestUser() {
 	else {
 
 		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
-
+		
 		global_usedTags = [];
 		global_userTags = [];
 		global_userData = {};
@@ -49,7 +49,6 @@ function requestUser() {
 			deferredArray = [];
 
 			for(key in data) {
-
 				deferred = new $.Deferred();
 				deferredArray.push(deferred);
 
@@ -72,6 +71,7 @@ function requestUser() {
 
 			$.when.apply($, deferredArray).then(function() {
 				delete data.userId;
+				delete data.hashtag;
 				global_userTags = Object.keys(data);
 
 				if (global_userTags.length < 3) {
@@ -154,7 +154,6 @@ function updateProfile(hashname, value, callback) {
 			}
 			
 		}
-		
 
 		callback();
 	});

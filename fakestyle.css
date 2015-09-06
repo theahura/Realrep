@@ -26,7 +26,7 @@ html, body{
 	.linebreak-30{
 		width: 100%;
 		height: 6%;
-		background-color: #26C3C3;
+		background-color: #42A6F3;
 		margin-top: 0%;
 	}
 	.userbubble{
@@ -93,7 +93,7 @@ html, body{
 	.judge{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #FFEF00;
+		background-color: #42A6F3;
 		color: white;
 		width: 60px;
 		height: 60px;
@@ -106,7 +106,7 @@ html, body{
 	.return{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #FFEF00;
+		background-color: #42A6F3;
 		color: white;
 		width: 60px;
 		height: 60px;
@@ -137,7 +137,7 @@ overflow:hidden;
 	.linebreak-30{
 		width: 100%;
 		height: 5%;
-		background-color: #26C3C3;
+		background-color: #42A6F3;
 		margin-top: 0%;
 	}
 	.userbubble{
@@ -208,7 +208,7 @@ overflow:hidden;
 	.judge{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #AA04C7;
+		background-color: #42A6F3;
 		color: white;
 		width: 60px;
 		height: 60px;
@@ -221,7 +221,7 @@ overflow:hidden;
 	.return{
 		margin: 10%;
 		border-radius: 30px;
-		background-color: #FFEF00;
+		background-color: #42A6F3;
 		color: white;
 		width: 60px;
 		height: 60px;

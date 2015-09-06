@@ -1,5 +1,5 @@
 .self-profile-page {
-    color: white;
+    color: #2e6391;
 }
 
 	.profile-container {
@@ -60,6 +60,7 @@
 							background: blue;
 							height: 100%;
 							border-radius: 5px;
+                            color: bisque;
 						}
 
 
@@ -67,5 +68,9 @@
 			font-size: 2vw;
 			margin-bottom: 5%;
 		}
+
+        .judgr-container div {
+            font-size: 2vw;
+        }
 
 

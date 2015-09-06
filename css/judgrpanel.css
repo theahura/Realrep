@@ -1,5 +1,5 @@
 .judgrpage {
-    color: white;
+    color: black;
 }
 
 	.image-container {
@@ -17,12 +17,12 @@
 	.hashtag {
 		padding: 1%;
 	    border-radius: 5px;
-	    background: white;
+	    background: cyan;
 	    width: 12%;
 	    margin-top: 1%;
 	    margin-left: 43%;
 	}
 
 	.judgr {
-		color: black;
+		color: red;
 	}

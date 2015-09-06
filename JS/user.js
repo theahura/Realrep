@@ -27,7 +27,13 @@ function setUserProfile(data) {
 				"</td>"+
 			"</tr>");
 
-    	$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]]);
+    	if (data[sortedKeys[i]]/divisor < 8) {
+    		$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]]);
+    	}
+    	else {
+    		$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]] + " rep");
+    	}
+
     	$('#DataBar-' + i).find('.hashtag-name').html(sortedKeys[i]);
     	$('#DataBar-' + i).find('.bar').width(data[sortedKeys[i]]/divisor + "%");
 	}

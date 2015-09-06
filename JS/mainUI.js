@@ -18,11 +18,6 @@ $('.temp').click(function() {
     $('.judgrpage').slideToggle();
 });
 
-$('.button').button({
-    $('.judgrpage').slideToggle();
-})
-
-
 function postLogin() {
     $('.loginpage').slideToggle();
     $('.self-profile-page').slideToggle();  

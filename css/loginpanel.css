@@ -85,10 +85,6 @@ ul, li
 }
     }
 
-.loginpage {
-    background-image: url("../img/background_login.jpg");
-}
-
 @media (min-width: 900px){
 
 .login-button {

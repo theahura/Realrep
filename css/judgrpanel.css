@@ -1,5 +1,5 @@
 .judgrpage {
-    background-image: url("../img/background_judgr.png");
+    color: white;
 }
 
 	.image-container {
@@ -21,4 +21,8 @@
 	    width: 12%;
 	    margin-top: 1%;
 	    margin-left: 43%;
+	}
+
+	.judgr {
+		color: black;
 	}

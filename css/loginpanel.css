@@ -85,10 +85,13 @@ ul, li
 }
     }
 
+<<<<<<< HEAD
 .loginpage {
     ;
 }
 
+=======
+>>>>>>> 6002bd07dff837d8e2c4073b8c96b2afc85241e1
 @media (min-width: 900px){
 
 .login-button {

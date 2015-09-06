@@ -30,17 +30,10 @@ $('.view-correlator').click(function() {
     $('.correlation-page').slideToggle();
 });
 
-<<<<<<< HEAD
-$('#MOVEON').click(function() {
-    $('.initial-tag-page').slideToggle();
-    $('.self-profile-page').slideToggle();
-})
-=======
 $('.correlation-to-profile').click(function() {
     $('.correlation-page').slideToggle();
     $('.self-profile-page').slideToggle();
 });
->>>>>>> 43dceb6fe9ac3348914222c4b1a3bcc8613f15af
 
 function postLogin() {
     $('.loginpage').slideToggle();

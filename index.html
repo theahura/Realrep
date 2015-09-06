@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="css/userprofile.css" />
 		<link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
+        <link rel="stylesheet" href="css/initialtag.css" />
 
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.css"/>
@@ -39,6 +40,49 @@
 					
             </div>
         </div>
+    
+        <div class="initial-tag-page panel hidden">
+            <div class="spacer-5"></div>
+            <div class= "header" >
+				<img src="/img/logo1.png" style ="width: 170px; height: 116"></img>
+			</div>
+            <div class="spacer-5"></div>
+    
+            <div class="instructions">Start by adding a few, short</div>
+            <div class="instructions">tags about yourself like:</div>
+    
+            <div class="spacer-1"></div>
+            <div class="suggestion">hiking</div>
+            <div class="suggestion">reading</div>
+            <div class="suggestion">competitive crabwalking</div>
+            <div class="spacer-1"></div>
+    
+            <div class="instructions">Hit Submit when you're done</div>
+            <div class="init-tag-form">
+                <table>
+                <tr>
+                <td>
+                    <form>
+                    <input type="text" id="tag-field1" />
+                    <input type="text" id="tag-field2" />
+                    <input type="text" id="tag-field3" />
+                    </form>
+                </td>
+                <td>
+                    <form>
+                    <input type="text" id="tag-field4" />
+                    <input type="text" id="tag-field5" />
+                    <input type="text" id="tag-field6" />
+                    </form>
+                </td>
+                </tr>
+                </table>
+                <input type="button" value="SUBMIT" id="tag-submit" />
+            </div>
+            
+            <div id="MOVEON">click here to move on</div>
+            
+        </div>
 		
 		<div class="self-profile-page panel hidden">
 			<ul class="profile-container">
@@ -47,18 +91,10 @@
                    
 				<div id="ProfileNetwork"></div>
                 
-				
-                <li class="judgr-container">
-                    <div id="view-judgr"> Judge Your Friends </div> 
-                </li>
 
-				<li class="judgr"> 
-					<div class="view-judgr return" id="JudgrSwipe"> Judgr </div>
-				</li>
+                    <div class = "header" id="view-judgr"> Judge Your Friends </div> 
+                    <div class = "header view-correlator"> See What the World Thinks </div> 
 
-				<li class="view-correlation-container">
-					<div class='view-correlator return'> What the World Thinks </div>
-				</li>
 			</ul>
 		</div>
 
@@ -85,7 +121,7 @@
 			<div class="divider2"> </div>
 
 			<div class="imagecontainer"> 
-				<img class="profile-picture" id="ProfilePicture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile"></img>
+				<img style =" max-width:100%, max-height:100%" class="profile-picture" id="ProfilePicture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile"></img>
 			</div>
 			
 			<div class="divider2"> </div>
@@ -104,37 +140,6 @@
 			<div class ="return"></div>
 
 		</div>
-
-		<!--
-
-	<body style = "background-color: #D0D0D0">
-		<div class="divider1"> </div>
-		<div class="divider2"> </div>
-
-		<div class="imagecontainer"> </div>
-		
-		<div class="divider2"> </div>
-		
-		<div class="hashtagbutton" id ="hashtag1"></div>
-		
-		<div class="divider3"> </div>
-		
-		<div class="hashtagbutton" id ="hashtag2"></div>
-		
-		<div class="divider3"> </div>
-		
-		<div class="hashtagbutton" id ="hashtag3"></div>
-		
-		<div class ="judge"></div>
-		<div class ="return"></div>
-
-		<script src="fakejavamaster.js"></script>
-
-	</body>
-
-</html>
-
-		-->
 
 
 		<script src="JS/global.js"></script>

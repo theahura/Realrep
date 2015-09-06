@@ -22,7 +22,7 @@
         border-radius: 10px;
 
     }
-    .image-container img {
+    .profile-picture img {
             max-width: 100%;
             max-height: 100%;
             background-color: red;
@@ -36,6 +36,7 @@
         margin-right: auto; 
         margin-left: auto;
         border-radius: 10px;
+        background-color: #1119BF
         
 
     }

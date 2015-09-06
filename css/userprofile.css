@@ -41,11 +41,10 @@
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 38%;
 		float: right;
 		text-align: center;
 		vertical-align: middle;
-        line-height: 80%;
+        line-height: 30px;
 	}
 	.return{
 		margin: 10%;
@@ -54,11 +53,11 @@
 		color: white;
 		width: 60px;
 		height: 60px;
-		margin-top: 38%;
 		float: left;
 		text-align: center;
 		vertical-align: middle;
-        line-height: 80%;
+        line-height: 30px;
+        margin-top: -30%;
 	}
 
 
@@ -77,161 +76,7 @@
 		font-size: 1.5vw; 
 
 	}
-	.userbubble{
-		width: 30%;
-	    height: 30%;
-	    margin-left: auto;
-	    border-radius: 15%; 
-}
-		.userbubble img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-	.babybubble{
-		width: 15%;
-		height:15%;
-		border-radius:7.5%;
-		
-		.baby1{
-           margin-left: 30%;
-		}
-		.baby2{
-			margin-left:60%;
-
-		}
-	}
-
-		.hashtag {
-		padding: 1%;
-	    border-radius: 5px;
-	    background: white;
-	    width: 12%;
-	    margin-top: 1%;
-	    margin-left: 43%;
-	}
-
 	
-	
-	html, body{
-
-	    font-family:"Raleway", "sans-serif";
-    font-weight:500;
-    -webkit-font-smoothing:antialiased;
-    -webkit-user-select: none;
-    color:#42A6F3;
-    height: 100%;
-    width: 100%;
-
-    font-size: 1vw;
-
-    padding: 0;
-    margin: 0;
-}
-
-.other-profile-page {
-    background-image: url("../img/background_judgr.png");
-}
-
-@media(min-width: 1000px){
-	.linebreak-10{
-		width: 100%;
-		height: 10%;
-	}
-	.linebreak-30{
-		width: 100%;
-		height: 6%;
-		background-color: #50DF50;
-		margin-top: 0%;
-	}
-	.userbubble{
-		width: 180px;
-	    height: 180px;
-	    margin: auto;
-	    border-radius: 90px; 
-	    background-color: #1119BF;
-}
-		.userbubble img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-	.bubble1{
-		width: 90px;
-		height:90px;
-		border-radius: 45px;
-		background-color: #4C53DA;
-		margin-left: 27%;
-		
-		
-	}
-	.bubble2{
-		width: 90px;
-		height:90px;
-		border-radius: 45px;
-		background-color: #4C53DA;
-		margin-left: 50%;
-	}
-	.bubble3{
-		width: 90px;
-		height:90px;
-		border-radius: 45px;
-		background-color: #4C53DA;
-		margin-left: 60%;
-		margin-top: 6%
-	}
-	.bubble4{
-		width: 90px;
-		height:90px;
-		border-radius: 45px;
-		background-color: #4C53DA;
-		margin-left: 34%;
-	}
-	.bubble5{
-		width: 90px;
-		height:90px;
-		border-radius: 45px;
-		background-color: #4C53DA;
-		margin-left: 70%;
-
-	}
-
-		.hashtag {
-		padding: 1%;
-	    border-radius: 5px;
-	    background: white;
-	    width: 12%;
-	    margin-top: 1%;
-	    margin-left: 43%;
-	}
-
-	.judge{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		margin-top: 38%;
-		float: right;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 80%;
-	}
-	.return{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		margin-top: 38%;
-		float: left;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 80%;
-	}
-
 	#sides{
 margin:0;
 }
@@ -244,134 +89,4 @@ float:left;
 overflow:hidden;
 } 
 }
-
-@media(max-width: 1000px){
-	.linebreak-10{
-		width: 100%;
-		height: 10%;
-	}
-
-
-	.linebreak-30{
-		width: 100%;
-		height: 6%;
-		background-color: #50DF50;
-		margin-top: 0%;
-	}
-
-	.userbubble{
-		width: 140px;
-	    height: 140px;
-	    margin: auto;
-	    border-radius: 70px; 
-	    background-color: #1119BF;
-}
-		.userbubble img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-	.bubble1{
-		width: 80px;
-		height:80px;
-		border-radius: 40px;
-		background-color: #4C53DA;
-		margin-left: 10%;
-		
-		
-	}
-	.bubble2{
-		width: 80px;
-		height:80px;
-		border-top-left-radius: 50%;
-		border-top-right-radius: 50%;
-		border-bottom-right-radius: 50%;
-		border-bottom-left-radius: 50%;
-		background-color: #4C53DA;
-		margin-left: 50%;
-	}
-	.bubble3{
-		width: 80px;
-		height:80px;
-		border-radius: 40px;
-		background-color: #4C53DA;
-		margin-left: 70%;
-		margin-top: 6%;
-		margin-bottom: -10%;
-	}
-	.bubble4{
-		width: 80px;
-		height:80px;
-		border-radius: 40px;
-		background-color: #4C53DA;
-		margin-left: 10%;
-	}
-	.bubble5{
-		width: 80px;
-		height:80px;
-		border-radius: 40px;
-		background-color: #4C53DA;
-		margin-left: 74%;
-		margin-top: -8%;
-
-	}
-
-		.hashtag {
-		padding: 1%;
-	    border-radius: 5px;
-	    background: white;
-	    width: 12%;
-	    margin-top: 1%;
-	    margin-left: 43%;
-	}
-	.judge{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		margin-top: 38%;
-		float: right;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 80%;
-	}
-	.return{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		margin-top: 38%;
-		float: left;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 80%;
-	}
-
-	#sides{
-margin:0;
-}
-#left{
-float:center;
-overflow:hidden;
-}
-#right{
-float:left;
-overflow:hidden;
-} 
-#fuckface2{
-float:center;
-overflow:hidden;
-}
-#fuckface{
-float:left;
-overflow:hidden;
-} 
-
-}
-
-*/
 

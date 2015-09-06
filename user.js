@@ -43,12 +43,36 @@ function loadData(data) {
 	if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
 	
+		alert();
+		loadProfileMap();
 
 		//mainUI.js
 		postLogin();
 	}
 	else {
 		getInitTags();
+		//Otherwise, create new data for the user
+		var incomingObj = {
+			name: 'addUser',
+			hash: global_ID
+		}
+
+		for(var i in [0, 1, 2, 3, 4, 5]) {
+			var key = prompt("Describe yourself in one word:");
+			incomingObj[key] = 10;
+		}
+
+		socket.emit('clientToServer', incomingObj, function(data, err) {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				alert();
+				loadProfileMap();				
+				//mainUI.js
+				postLogin();
+			}
+		});
 	}
 }
 
@@ -95,7 +119,7 @@ function loadProfileMap() {
 
 		var dataObj = {};
 
-		delete data['userId'];
+		delete data['userID'];
 		delete data['hashtag'];
 
 		for(key in data) {
@@ -142,30 +166,30 @@ function loadProfileMap() {
 	            shape: 'dot',
 	          	scaling:{
 	            	label: {
-	              		min:50,
-	              		max:200
+	              			min:8,
+	              			max:20
 	            	}
 	          	}
         	}
     	};
 
-      	var network = new vis.Network(container, data, options);
+      	network = new vis.Network(container, data, options);
 
-      	network.on("afterDrawing", function() {
-      		network.focus(0, {scale: 1.0, offset: {y:20}});
-      	});
+      	network.moveTo({
+		  scale: 3.0
+		});
 	});
 }
 
 $(".judge").mouseenter(function() {
        $(this).animate({width: '150px'}, "fast");
- });
-$(".judge").mouseleave(function() {
-   $(this).animate({width: '60px'}, "fast");;
-});
-$(".return").mouseenter(function() {
-   $(this).animate({width: '150px'}, "fast");
-});
-$(".return").mouseleave(function() {
-   $(this).animate({width: '60px'}, "fast");;
-});
+    });
+    $(".judge").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });
+    $(".return").mouseenter(function() {
+       $(this).animate({width: '150px'}, "fast");
+    });
+    $(".return").mouseleave(function() {
+       $(this).animate({width: '60px'}, "fast");;
+    });

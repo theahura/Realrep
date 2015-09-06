@@ -15,7 +15,7 @@ function loadMap() {
 
 		var dataObj = {};
 
-		delete data['userID'];
+		delete data['userId'];
 		delete data['hashtag'];
 
 		for(key in data) {

@@ -131,6 +131,27 @@ function updateProfile(hashname, value, callback) {
 			var newTopFive = hashname;
 
 			for(key in global_topFive) {
+				//update other top5 keys
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: key,
+					attribute: newTopFive,
+					value: 1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: key,
+					attribute: kickedHashtag,
+					value: -1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+
 				//update the two scores to reflect change
 				socket.emit('clientToServer', {
 					name: 'updateHashtagScores', 

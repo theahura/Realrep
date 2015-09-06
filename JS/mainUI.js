@@ -54,17 +54,25 @@ function getInitTags() {
 }
 
 $('#tag-submit').click(function() {
+    var tag1 = $("#tag-field1").val();
+    var tag2 = $("#tag-field2").val();
+    var tag3 = $("#tag-field3").val();
+    var tag4 = $("#tag-field4").val();
+    var tag5 = $("#tag-field5").val();
+    var tag6 = $("#tag-field6").val();
+    
     if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
         var incomingObj = {
             name: 'addUser',
             hash: global_ID,
-            $("#tag-field1").val(): 10,
-            $("#tag-field2").val(): 10,
-            $("#tag-field3").val(): 10,
-            $("#tag-field4").val(): 10,
-            $("#tag-field5").val(): 10,
-            $("#tag-field6").val(): 10
         }
+
+        incomingObj[$("#tag-field1").val()] = 10;
+        incomingObj[$("#tag-field2").val()] = 10;
+        incomingObj[$("#tag-field3").val()] = 10;
+        incomingObj[$("#tag-field4").val()] = 10;
+        incomingObj[$("#tag-field5").val()] = 10;
+        incomingObj[$("#tag-field6").val()] = 10;
 
         socket.emit('clientToServer', incomingObj, function(data, err) {
             if(err) {

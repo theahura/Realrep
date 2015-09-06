@@ -28,10 +28,6 @@ function requestUser() {
 		global_userTags = [];
 		global_userData = {};
 
-		FBgetProfilePicture(global_nextID, callback(url) {
-			$("#ProfilePicture").attr("src", url);
-		});
-
 		socket.emit('clientToServer', {
 			name: 'getProfile', 
 			hash: global_nextID
@@ -71,6 +67,10 @@ function requestUser() {
 					requestUser();
 				}
 				else {
+					FBgetProfilePicture(global_nextID, function(url) {
+						$("#ProfilePicture").attr("src", url);
+					});
+
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#HashtagOne").text(tag[0]);
 					global_usedTags.push(tag[0]);

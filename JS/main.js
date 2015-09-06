@@ -14,7 +14,7 @@ $("#FacebookLogin").click(function() {
 });
 
 //when you go to the judgr page, request a User
-$('.temp').click(function() {
+$('#view-judgr').click(function() {
 	requestUser();
 });
 
@@ -22,16 +22,16 @@ $('.temp').click(function() {
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.gif");
-		$("#HashtagOne").html("");
-		$("#HashtagTwo").html("");
-		$("#HashtagThree").html("");
+		$("#Endorse1").html("");
+		$("#Endorse2").html("");
+		$("#Endorse3").html("");
 	}
 	else {
 		requestUser();
 	}
 });
 
-$('#Endorse').click(function() {
+$('.hashtagbutton').click(function() {
 	var button = this; 
 	updateProfile($(this).html(), 1, function() {
 		if(global_userTags.length > 0) { 

@@ -23,7 +23,7 @@ function loadMap() {
 				dataObj[key] = data[key].S
 			}
 			else if('N' in data[key]) {
-				if(data[key].N === '0')
+				if(parseInt(data[key].N) <= 0)
 					continue;
 
 				dataObj[key] = parseInt(data[key].N)			
@@ -72,7 +72,7 @@ function loadMap() {
       	var network = new vis.Network(container, data, options);
 		
 		network.on("afterDrawing", function() {
-      		network.focus(0, {scale: 2.0, offset: {y:20}});
+      		network.focus(0, {scale: 1.5, offset: {y:-20}});
       	});
 	});
 }

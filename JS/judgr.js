@@ -27,9 +27,9 @@ var global_topFive;
 function requestUser() {
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.gif");
-		$("#HashtagOne").text("");
-		$("#HashtagTwo").text("");
-		$("#HashtagThree").text("");
+		$("#Endorse1").text("");
+		$("#Endorse2").text("");
+		$("#Endorse3").text("");
 
 		console.log("no friends");
 	}
@@ -43,6 +43,8 @@ function requestUser() {
 		global_topFive = [];
 
 		console.log("user initialized");
+
+		fetchTopFive(function() {console.log("QWERQWERQWERQWERQWER")});
 	}
 }
 
@@ -91,15 +93,15 @@ function fetchTopFive(callback) {
 					});
 
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-					$("#HashtagOne").text(tag[0]);
+					$("#Endorse1").text(tag[0]);
 					global_usedTags.push(tag[0]);
 
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-					$("#HashtagTwo").text(tag[0]);
+					$("#Endorse2").text(tag[0]);
 					global_usedTags.push(tag[0]);
 
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-					$("#HashtagThree").text(tag[0]);
+					$("#Endorse3").text(tag[0]);
 					global_usedTags.push(tag[0]);
 
 					var dataObj = {};

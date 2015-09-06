@@ -36,6 +36,12 @@ $('.correlation-to-profile').click(function() {
     loadProfileMap();               
 });
 
+$('.otherprofile-to-judgr').click(function() {
+    $('.other-profile-page').slideToggle();
+    $('.judgrpage').slideToggle();
+});
+
+
 function postLogin() {
     $('.loginpage').slideToggle();
     $('.self-profile-page').slideToggle(); 

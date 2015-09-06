@@ -60,27 +60,27 @@ function login() {
 		FBgetName(id, function(name) {
 			global_name = name;
 			$('.profile label').html(global_name);
+
+			socket.emit('clientToServer', {
+				name: 'checkUser', 
+				hash: global_ID
+			}, function(data) {
+				var dataObj = {};
+
+				for(key in data) {
+					if('S' in data[key]) {
+						dataObj[key] = data[key].S
+					}
+					else if('N' in data[key])
+						dataObj[key] = parseInt(data[key].N)
+				}
+
+				loadData(dataObj);
+			});
 		});
 
 		FBgetFriends(id, function(list) {
 			global_friendsList = list; 
-		});
-
-		socket.emit('clientToServer', {
-			name: 'checkUser', 
-			hash: global_ID
-		}, function(data) {
-			var dataObj = {};
-
-			for(key in data) {
-				if('S' in data[key]) {
-					dataObj[key] = data[key].S
-				}
-				else if('N' in data[key])
-					dataObj[key] = parseInt(data[key].N)
-			}
-
-			loadData(dataObj);
 		});
 	});
 
@@ -103,7 +103,7 @@ function loadProfileMap() {
 				dataObj[key] = data[key].S
 			}
 			else if('N' in data[key]) {
-				if(data[key].N === '0')
+				if(parseInt(data[key].N) <= 0)
 					continue;
 
 				dataObj[key] = parseInt(data[key].N)			

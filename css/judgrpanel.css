@@ -1,5 +1,5 @@
 .judgrpage {
-    color: white;
+    color: black;
 }
 
 	.image-container {
@@ -11,18 +11,198 @@
 		.image-container img {
 			max-width: 100%;
 			max-height: 100%;
+
 		}
 
 
 	.hashtag {
 		padding: 1%;
 	    border-radius: 5px;
-	    background: white;
+	    background: cyan;
 	    width: 12%;
 	    margin-top: 1%;
 	    margin-left: 43%;
 	}
 
 	.judgr {
-		color: black;
+		color: red;
 	}
+
+@media(min-width: 900px) {.header {
+    color: #008417;
+    font-size: 3.5vw; 
+    text-align: center; 
+
+    }
+}
+
+@media(max-width: 900px) {.header {
+    color: #008417;
+    font-size: 31.5px; 
+    text-align: center; 
+
+    }
+}
+
+@media (min-width: 900px) {
+    .flavortext {
+    color: #00D124;
+    font-size: 2vw; 
+    text-align: center; 
+}
+    }
+@media (max-width: 900px) {
+    .flavortext {
+    color: #00D124;
+    font-size: 18px; 
+    text-align: center; 
+}
+    }
+
+@media (min-width: 900px){
+
+.login-button {
+
+        margin-top: 1%;
+        width: 150px;
+        height: 150px;
+        background: white;
+        border-radius: 5px;
+        padding: .5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+        margin-top: auto;
+        line-height: 150px;
+        font-size: 22.5px; 
+        font-weight: bold;
+        background-color: #50DF50;
+        color: white;
+        border-radius: 75px;
+    
+    }
+}
+@media (max-width:900px){
+    .login-button {
+
+        margin-top: 1%;
+        width: 150px;
+        height: 150px;
+        background: white;
+        border-radius: 5px;
+        padding: .5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+        margin-top: auto;
+        line-height: 150px;
+        font-size: 22.5px; 
+        font-weight: bold;
+        background-color: #50DF50;
+        color: white;
+        border-radius: 75px;
+
+    }
+
+}
+
+/*
+body, html{
+	font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#858585;
+    height: 100%;
+    width: 100%;
+    font-size: 1vw;
+    padding: 0;
+    margin: 0;
+}
+
+	.divider1{
+		width:100%;
+		height: 6%;
+		background-color: #50DF50;
+	}
+	.divider2{
+		width: 100%;
+		height:3%;
+		background-color: transparent;
+	}
+	.divider3{
+		width:100%;
+		height:1.5%;
+		background-color: transparent;
+	}
+	.imagecontainer{
+		width: 85%;
+		height:50%;
+		background-color: #4C53DA;
+		margin-right: auto; 
+		margin-left: auto;
+		border-radius: 10px;
+
+	}
+	.image-container img {
+			max-width: 100%;
+			max-height: 100%;
+			background-color: red;
+			border-radius: 10px;
+
+		}
+	
+	.hashtagbutton{
+		width: 95%;
+		height:5%;
+		margin-right: auto; 
+		margin-left: auto;
+		border-radius: 10px;
+		
+
+	}
+
+	#hashtag1{
+		background-color: #1119BF;
+
+	}
+
+	#hashtag2{
+		background-color: #1119BF;
+
+	}
+
+	#hashtag3{
+		background-color: #1119BF;
+
+	}
+
+	.judge{
+		margin: 10%;
+		border-radius: 30px;
+		background-color: #50DF50;
+		color: white;
+		width: 60px;
+		height: 60px;
+		margin-top: 9%;
+		float: right;
+		text-align: center;
+		vertical-align: middle;
+        line-height: 80%;
+	}
+
+	.return{
+		margin: 10%;
+		border-radius: 30px;
+		background-color: #50DF50;
+		color: white;
+		width: 60px;
+		height: 60px;
+		margin-top: 9%;
+		float: left;
+		text-align: center;
+		vertical-align: middle;
+        line-height: 80%;
+	} 
+*/
+

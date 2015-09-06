@@ -22,29 +22,43 @@ $('.temp').click(function() {
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.gif");
-		$("#HashtagOne").text("");
-		$("#HashtagTwo").text("");
-		$("#HashtagThree").text("");
+		$("#HashtagOne").html("");
+		$("#HashtagTwo").html("");
+		$("#HashtagThree").html("");
 	}
 	else {
 		requestUser();
 	}
 });
 
-$('.hashtag').click(function() {
+$('#Endorse').click(function() {
 	var button = this; 
 	updateProfile($(this).html(), 1, function() {
 		if(global_userTags.length > 0) { 
 			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-			$(button).text(tag[0]);
+			$(button).html(tag[0]);
 			global_usedTags.push(tag[0]);
 
 			associatedTags = [];
 		}
 		else {
-			$(button).text("");
+			$(button).html("");
 		}
-	});		//ASSUME THEY PRESSED YES
+	});
+});
+
+$('#Pass').click(function() {
+	var button = this; 
+	if(global_userTags.length > 0) { 
+		var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
+		$(button).html(tag[0]);
+		global_usedTags.push(tag[0]);
+
+		associatedTags = [];
+	}
+	else {
+		$(button).html("");
+	}
 });
 
 $('.correlation-form').submit(function(event) {

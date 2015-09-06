@@ -6,93 +6,92 @@
 	Description: Sets up data for judging
 */
 
-var usedTags
-var userTags
-var nextID
+var global_usedTags;
+var global_userTags;
+var global_userData;
+var global_nextID;
 
 
 function requestUser() {
 
-	usedTags = [];
+	if (global_friendsList.length == 0) {
+		$("#ProfilePicture").attr("src", "../img/web1.gif");
+		$("#HashtagOne").text("");
+		$("#HashtagTwo").text("");
+		$("#HashtagThree").text("");
+	}
+	else {
 
-	//obtain the Facebook ID of a random friend from 
-	//the list defined at the start of user login AND REMOVE
-	//that friend so that you
+		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
-	nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
+		FBgetProfilePicture(global_nextID, callback(url) {
+			$("#ProfilePicture").attr("src", url);
+		});
+		global_usedTags = [];
 
-	//set the profile picture to that user friend
-	FBgetProfilePicture(nextID, function(url) {
-		$("#ProfilePicture").attr("src", url);
-	});
+		socket.emit('clientToServer', {
+			name: 'getProfile', 
+			hash: global_nextID
+		}, function(data) {
 
-	socket.emit('clientToServer', {
-		name: 'getProfile', 
-		hash: nextID
-	}, function(data) {
+			deferredArray = [];
 
-		deferredArray = [];
+			for(key in data) {
 
-		console.log(data)
+				deferred = new $.Deferred();
+				deferredArray.push(deferred);
 
-		for(key in data) {
+				socket.emit('clientToServer', {
+					name: 'getHashtag', 
+					hash: key
+				}, function(data_2) {
 
-			deferred = new $.Deferred();
-			deferredArray.push(deferred);
+					var temptags = Object.keys(data_2)
 
-			console.log(key)
+					jQuery.extend(data, data_2);
 
-			socket.emit('clientToServer', {
-				name: 'getHashtag', 
-				hash: key
-			}, function(data_2) {
-
-				var temptags = Object.keys(data_2)
-
-				jQuery.extend(data, data_2);
-
-				for(key in deferredArray) {
-					if(deferredArray[key].state() !== 'resolved') {
-						deferredArray[key].resolve();
+					for(key in deferredArray) {
+						if(deferredArray[key].state() !== 'resolved') {
+							deferredArray[key].resolve();
+						}
 					}
+				});
+			}
+
+			$.when.apply($, deferredArray).then(function() {
+				delete data.userId;
+				global_userTags = Object.keys(data);
+
+				if (global_userTags.length < 3) {
+					requestUser();
+				}
+				else {
+					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
+					$("#HashtagOne").text(tag[0]);
+					global_usedTags.push(tag[0]);
+
+					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
+					$("#HashtagTwo").text(tag[0]);
+					global_usedTags.push(tag[0]);
+
+					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
+					$("#HashtagThree").text(tag[0]);
+					global_usedTags.push(tag[0]);
 				}
 			});
-		}
-
-		$.when.apply($, deferredArray).then(function() {
-			console.log(data)
-
-			var userTags = Object.keys(data);
-
-			console.log(userTags)
-
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-			$("#HashtagOne").text(tag[0]);
-			usedTags.push(tag[0]);
-
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-			$("#HashtagTwo").text(tag[0]);
-			usedTags.push(tag[0]);
-
-			var tag = userTags.splice(Math.floor(Math.random()*userTags.length), 1)
-			$("#HashtagThree").text(tag[0]);
-			usedTags.push(tag[0]);
-		
 		});
-	});
+	}
 }
 
-function updateProfile(hashname, value) {
-	console.log(hashname);
+function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',
-		hash: nextID,
+		hash: global_nextID,
 		attribute: hashname,
 		value: value
-	}), function(err, data) {
-		console.log(err);
-		console.log(data);
-	}
+	}, function(data, err) {
+		callback();
+	});
 }
 
 

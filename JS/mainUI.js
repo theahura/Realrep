@@ -9,7 +9,9 @@
 
 $('#ProfilePicture').click(function() { 
     $('.judgrpage').slideToggle();
-    $('.other-profile-page').slideToggle();
+    $('.other-profile-page').slideToggle(function() {
+        loadOtherProfileMap();
+    });
 });
 
 

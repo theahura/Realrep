@@ -23,7 +23,7 @@ function loadMap() {
 				dataObj[key] = data[key].S
 			}
 			else if('N' in data[key]) {
-				if(data[key].N === '0')
+				if(parseInt(data[key].N) <= 0)
 					continue;
 
 				dataObj[key] = parseInt(data[key].N)			

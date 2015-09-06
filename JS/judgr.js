@@ -9,7 +9,7 @@
 var global_usedTags;
 var global_userTags;
 var global_userData;
-var global_nextID;
+var global_nextID;	
 
 
 function requestUser() {
@@ -24,9 +24,10 @@ function requestUser() {
 
 		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
-		FBgetProfilePicture(global_nextID, callback(url) {
+		FBgetProfilePicture(global_nextID, function(url) {
 			$("#ProfilePicture").attr("src", url);
 		});
+
 		global_usedTags = [];
 
 		socket.emit('clientToServer', {
@@ -37,7 +38,6 @@ function requestUser() {
 			deferredArray = [];
 
 			for(key in data) {
-
 				deferred = new $.Deferred();
 				deferredArray.push(deferred);
 
@@ -60,6 +60,7 @@ function requestUser() {
 
 			$.when.apply($, deferredArray).then(function() {
 				delete data.userId;
+				delete data.hashtag;
 				global_userTags = Object.keys(data);
 
 				if (global_userTags.length < 3) {
@@ -89,7 +90,7 @@ function updateProfile(hashname, value, callback) {
 		hash: global_nextID,
 		attribute: hashname,
 		value: value
-	}, function(data, err) {
+	}, function(err, data) {
 		callback();
 	});
 }

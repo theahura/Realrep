@@ -34,7 +34,7 @@ function requestUser() {
 	else {
 
 		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
-		
+
 		global_usedTags = [];
 		global_userTags = [];
 		global_userData = {};
@@ -153,6 +153,10 @@ function updateProfile(hashname, value, callback) {
 				});
 			}
 			
+			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+
+			global_topFive = sortedKeys.splice(sortedKeys.length, -5);
+
 		}
 
 		callback();

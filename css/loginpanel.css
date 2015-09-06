@@ -56,14 +56,14 @@ ul, li
 }
 
 @media(min-width: 900px) {.header {
-    color: #1119BF;
+    color: #008417;
     font-size: 3.5vw; 
     text-align: center; 
 
     }
 }
 @media(max-width: 900px) {.header {
-    color: #1119BF;
+    color: #008417;
     font-size: 31.5px; 
     text-align: center; 
 
@@ -72,26 +72,19 @@ ul, li
 
 @media (min-width: 900px) {
     .flavortext {
-    color: #1119BF;
+    color: #008417;
     font-size: 2vw; 
     text-align: center; 
 }
     }
 @media (max-width: 900px) {
     .flavortext {
-    color: #1119BF;
+    color: #008417;
     font-size: 18px; 
     text-align: center; 
 }
     }
 
-<<<<<<< HEAD
-.loginpage {
-    ;
-}
-
-=======
->>>>>>> 6002bd07dff837d8e2c4073b8c96b2afc85241e1
 @media (min-width: 900px){
 
 .login-button {
@@ -139,5 +132,8 @@ ul, li
 
     }
 
+}
+.highlighted {
+    background-color: red;
 } 
 

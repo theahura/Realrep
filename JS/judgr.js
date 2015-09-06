@@ -6,10 +6,21 @@
 	Description: Sets up data for judging
 */
 
+
+//Request a user -> returns a user id with all hashtag data
+//For each hashtag, pull down hashtag data -> returns hashtag association data
+//Set up a list of hashtags composed of the users' data, the hashtag association data, (and some random hashtags)
+//From the list, select three hashtags at random and load them
+//On user select for a hashtag, update the userprofile score for that hashtag
+//On user select for a hashtag, clear the hashtag clicked and load another
+//On user select for a hashtag, check if hashtag update is in top five and update association accordingly
+
+
 var global_usedTags;
 var global_userTags;
 var global_userData;
-var global_nextID;	
+var global_nextID;
+var global_topFive;
 
 
 function requestUser() {
@@ -24,13 +35,6 @@ function requestUser() {
 
 		global_nextID = global_friendsList.splice(Math.floor(Math.random()*global_friendsList.length), 1)[0];
 
-<<<<<<< HEAD
-		FBgetProfilePicture(global_nextID, function(url) {
-			$("#ProfilePicture").attr("src", url);
-		});
-
-=======
->>>>>>> e36fe41c58044c409e911268a9799e4e7e39d177
 		global_usedTags = [];
 		global_userTags = [];
 		global_userData = {};
@@ -89,6 +93,22 @@ function requestUser() {
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#HashtagThree").text(tag[0]);
 					global_usedTags.push(tag[0]);
+
+					var dataObj = {};
+					
+					for(key in global_userData) {
+						if('S' in global_userData[key]) {
+							dataObj[key] = global_userData[key].S
+						}
+						else if('N' in global_userData[key])
+							dataObj[key] = parseInt(global_userData[key].N)
+					}
+
+					global_userData = dataObj;
+
+					var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+
+					global_topFive = sortedKeys.splice(sortedKeys.length, -5);
 				}
 			});
 		});
@@ -101,7 +121,65 @@ function updateProfile(hashname, value, callback) {
 		hash: global_nextID,
 		attribute: hashname,
 		value: value
-	}, function(err, data) {
+	}, function(data, err) {
+
+		global_userData[hashname] += value; 
+
+		if(global_userData[hashname] > global_userData[global_topFive[0]]) {
+
+			var kickedHashtag = global_topFive[0];
+			var newTopFive = hashname;
+
+			for(key in global_topFive) {
+				//update other top5 keys
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: key,
+					attribute: newTopFive,
+					value: 1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: key,
+					attribute: kickedHashtag,
+					value: -1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+
+				//update the two scores to reflect change
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: newTopFive,
+					attribute: key,
+					value: 1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+
+				socket.emit('clientToServer', {
+					name: 'updateHashtagScores', 
+					hash: kickedHashtag,
+					attribute: key,
+					value: -1
+				}, function(data, err) {
+					console.log(data);
+					console.log(err);
+				});
+			}
+			
+			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+
+			global_topFive = sortedKeys.splice(sortedKeys.length, -5);
+
+		}
+
 		callback();
 	});
 }

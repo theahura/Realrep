@@ -40,7 +40,8 @@ function setUserProfile(data) {
 }
 
 function loadData(data) {
-	if(!jQuery.isEmptyObject(data)) {
+	getInitTags();
+	/*if(!jQuery.isEmptyObject(data)) {
 		//If a user has previous data, load it
 		setUserProfile(data);
 
@@ -48,29 +49,8 @@ function loadData(data) {
 		postLogin();
 	}
 	else {
-		//Otherwise, create new data for the user
-		var incomingObj = {
-			name: 'addUser',
-			hash: global_ID
-		}
-
-		for(var i in [0, 1, 2, 3, 4, 5]) {
-			var key = prompt("Describe yourself in one word:");
-			incomingObj[key] = 10;
-		}
-
-		socket.emit('clientToServer', incomingObj, function(data, err) {
-			if(err) {
-				console.log(err);
-			}
-			else {
-				setUserProfile(data);
-				
-				//mainUI.js
-				postLogin();
-			}
-		});
-	}
+		getInitTags();
+	}*/
 }
 
 function login() {

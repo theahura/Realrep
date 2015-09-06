@@ -1,0 +1,48 @@
+.initial-tag-page {
+    color: blue;
+}
+
+.initial-tag-page .instructions{
+    font-size: 2vw;
+}
+
+.initial-tag-page .suggestion{
+    font-family: monospace;
+    font-size: 1.25vw;
+}
+
+.initial-tag-page table{
+    width: 100%;
+}
+
+.init-tag-form{
+    font-family: 'Raleway';
+    width: 500px;
+    margin: 20px auto;
+}
+
+.init-tag-form input[type="text"] {
+    box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px 'Raleway';
+    height: 45px;
+}
+
+.init-tag-form input[type="button"] {
+    background-color: #415fb1;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Raleway';
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+}

@@ -23,7 +23,7 @@ html, body{
 		width: 100%;
 		height: 10%;
 	}
-	.linebreak-30{
+	.linebreak30{
 		width: 100%;
 		height: 6%;
 		background-color: #50DF50;
@@ -250,6 +250,10 @@ overflow:hidden;
 #fuckface{
 float:left;
 overflow:hidden;
+} 
+
+.highlighted {
+    background-color: red;
 } 
 
 }

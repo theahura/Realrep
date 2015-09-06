@@ -45,7 +45,7 @@ body, html{
 	
 	.hashtagbutton{
 		width: 95%;
-		height:6%;
+		height:5%;
 		margin-right: auto; 
 		margin-left: auto;
 		border-radius: 10px;
@@ -68,7 +68,7 @@ body, html{
 
 	}
 
-	.placeholder{
+	.judge{
 		margin: 10%;
 		border-radius: 30px;
 		background-color: #50DF50;

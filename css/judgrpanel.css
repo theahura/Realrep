@@ -16,7 +16,7 @@
     .imagecontainer{
         width: 85%;
         height:50%;
-        background-color: #4C53DA;
+        background-color: #50DF50;
         margin-right: auto; 
         margin-left: auto;
         border-radius: 10px;
@@ -35,7 +35,9 @@
         margin-right: auto; 
         margin-left: auto;
         border-radius: 10px;
-        background-color: #1119BF
+        background-color: #50DF50;
+        line-height: 5%;
+        
         
 
     }

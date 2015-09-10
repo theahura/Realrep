@@ -53,7 +53,7 @@ function loadOtherProfileMap() {
 
 				index = parseInt(index);
 
-				nodes.push({id: index + 1, label: dataObj[sortedKeys[index]], title: sortedKeys[index], value: dataObj[sortedKeys[index]]});
+				nodes.push({id: index + 1, label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
 				edges.push({from: index + 1, to: 0});
 			}
 

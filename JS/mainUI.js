@@ -36,10 +36,17 @@ $('.correlation-to-profile').click(function() {
     loadProfileMap();               
 });
 
+$('.judgr-to-profile').click(function() {
+    $('.judgrpage').slideToggle();
+    $('.self-profile-page').slideToggle();
+    loadProfileMap();               
+})
+
 $('.otherprofile-to-judgr').click(function() {
     $('.other-profile-page').slideToggle();
     $('.judgrpage').slideToggle();
 });
+
 
 
 function postLogin() {

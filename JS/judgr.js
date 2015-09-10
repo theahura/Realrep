@@ -95,6 +95,9 @@ function initUserTags() {
 			hash: global_nextID
 		}, function(data) {
 			
+			delete data['userId']
+			delete data['hashtag']
+
 			global_userData = data; 
 
 			deferredArray = [];
@@ -132,6 +135,10 @@ function initUserTags() {
 					requestUser();
 				}
 				else {
+
+					if(global_userTags.length < 50) {
+						global_userTags = global_userTags.concat(global_baseAssociations);
+					}
 
 					// Set the profile picture on the webpage to the FacebookLoginbook profile picture
 					FBgetProfilePicture(global_nextID, function(url) {
@@ -200,27 +207,27 @@ function fetchTopFive(callback) {
 			$.when.apply($, deferredArray).then(function() {
 				delete data['userId'];
 				delete data['hashtag'];
-					var dataObj = {};
-					
-					for(key in global_userData) {
-						if('S' in global_userData[key]) {
-							dataObj[key] = global_userData[key].S
-						}
-						else if('N' in global_userData[key])
-							dataObj[key] = parseInt(global_userData[key].N)
+				var dataObj = {};
+				
+				for(key in global_userData) {
+					if('S' in global_userData[key]) {
+						dataObj[key] = global_userData[key].S
 					}
+					else if('N' in global_userData[key])
+						dataObj[key] = parseInt(global_userData[key].N)
+				}
 
-					global_userData = dataObj;
+				global_userData = dataObj;
 
-					// sorts in ascending order based on the tag Object's value
-					var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+				// sorts in ascending order based on the tag Object's value
+				var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
-					global_topFive = sortedKeys.slice(sortedKeys.length-5, sortedKeys.length);
+				global_topFive = sortedKeys.slice(sortedKeys.length-5, sortedKeys.length);
 
-					console.log("topFive fetched");
-					console.log(global_topFive);
-					
-					callback();
+				console.log("topFive fetched");
+				console.log(global_topFive);
+				
+				callback();
 			});
 		});
 }

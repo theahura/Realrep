@@ -6,27 +6,58 @@
 	Description: Sets up data for judging
 */
 
-
-//Request a user -> returns a user id with all hashtag data
-//For each hashtag, pull down hashtag data -> returns hashtag association data
-//Set up a list of hashtags composed of the users' data, the hashtag association data, (and some random hashtags)
-//From the list, select three hashtags at random and load them
-//On user select for a hashtag, update the userprofile score for that hashtag
-//On user select for a hashtag, clear the hashtag clicked and load another
-//On user select for a hashtag, check if hashtag update is in top five and update association accordingly
+/**
+	Tried to be commented by Derek "Obrin Dastek" Hong.
+	This may have to be rewritten because there's a lot
+	of dangling global vars and things are scattered about.
+*/
 
 
+// String Array
+// Not currently in use, may never be used
 var global_usedTags;
+
+// String Array
+// Used to store the tags associated with a user
+// This is established once and persists throught the user's judging time
+	// ie: once the array is initialized, tags will be removed one by one (compare to global_userData)
 var global_userTags;
+
+// Object Array
+// Used to store the tag Objects of the user.
+// NOTE: I think it also stores the userId of the user, which is just
+	// a string, which is purged
+// ## NOTE 2 ##: This is changed frequently throughout the user's juding time
+	// DO NOT depend on the initial data to remain throughout the user's judging time
+	// unlike global_userTags, global_userData is recalled from the server frequently.
+	// SUB-NOTE: this also means you will have to purge userId and hashtag each time you recall
+/** 
+	tag Object:
+	{
+		tag: String,
+		value: int 
+	}
+*/
 var global_userData;
+
+// String
+// The userId from which the userData is obtained.
+// NOTE: this is used to access user data in DynamoDB and also correlates to the facebook ID of a user
 var global_nextID;
+
+// String Array
+// Stores the top five tags of a user based on a tag's value.
 var global_topFive;
 
 
-//initialize user (clear variables that need to be cleared and get the ID needed to access their stuff)
+/**
+	From the global list of friends, randomly chooses a user to judge.  If no more friends are found,
+	goes to the "no friends" scenario.  Once a user ID is obtained, the various user variables
+	(ie: userData, userTags, topFive) are reset.
+*/
 function requestUser() {
 	if (global_friendsList.length == 0) {
-		$("#ProfilePicture").attr("src", "../img/web1.gif");
+		$("#ProfilePicture").attr("src", "../img/web1.png");
 		$("#Endorse1").text("");
 		$("#Endorse2").text("");
 		$("#Endorse3").text("");
@@ -48,6 +79,16 @@ function requestUser() {
 	}
 }
 
+/**
+	Populates the user variables based on userId obtained in requestUser().  
+
+	Specifically, it populates userData, populates the initial userTags from 
+	the userData (from which userId is purged), sets the profile picture in the 
+	webpage, and sets the three tags on the webpage (this will eventually be 
+	deprecated to one tag)
+
+	Uses deferred array magic that Derek doesn't really understand
+*/
 function initUserTags() {
 	socket.emit('clientToServer', {
 			name: 'getProfile', 
@@ -80,26 +121,37 @@ function initUserTags() {
 			}
 
 			$.when.apply($, deferredArray).then(function() {
-				delete data['userId'];
-				delete data['hashtag'];
+				// purge data that is unnessecary for the tags
+				delete data['userId'];		// NOTE: this is stored in global_nextID
+				delete data['hashtag'];		// I don't really know what this is, but sometimes it shows up
+											// it may arise when we accidentally get hashtag data and not user data
 				global_userTags = Object.keys(data);
 
 				if (global_userTags.length < 3) {
+					//##################### IDK IF THIS WORKS AS INTENDED YET
 					requestUser();
 				}
 				else {
+
+					// Set the profile picture on the webpage to the FacebookLoginbook profile picture
 					FBgetProfilePicture(global_nextID, function(url) {
 						$("#ProfilePicture").attr("src", url);
 					});
 
+					//################# NEED TO ALSO GET THE NAME AND SET THAT
+
+					// Set the tag on the webpage with a random tag from the list of gotten tags
+					// remove that tag from the list
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#Endorse1").text(tag[0]);
-					global_usedTags.push(tag[0]);
+					global_usedTags.push(tag[0]);	//it's here, but we don't use it for anything...
 
+					// TO BE DEPRECATED
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#Endorse2").text(tag[0]);
 					global_usedTags.push(tag[0]);
 
+					// TO BE DEPRECATED
 					var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 					$("#Endorse3").text(tag[0]);
 					global_usedTags.push(tag[0]);
@@ -108,6 +160,12 @@ function initUserTags() {
 		});
 }
 
+/**
+	Sets global_topFive to the five tags of the current user with the greatest value.
+
+	Note: this is an instance of the previously mentioned scenario
+	where the global_userData is "frequently updated".
+*/
 function fetchTopFive(callback) {
 	socket.emit('clientToServer', {
 			name: 'getProfile', 
@@ -154,6 +212,7 @@ function fetchTopFive(callback) {
 
 					global_userData = dataObj;
 
+					// sorts in ascending order based on the tag Object's value
 					var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
 					global_topFive = sortedKeys.slice(sortedKeys.length-5, sortedKeys.length);
@@ -166,6 +225,19 @@ function fetchTopFive(callback) {
 		});
 }
 
+/**
+
+##################### incomplete commenting
+	Updates the value of some hashtag of the current user.  
+	That hashtag hashname is changed by some number value.
+
+	Database operations:
+	- if the hashtag that was just updated is now in the topFive for this user,
+		- add one to the hashtag.......
+
+	@param: hashname;	String; the name of the hashtag to be changed
+	@param: value; 		int;	the value by which hashname should be changed
+*/
 function updateProfile(hashname, value, callback) {
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores',

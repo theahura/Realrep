@@ -21,7 +21,7 @@ $('#view-judgr').click(function() {
 //when you press the new user select button, call request user
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
-		$("#ProfilePicture").attr("src", "../img/web1.gif");
+		$("#ProfilePicture").attr("src", "../img/web1.png");
 		$("#Endorse1").html("");
 		$("#Endorse2").html("");
 		$("#Endorse3").html("");

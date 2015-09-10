@@ -33,31 +33,7 @@
 	height:80%;
 	background-color: #00AA1E;
 	margin:auto;
-}
 
-.judge{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		float: right;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 30px;
-	}
-	.return{
-		margin: 10%;
-		border-radius: 30px;
-		background-color: #50DF50;
-		color: white;
-		width: 60px;
-		height: 60px;
-		float: left;
-		text-align: center;
-		vertical-align: middle;
-        line-height: 30px;
 	}
 
 

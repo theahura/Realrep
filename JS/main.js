@@ -33,6 +33,11 @@ $("#NewUserSelect").click(function() {
 
 $('.endorsebutton').click(function() {
 	var button = this; 
+
+	if(!$(this).html()) {
+		return;
+	}
+
 	updateProfile($(this).html(), 1, function() {
 		if(global_userTags.length > 0) { 
 			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)

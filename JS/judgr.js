@@ -307,7 +307,7 @@ function updateProfile(hashname, value, callback) {
 			callback();
 			console.log("profile updated")
 		});
-		});
+	});
 }
 
  $(".judge").mouseenter(function() {

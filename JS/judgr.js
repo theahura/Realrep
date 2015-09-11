@@ -233,14 +233,14 @@ function fetchTopFive(callback) {
 }
 
 /**
-
-##################### incomplete commenting
 	Updates the value of some hashtag of the current user.  
 	That hashtag hashname is changed by some number value.
 
 	Database operations:
 	- if the hashtag that was just updated is now in the topFive for this user,
-		- add one to the hashtag.......
+		- add 1 to this newly promoted hashtag
+		- subtract 1 from the newly demoted hastag
+		- do the same for each other other hastags in the top five
 
 	@param: hashname;	String; the name of the hashtag to be changed
 	@param: value; 		int;	the value by which hashname should be changed

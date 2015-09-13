@@ -9,7 +9,7 @@
 function loadOtherProfileMap() {
 	socket.emit('clientToServer', {
 		name: 'getProfile',
-		hash: global_nextID
+		hash: currentLoadedFriend.id
 	}, function(data, err) {
 
 		console.log(data)
@@ -44,7 +44,7 @@ function loadOtherProfileMap() {
 		var edges = [];
 
 
-		FBgetName(global_nextID, function(name) {
+		FBgetName(currentLoadedFriend.id, function(name) {
 			nodes.push({id: 0, label: name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
 
 			for(index in sortedKeys) {

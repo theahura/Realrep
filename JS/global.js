@@ -35,3 +35,31 @@ var global_NeutralAssociations = ['Democrat', 'Republican', 'Conservative', 'Lib
 
 
 var global_baseAssociations = global_PositiveAssociations.concat(global_NeutralAssociations, global_NegativeAssociations);
+
+
+/**
+	Returns an object as key value pairs 
+*/
+function stripDynamoSettings(data) {
+	delete data['userId'];
+	delete data['hashtag']
+
+	var dataObj = {};
+
+	for(key in data) {
+		if('S' in data[key]) {
+			dataObj[key] = data[key].S
+		}
+		else if('N' in data[key])
+			dataObj[key] = parseInt(data[key].N)
+	}
+
+	return dataObj;
+}
+
+/**
+	returns a list of keys in order of property value
+*/
+function sortObject(data) {
+	return Object.keys(data).sort(function(a,b){return data[a]-data[b]});
+}

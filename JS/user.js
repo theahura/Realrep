@@ -65,15 +65,8 @@ function login() {
 				name: 'checkUser', 
 				hash: global_ID
 			}, function(data) {
-				var dataObj = {};
-
-				for(key in data) {
-					if('S' in data[key]) {
-						dataObj[key] = data[key].S
-					}
-					else if('N' in data[key])
-						dataObj[key] = parseInt(data[key].N)
-				}
+				
+				var dataObj = stripDynamoSettings(data);
 
 				loadData(dataObj);
 			});

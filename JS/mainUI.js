@@ -55,6 +55,22 @@ function postLogin() {
     loadProfileMap();               
 }
 
+function postLoadUser(fbID, hashtagList) {
+
+    FBgetProfilePicture(fbID, function(url) {
+        $("#ProfilePicture").attr("src", url);
+    });
+
+    var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse1").text(tag);
+
+    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse2").text(tag);
+
+    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse3").text(tag);
+}
+
 function postInitTags() {
     console.log("close");
     $('.initial-tag-page').slideToggle();
@@ -65,6 +81,9 @@ function getInitTags() {
     $('.initial-tag-page').slideToggle();
     $('.loginpage').slideToggle();
 }
+
+
+
 
 $('#tag-submit').click(function() {
     var tag1 = $("#tag-field1").val();

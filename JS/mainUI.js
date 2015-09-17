@@ -36,16 +36,39 @@ $('.correlation-to-profile').click(function() {
     loadProfileMap();               
 });
 
+$('.judgr-to-profile').click(function() {
+    $('.judgrpage').slideToggle();
+    $('.self-profile-page').slideToggle();
+    loadProfileMap();               
+})
+
 $('.otherprofile-to-judgr').click(function() {
     $('.other-profile-page').slideToggle();
     $('.judgrpage').slideToggle();
 });
 
 
+
 function postLogin() {
     $('.loginpage').slideToggle();
     $('.self-profile-page').slideToggle(); 
     loadProfileMap();               
+}
+
+function postLoadUser(fbID, hashtagList) {
+
+    FBgetProfilePicture(fbID, function(url) {
+        $("#ProfilePicture").attr("src", url);
+    });
+
+    var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse1").text(tag);
+
+    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse2").text(tag);
+
+    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $("#Endorse3").text(tag);
 }
 
 function postInitTags() {
@@ -58,6 +81,9 @@ function getInitTags() {
     $('.initial-tag-page').slideToggle();
     $('.loginpage').slideToggle();
 }
+
+
+
 
 $('#tag-submit').click(function() {
     var tag1 = $("#tag-field1").val();

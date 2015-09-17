@@ -15,37 +15,40 @@ $("#FacebookLogin").click(function() {
 
 //when you go to the judgr page, request a User
 $('#view-judgr').click(function() {
-	requestUser();
+	loadUser();
 });
 
 //when you press the new user select button, call request user
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
-		$("#ProfilePicture").attr("src", "../img/web1.png
-			");
+		$("#ProfilePicture").attr("src", "../img/web1.png");
 		$("#Endorse1").html("");
 		$("#Endorse2").html("");
 		$("#Endorse3").html("");
 	}
 	else {
-		requestUser();
+		loadUser();
 	}
 });
 
 $('.endorsebutton').click(function() {
 	var button = this; 
-	updateProfile($(this).html(), 1, function() {
-		if(global_userTags.length > 0) { 
-			var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-			$(button).html(tag[0]);
-			global_usedTags.push(tag[0]);
 
-			associatedTags = [];
-		}
-		else {
-			$(button).html("");
-		}
-	});
+	if(!$(this).html()) {
+		return;
+	}
+
+	updateUser($(this).html(), 1);
+
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
+	if(global_userTags.length > 0) { 
+		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		$(button).html(tag);
+	}
+	else {
+		$(button).html("");
+	}
 });
 
 $('#Pass').click(function() {
@@ -53,8 +56,6 @@ $('#Pass').click(function() {
 	if(global_userTags.length > 0) { 
 		var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
 		$(button).html(tag[0]);
-		global_usedTags.push(tag[0]);
-
 		associatedTags = [];
 	}
 	else {

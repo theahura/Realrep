@@ -65,15 +65,8 @@ function login() {
 				name: 'checkUser', 
 				hash: global_ID
 			}, function(data) {
-				var dataObj = {};
-
-				for(key in data) {
-					if('S' in data[key]) {
-						dataObj[key] = data[key].S
-					}
-					else if('N' in data[key])
-						dataObj[key] = parseInt(data[key].N)
-				}
+				
+				var dataObj = stripDynamoSettings(data);
 
 				loadData(dataObj);
 			});
@@ -126,7 +119,7 @@ function loadProfileMap() {
 
 			index = parseInt(index);
 
-			nodes.push({id: index + 1, label: dataObj[sortedKeys[index]], title: sortedKeys[index], value: dataObj[sortedKeys[index]]});
+			nodes.push({id: index + 1, label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
 			edges.push({from: index + 1, to: 0});
 		}
 

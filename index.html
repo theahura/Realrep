@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
         <link rel="stylesheet" href="css/initialtag.css" />
+        <link rel="stylesheet" href="css/downbounce.css" />
 
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.css"/>
@@ -27,21 +28,24 @@
 	<body>
 		
 		<div class="loginpage panel">
-			<div class="spacer-5"></div>
-			<div class= "header" >
-				<img src="img/logo1.png" style ="width: 410px; height: 290px"></img>
-
+			<div class= "header">
+				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px" hidden></img>
+				<div class = "flavortext" hidden>
+					<p>
+						Changing how the world sees the world,
+						<br>
+						one swipe at a time
+					</p>
+	            </div>
 			</div>
-			<div class="button login-button" id="FacebookLogin">Login</div>
-			<div class="spacer-5"></div>
-			<div class = "flavortext">
-				<p> Changing how the world sees the world,</p>
-					<p> one swipe at a time</p>
-					
-            </div>
+			<div class="arrow animated bounce">
+				<img width="80" height="80" alt="" src="img/downarrow.svg" />
+			</div>
+			<!-- <div class="button login-button" id="FacebookLogin">Login</div> -->
+			<!-- <div class="spacer-5"></div> -->
         </div>
     
-        <div class="initial-tag-page panel hidden">
+        <div class="initial-tag-page panel">
             <div class="spacer-5"></div>
             <div class= "header" >
 				<img src="/img/logo1.png" style ="width: 170px; height: 116"></img>

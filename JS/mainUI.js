@@ -6,6 +6,26 @@
     Description: All UI effects go here
 */
 
+$( document ).ready( function() {
+    $("#loginLogo").fadeIn("slow");
+    $("#loginLogo").animate({width : "800px", height : "550px"});
+    $(".flavortext").delay( 800 ).fadeIn(1500);
+
+});
+
+$( document ).keydown(function(e) {
+    switch(e.which) {
+        case 38: // up
+        break;
+
+        case 40: // down
+            $( "body" ).scrollTo(".initial-tag-page");
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
 
 $('#ProfilePicture').click(function() { 
     $('.judgrpage').slideToggle();

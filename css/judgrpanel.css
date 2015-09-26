@@ -28,34 +28,6 @@
             border-radius: 10px;
 
         }
-    
-    .hashtagbutton{
-        width: 95%;
-        height:5%;
-        margin-right: auto; 
-        margin-left: auto;
-        border-radius: 10px;
-        background-color: #50DF50;
-        line-height: 5%;
-        
-        
-
-    }
-
-    #hashtag1{
-        background-color: #1119BF;
-
-    }
-
-    #hashtag2{
-        background-color: #1119BF;
-
-    }
-
-    #hashtag3{
-        background-color: #1119BF;
-
-    }
 
     .judge{
         margin: 10%;

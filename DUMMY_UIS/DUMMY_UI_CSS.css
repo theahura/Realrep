@@ -1,0 +1,54 @@
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    font-size: 1vw;
+
+    padding: 0;
+}
+
+.divider20{
+	height: 20%;
+	width:100%;
+	background-color:blue;
+}
+.divider10{
+	height: 10%;
+	background-color: #3D3D5C;
+	color: white;
+}
+.divider5{
+	height:5%;
+	background-color:yellow;
+}
+
+
+.left{
+	height: 80%; 
+	width:30%;
+	margin-left: 0;
+	float:left;
+	background-color: black;
+}
+
+
+#right{
+	height: 80%;
+	width:70%;
+	background-color: #E0E0EB;
+	float: right;
+	
+}
+#footer {
+	clear: both;
+}
+
+#intro {
+	font-size: 2.5vw;
+	color: white;
+	margin-left: 4%;
+}

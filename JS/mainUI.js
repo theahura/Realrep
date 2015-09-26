@@ -82,13 +82,7 @@ function postLoadUser(fbID, hashtagList) {
     });
 
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse1").text(tag);
-
-    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse2").text(tag);
-
-    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse3").text(tag);
+    $(".hashtag").html(tag);
 }
 
 function postInitTags() {

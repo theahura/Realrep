@@ -22,7 +22,7 @@ $('#view-judgr').click(function() {
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.png");
-		$("#Endorse1").html("");
+		$(".hashtag").html("");
 	}
 	else {
 		loadUser();

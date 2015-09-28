@@ -1,5 +1,6 @@
 .initial-tag-page {
     color: blue;
+    display: none;
 }
 
 .initial-tag-page .instructions{

@@ -8,15 +8,13 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
+		<!--CSS for various panels, one per page-->
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
 		<link rel="stylesheet" href="css/otherprofilepanel.css" />
 		<link rel="stylesheet" href="css/userprofile.css" />
-		<link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
         <link rel="stylesheet" href="css/initialtag.css" />
-        <link rel="stylesheet" href="css/downbounce.css" />
-
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.css"/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.js"></script>
@@ -28,9 +26,9 @@
 	<body>
 		
 		<div class="loginpage panel">
-			<div class= "header">
-				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px" hidden></img>
-				<div class = "flavortext" hidden>
+			<div class= "login-header">
+				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px"></img>
+				<div class = "flavortext">
 					<p>
 						Changing how the world sees the world,
 						<br>
@@ -38,11 +36,9 @@
 					</p>
 	            </div>
 			</div>
-			<div class="arrow animated bounce">
+			<div class="arrow animated bounce button" id="FacebookLogin">
 				<img width="80" height="80" alt="" src="img/downarrow.svg" />
 			</div>
-			<!-- <div class="button login-button" id="FacebookLogin">Login</div> -->
-			<!-- <div class="spacer-5"></div> -->
         </div>
     
         <div class="initial-tag-page panel">

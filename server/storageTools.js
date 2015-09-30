@@ -48,6 +48,9 @@ module.exports = {
 
 		if(!incomingObj['value'])
 			incomingObj['value'] = 0;
+		else if(incomingObj['value'] > 1 || incomingObj['value'] < -1)
+			return;
+		
 
 		var requestObj = {
 							Key: {}, 

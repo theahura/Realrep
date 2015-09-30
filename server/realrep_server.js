@@ -111,7 +111,7 @@ function serverHandler(socket, incomingObj, callback) {
 		console.log(incomingObj)
 		callback(null, {message: 'Login first/Name not recognized'}, 'appError');
 	}
-	
+
 }
 
 //On an io socket connection...

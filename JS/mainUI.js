@@ -16,10 +16,11 @@ $( document ).ready( function() {
 $( document ).keydown(function(e) {
     switch(e.which) {
         case 38: // up
+            scrollPage("#upperPanel");
         break;
 
         case 40: // down
-            $( "body" ).scrollTo(".initial-tag-page");
+            scrollPage("#lowerPanel");
         break;
 
         default: return; // exit this handler for other keys
@@ -136,7 +137,12 @@ $('#tag-submit').click(function() {
     }
 });
 
+function scrollPage(panelID) {
+    $('body').animate({
+        scrollTop: $(panelID).offset().top
+    }, 1000);
+}
 
-$('.FacebookLogin').click(function() {
-    $('.self-profile-page').loadFirst();
+$('#FacebookLogin').click(function() {
+    scrollPage("#lowerPanel");
 });

@@ -78,7 +78,7 @@ function serverError(socket, message) {
 	@param: incomingObj; obj; data sent from client
 */
 function serverHandler(socket, incomingObj, callback) {
-	//Login pipe
+
 	if(incomingObj.name === 'getProfile') {
 		//load all of the hashtag data for a given user and send it back in callback
 		//incomingObj must contain: userId
@@ -111,6 +111,7 @@ function serverHandler(socket, incomingObj, callback) {
 		console.log(incomingObj)
 		callback(null, {message: 'Login first/Name not recognized'}, 'appError');
 	}
+	
 }
 
 //On an io socket connection...

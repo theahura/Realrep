@@ -92,10 +92,10 @@ function postInitTags() {
     $('.self-profile-page').slideToggle();  
 }
 
-function getInitTags() {
-    $('.initial-tag-page').slideToggle();
-    $('.loginpage').slideToggle();
-}
+//function getInitTags() {
+//    $('.initial-tag-page').slideToggle();
+//    $('.loginpage').slideToggle();
+//}
 
 
 
@@ -111,7 +111,7 @@ $('#tag-submit').click(function() {
     if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
         var incomingObj = {
             name: 'addUser',
-            hash: global_ID,
+            hash: global_ID
         }
 
         incomingObj[$("#tag-field1").val()] = 10;
@@ -120,7 +120,10 @@ $('#tag-submit').click(function() {
         incomingObj[$("#tag-field4").val()] = 10;
         incomingObj[$("#tag-field5").val()] = 10;
         incomingObj[$("#tag-field6").val()] = 10;
-
+        console.log("top");
+        console.log(incomingObj);
+        console.log(global_ID);
+         console.log("bottom");
         socket.emit('clientToServer', incomingObj, function(data, err) {
             if(err) {
                 console.log(err);

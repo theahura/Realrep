@@ -6,6 +6,27 @@
     Description: All UI effects go here
 */
 
+$( document ).ready( function() {
+    $("#loginLogo").fadeIn("slow");
+    $("#loginLogo").animate({width : "800px", height : "550px"});
+    $(".flavortext").delay( 800 ).fadeIn(1500);
+
+});
+
+$( document ).keydown(function(e) {
+    switch(e.which) {
+        case 38: // up
+            scrollPage("#upperPanel");
+        break;
+
+        case 40: // down
+            scrollPage("#lowerPanel");
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
 
 $('#ProfilePicture').click(function() { 
     $('.judgrpage').slideToggle();
@@ -62,13 +83,7 @@ function postLoadUser(fbID, hashtagList) {
     });
 
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse1").text(tag);
-
-    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse2").text(tag);
-
-    tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $("#Endorse3").text(tag);
+    $(".hashtag").html(tag);
 }
 
 function postInitTags() {
@@ -122,7 +137,12 @@ $('#tag-submit').click(function() {
     }
 });
 
+function scrollPage(panelID) {
+    $('body').animate({
+        scrollTop: $(panelID).offset().top
+    }, 1000);
+}
 
-$('.FacebookLogin').click(function() {
-    $('.self-profile-page').loadFirst();
+$('#FacebookLogin').click(function() {
+    scrollPage("#lowerPanel");
 });

@@ -22,9 +22,7 @@ $('#view-judgr').click(function() {
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
 		$("#ProfilePicture").attr("src", "../img/web1.png");
-		$("#Endorse1").html("");
-		$("#Endorse2").html("");
-		$("#Endorse3").html("");
+		$(".hashtag").html("");
 	}
 	else {
 		loadUser();
@@ -32,13 +30,13 @@ $("#NewUserSelect").click(function() {
 });
 
 $('.endorsebutton').click(function() {
-	var button = this; 
+	var button = $('.hashtag'); 
 
-	if(!$(this).html()) {
+	if(!$('.hashtag').html()) {
 		return;
 	}
 
-	updateUser($(this).html(), 1);
+	updateUser($('.hashtag').html(), 1);
 
 	var global_userTags = currentLoadedFriend.fullHashtagList;
 
@@ -51,12 +49,18 @@ $('.endorsebutton').click(function() {
 	}
 });
 
-$('#Pass').click(function() {
-	var button = this; 
+$('.passbutton').click(function() {
+	var button = $('.hashtag'); 
+
+	if(!$('.hashtag').html()) {
+		return;
+	}
+
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
 	if(global_userTags.length > 0) { 
-		var tag = global_userTags.splice(Math.floor(Math.random()*global_userTags.length), 1)
-		$(button).html(tag[0]);
-		associatedTags = [];
+		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		$('.hashtag').html(tag);
 	}
 	else {
 		$(button).html("");

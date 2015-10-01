@@ -26,7 +26,6 @@ function FBgetName(id, callback) {
 	var query = "/" + id;
 	FB.api(query, function(response) {
 		callback(response.name);
-		//console.log(response.name);
 	});
 };
 

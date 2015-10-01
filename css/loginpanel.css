@@ -36,22 +36,6 @@ ul, li
     cursor: pointer;
 }
 
-.spacer-50 {
-    height: 50%;
-}
-
-.spacer-40 {
-    height: 40%;
-}
-
-.spacer-20 {
-    height: 20%;
-}
-
-.spacer-10 {
-    height: 10%;
-}
-
 .spacer-5 {
     height: 5%;
 }
@@ -73,23 +57,15 @@ ul, li
     width: 10%;
     margin-top: 3%;
     margin-left: 45%;
-}
+}   
 
-@media(min-width: 900px) {
-    .header {
-        font-size: 3.5vw; 
-        text-align: center; 
-    }
-}
-@media(max-width: 900px) {
-    .header {
-    font-size: 3.5px; 
+.header {
+    font-size: 3.5vw; 
     text-align: center; 
-
-    }
 }
 
-.flavortext {
+
+.flavor-text {
     color: #fff;
     font-size: 3vw;
     font-weight: bold;
@@ -98,7 +74,7 @@ ul, li
 }
 
 
-.loginpage {
+.login-page {
 
 }
 
@@ -114,48 +90,48 @@ ul, li
   -o-animation-name: bounce;
   animation-name: bounce;
 }
-.animated{-webkit-animation-fill-mode:both;
--moz-animation-fill-mode:both;
--ms-animation-fill-mode:both;
--o-animation-fill-mode:both;
 
-            animation-iteration-count: infinite;
-       -moz-animation-iteration-count: infinite;
-    -webkit-animation-iteration-count: infinite;
+.animated{
+  -webkit-animation-fill-mode:both;
+  -moz-animation-fill-mode:both;
+  -ms-animation-fill-mode:both;
+  -o-animation-fill-mode:both;
 
-animation-fill-mode:both;
--webkit-animation-duration:2s;
--moz-animation-duration:2s;
--ms-animation-duration:2s;
--o-animation-duration:2s;
-animation-duration:2s;
+  animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+
+  animation-fill-mode:both;
+  -webkit-animation-duration:2s;
+  -moz-animation-duration:2s;
+  -ms-animation-duration:2s; 
+  -o-animation-duration:2s;
+   animation-duration:2s;
 }
 
 
 @-webkit-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 40% {-webkit-transform: translateY(-30px);}
-  60% {-webkit-transform: translateY(-15px);}
+   0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 40% {-webkit-transform: translateY(-30px);}
+   60% {-webkit-transform: translateY(-15px);}
 }
 
 @-moz-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
-  40% {-moz-transform: translateY(-30px);}
-  60% {-moz-transform: translateY(-15px);}
+   0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+   40% {-moz-transform: translateY(-30px);}
+   60% {-moz-transform: translateY(-15px);}
 }
 
 @-o-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
-  40% {-o-transform: translateY(-30px);}
-  60% {-o-transform: translateY(-15px);}
+   0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+   40% {-o-transform: translateY(-30px);}
+   60% {-o-transform: translateY(-15px);}
 }
+
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-  40% {transform: translateY(-30px);}
-  60% {transform: translateY(-15px);}
+   0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+   40% {transform: translateY(-30px);}
+   60% {transform: translateY(-15px);}
 }
-
-
-@media (min-width: 900px){
 
 .login-button {
 
@@ -177,28 +153,5 @@ animation-duration:2s;
         border-radius: 75px;
     
     }
-}
-@media (max-width:900px){
-    .login-button {
 
-        margin-top: 1%;
-        width: 150px;
-        height: 150px;
-        background: white;
-        border-radius: 5px;
-        padding: .5%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: auto;
-        margin-top: auto;
-        line-height: 150px;
-        font-size: 22.5px; 
-        font-weight: bold;
-        background-color: #50DF50;
-        color: white;
-        border-radius: 75px;
-
-    }
-
-}
 

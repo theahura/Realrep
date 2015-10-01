@@ -4,6 +4,7 @@
 
 .initial-tag-page .instructions{
     font-size: 2vw;
+    font-family: monospace; 
 }
 
 .initial-tag-page .suggestion{
@@ -15,13 +16,13 @@
     width: 100%;
 }
 
-.init-tag-form{
+.initial-tag-form{
     font-family: 'Raleway';
     width: 500px;
     margin: 20px auto;
 }
 
-.init-tag-form input[type="text"] {
+.initial-tag-form input[type="text"] {
     box-sizing: border-box;
     outline: none;
     display: block;
@@ -35,7 +36,7 @@
     height: 45px;
 }
 
-.init-tag-form input[type="button"] {
+.initial-tag-form input[type="button"] {
     background-color: #415fb1;
     border: 1px solid #27A0A0;
     display: inline-block;

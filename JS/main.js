@@ -7,7 +7,7 @@
 */
 
 //when you go to the judgr page, request a User
-$('#view-judgr').click(function() {
+$('.view-judgr').click(function() {
 	loadUser();
 });
 

@@ -2,6 +2,15 @@
     color: #2e6391;
 }
 
+	.self-profile-page ul {
+		width: 100%;
+	}
+
+	.self-profile-page li {
+		display: inline-block;
+		width: 45%;
+	}
+
 	.profile-container {
 
 		height: 80%;
@@ -73,5 +82,3 @@
         .judgr-container div {
             font-size: 2vw;
         }
-
-

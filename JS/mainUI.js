@@ -41,7 +41,7 @@ $('.temp').click(function() {
     $('.judgrpage').slideToggle();
 });
 
-$('#view-judgr').click(function() {
+$('.view-judgr').click(function() {
     $('.self-profile-page').slideToggle();
     $('.judgrpage').slideToggle();
 })

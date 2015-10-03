@@ -73,7 +73,7 @@ function login() {
 		});
 
 		FBgetFriends(id, function(list) {
-			global_friendsList = list; 
+			global_friendsList = global_friendsListUnmodified = list; 
 		});
 	});
 

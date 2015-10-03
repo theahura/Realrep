@@ -13,6 +13,7 @@ var socket = io('http://54.86.173.127:6010');
 var global_ID = "";
 
 //a list of friends who also use the app
+var global_friendsListUnmodified = [];
 var global_friendsList = [];
 
 //The user name for the current user

@@ -94,17 +94,24 @@ function serverHandler(socket, incomingObj, callback) {
 		storageTools.retrieveData(incomingObj, hashtagTable, callback);
 	}
 	else if(incomingObj.name === 'updateProfileScores') {
-		//add in a check here that compares the profile word to be updated with the words in the associated lists; 
-		//need to send which word is associated with which list here
-
 		//update the hashtag data in a profile
-		//incomingObj must contain userId
-		storageTools.updateScores(incomingObj, userTable, callback);
-	}
-	else if(incomingObj.name === 'updateHashtagScores') {
-		//update the hashtag data in a hashtag
-		//incomingObj must contain hashtag
-		storageTools.updateScores(incomingObj, hashtagTable, callback);
+		//incomingObj must contain userId and a root
+		if(!incomingObj.checkRoot) {
+			callback(null, {message: 'Attribute root name not given'}, 'appError');
+			return;
+		}
+
+		storageTools.checkRoot(incomingObj, hashtagTable, function(err) {
+			if(err) {
+				callback(null, err);
+				return;
+			}
+
+			storageTools.updateScores(incomingObj, userTable, function(data) {
+				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
+				callback(data);
+			});		
+		});
 	}
 	else if(incomingObj.name === 'addUser') {
 		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);

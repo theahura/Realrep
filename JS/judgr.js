@@ -10,13 +10,6 @@
 var currentLoadedFriend = null;
 
 /**
-	Helper method to get the top Six values from a data set
-*/
-function getTopSix(data) {
-	return sortObject(data).splice(-6);
-}
-
-/**
 	Helper method that takes a list of hashtags and returns an associative list of hashtags
 */
 function getAssocHashtagList(hashtagList, callback) {
@@ -24,7 +17,9 @@ function getAssocHashtagList(hashtagList, callback) {
 
 	var assocHashtagObj = {};
 
-	for(index in hashtagList) {
+	var flippedHashtagObj = {};
+
+	for(index in hashtagList) {	
 		deferred = new $.Deferred();
 
 		socket.emit('clientToServer', {
@@ -38,16 +33,24 @@ function getAssocHashtagList(hashtagList, callback) {
 				return;
 			}
 
+			var baseHashtag = hashtagList[index];
+
 			data = stripDynamoSettings(data);
+
+			flippedHashtagObj[baseHashtag] = baseHashtag;
+
+			for(key in data) {
+				flippedHashtagObj[key] = baseHashtag;
+			}
 
 			jQuery.extend(assocHashtagObj, data);
 
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
 					deferredArray[index].resolve();
+					break;
 				}
 			}
-
 		});
 
 		deferredArray.push(deferred);
@@ -59,7 +62,7 @@ function getAssocHashtagList(hashtagList, callback) {
 		var assocHashtagList = Object.keys(assocHashtagObj);
 
 		if(callback)
-			callback(assocHashtagList);
+			callback(assocHashtagList, flippedHashtagObj);
 	});
 } 
 
@@ -69,11 +72,9 @@ function getAssocHashtagList(hashtagList, callback) {
 	Defines parameters for a loaded friend
 */
 function loadedFriend(data, id) {
-	this.topSix = getTopSix(data);
-	this.userData = data;
 	this.id = id;
-	
-	this.fullHashtagList = [];
+	this.fullHashtagList = Object.keys(data);
+	this.hashtagRootObj = {};
 }
 
 
@@ -105,9 +106,9 @@ function loadUser() {
 
 		currentLoadedFriend = new loadedFriend(data, fbID);
 
-		getAssocHashtagList(currentLoadedFriend.topSix, function(assoclist) {
+		getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;
-			console.log(currentLoadedFriend)
+			currentLoadedFriend.hashtagRootObj = flippedHashtagObj;
 			postLoadUser(fbID, assoclist);
 		});
 	});
@@ -115,46 +116,20 @@ function loadUser() {
 
 //========================================================================================================================================
 
-/**
-	Checks if there is a breach in top Six
-*/
-function checkTopSixForUpdates(attribute) {
-	//If its already in the top6, check for reshuffles and don't trigger updates
-	if(currentLoadedFriend.topSix.indexOf(attribute) !== -1) {
-		currentLoadedFriend.topSix = getTopSix(currentLoadedFriend.userData);
-		return false;
-	}
-
-	//If its not, check if it overrides a zero spot
-	if(currentLoadedFriend.userData[attribute] > currentLoadedFriend.userData[currentLoadedFriend.topSix[0]]) {
-		return true;
-	}
-
-	return false;
-}
 
 /**
 	Updates a profile with the current score for a user attribute and checks for/calls hashtag updates as needed
 */
 function updateUser(attribute, value) {
 
-	//update locally
-	if(!currentLoadedFriend.userData[attribute])
-		currentLoadedFriend.userData[attribute] = value;
-	else
-		currentLoadedFriend.userData[attribute] += value;
-
-	//check for hashtag update
-	if(checkTopSixForUpdates(attribute)) {
-		updateHashtagTopSix(attribute);
-	}
-
 	//update profile globally
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores', 
 		hash: currentLoadedFriend.id, 
 		attribute: attribute, 
-		value: value
+		value: value,
+		checkRoot: currentLoadedFriend['hashtagRootObj'][attribute], 
+		friendLength: global_friendsListUnmodified.length
 	}, function(data, err) {
 		
 		if(err) {
@@ -164,69 +139,4 @@ function updateUser(attribute, value) {
 		}
 
 	});
-}
-
-/**
-	Updates hashtag attributes if the topsix is updated
-*/
-function updateHashtagTopSix(newTopSixHashtag) {
-
-	var kickedHashtag = currentLoadedFriend.topSix[0];
-
-	for(index in currentLoadedFriend.topSix) {
-
-		if(index === '0')
-			continue;
-
-		socket.emit('clientToServer', {
-			name: 'updateHashtagScores', 
-			hash: currentLoadedFriend.topSix[index], 
-			attribute: newTopSixHashtag, 
-			value: 1
-		}, function(data, err) {
-			if(err) {
-				alert(err);
-				console.log(err);
-			}
-		});
-
-		socket.emit('clientToServer', {
-			name: 'updateHashtagScores', 
-			hash: currentLoadedFriend.topSix[index], 
-			attribute: kickedHashtag, 
-			value: -1
-		}, function(data, err) {
-			if(err) {
-				alert(err);
-				console.log(err);
-			}
-		});
-
-		socket.emit('clientToServer', {
-			name: 'updateHashtagScores', 
-			hash: newTopSixHashtag, 
-			attribute: currentLoadedFriend.topSix[index], 
-			value: 1
-		}, function(data, err) {
-			if(err) {
-				alert(err);
-				console.log(err);
-			}
-		});
-
-		socket.emit('clientToServer', {
-			name: 'updateHashtagScores', 
-			hash: kickedHashtag, 
-			attribute: currentLoadedFriend.topSix[index], 
-			value: -1
-		}, function(data, err) {
-			if(err) {
-				alert(err);
-				console.log(err);
-			}
-		});
-	}
-
-	currentLoadedFriend.topSix[0] = newTopSixHashtag;
-
 }

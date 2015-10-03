@@ -22,8 +22,8 @@ module.exports = {
 
 		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};
 
-
 		table.getItem(requestObj, function(err, data)  {
+
 			if(err) {
 				callback(null, err);
 			}
@@ -32,6 +32,29 @@ module.exports = {
 			}
 			else {
 				callback(null);
+			}
+		});
+	},
+
+	/**
+		Checks if an attribute is under a root word
+
+		@param: incomingObj; {}
+		@param: table; dynamo db table; where to get data
+		@param: callback; function(data, err)
+	*/
+	checkRoot: function(incomingObj, table, callback) {
+		var retrieveDataObj = {};
+
+		retrieveDataObj['hash'] = incomingObj['checkRoot'];
+
+		this.retrieveData(retrieveDataObj, table, function(data) {
+
+			if(incomingObj['attribute'] in data || incomingObj['attribute'].toString() === data[table.hashVal]['S']) {
+				callback();
+			}
+			else {
+				callback({message: "Error: Attribute not found in root"});
 			}
 		});
 	},
@@ -62,7 +85,8 @@ module.exports = {
 						        ":attrValue" : {
 						            "N" : incomingObj['value'] + ""
 						        }
-						    }
+						    },
+						    "ReturnValues" : 'UPDATED_NEW'
 						};
 
 		requestObj['Key'][table.hashVal] = {'S': incomingObj['hash']};
@@ -75,6 +99,67 @@ module.exports = {
 				callback(data);
 			}
 		});
+	},
+
+	/**
+		Updates the hashtag counts
+
+		incomingObj: 
+			attribute: the new key that's being updated
+
+		hashtable: table being edited
+		usertable: table used to grab user data	
+		updateData: data related to the info being updated; can only have one key under attributes
+			Attributes.'key'.N: new value of the updated data
+	*/
+	updateHashtags: function(incomingObj, hashtable, usertable, updateData) {
+		//make sure the new value is above the arbitrary limit
+		var updateFunction = this.updateScores;
+
+		var newHashtag = Object.keys(updateData.Attributes)[0]
+		var newHashtagValue = parseInt(updateData.Attributes[incomingObj['attribute']]['N']);
+
+		if(newHashtagValue > incomingObj.friendLength/5) {
+			this.retrieveData(incomingObj, usertable, function(data, err) {
+
+				if(err) {
+					console.log(err);
+					return;
+				}
+
+				if(data) {
+					delete data['userId'];
+					for(key in data) {
+
+						var updateObj = {
+							hash: key,
+							attribute: newHashtag,
+							value: 1
+						}
+
+						updateFunction(updateObj, hashtable, function(data, err) {
+							if(err) {
+								console.log(err);
+								return;
+							}
+						});
+
+						var updateObj = {
+							hash: newHashtag,
+							attribute: key,
+							value: 1
+						}
+
+						updateFunction(updateObj, hashtable, function(data, err) {
+							if(err) {
+								console.log(err);
+								return;
+							}
+						});
+					}
+				}
+			});
+		} 
 	},
 
 	/**

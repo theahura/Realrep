@@ -25,7 +25,7 @@
 
 	<body>
 		
-		<div id="upperPanel" class="login-page panel">
+		<div class="login-page panel">
 			<div class= "login-header">
 				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px"></img>
 				<div class = "flavor-text">
@@ -36,12 +36,12 @@
 					</p>
 	            </div>
 			</div>
-			<div class="arrow animated bounce button" id="FacebookLogin">
+			<div class="arrow animated bounce button" id="theArrow">
 				<img width="80" height="80" alt="" src="img/downarrow.svg" />
 			</div>
         </div>
     
-        <div id="lowerPanel" class="initial-tag-page panel">
+        <div class="initial-tag-page panel">
             <div class="spacer-5"></div>
             <div class= "header" >
 				<img src="/img/realreplogo.png" style ="width: 170px; height: 116"></img>
@@ -80,11 +80,15 @@
                 </td>
                 </tr>
                 </table>
-                <input type="button" value="SUBMIT" id="tag-submit" />
-            </div>            
+                <input type="button" value="Login with Facebook" id="tag-submit" />
+                <br>
+                <br>
+                Already have an account?
+                <input type="button" value="Sign in" id="old-user-login" />
+            </div>
         </div>
 		
-		<div class="self-profile-page panel" hidden>			
+		<div class="self-profile-page panel" hidden>
 				<div class="header"> My Rep</div>
                    
 				<div id="ProfileNetwork"></div>

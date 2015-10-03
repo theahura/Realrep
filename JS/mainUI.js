@@ -10,17 +10,17 @@ $( document ).ready( function() {
     $("#loginLogo").fadeIn("slow");
     $("#loginLogo").animate({width : "800px", height : "550px"});
     $(".flavortext").delay( 800 ).fadeIn(1500);
-
+    $(this).scrollTop(0);
 });
 
 $( document ).keydown(function(e) {
     switch(e.which) {
         case 38: // up
-            scrollPage("#upperPanel");
+            scrollPage(".login-page");
         break;
 
         case 40: // down
-            scrollPage("#lowerPanel");
+            scrollPage(".initial-tag-page");
         break;
 
         default: return; // exit this handler for other keys
@@ -71,9 +71,10 @@ $('.otherprofile-to-judgr').click(function() {
 
 
 function postLogin() {
-    $('.loginpage').slideToggle();
-    $('.self-profile-page').slideToggle(); 
-    loadProfileMap();               
+    $(".login-page").slideToggle();
+    $(".initial-tag-page").slideToggle();
+    $(".self-profile-page").slideToggle();
+    loadProfileMap();
 }
 
 function postLoadUser(fbID, hashtagList) {
@@ -89,7 +90,7 @@ function postLoadUser(fbID, hashtagList) {
 function postInitTags() {
     console.log("close");
     $('.initial-tag-page').slideToggle();
-    $('.self-profile-page').slideToggle();  
+    $('.self-profile-page').slideToggle();
 }
 
 //function getInitTags() {
@@ -98,9 +99,12 @@ function postInitTags() {
 //}
 
 
-
+$("#old-user-login").click(function() {
+    login();
+});
 
 $('#tag-submit').click(function() {
+
     var tag1 = $("#tag-field1").val();
     var tag2 = $("#tag-field2").val();
     var tag3 = $("#tag-field3").val();
@@ -109,6 +113,9 @@ $('#tag-submit').click(function() {
     var tag6 = $("#tag-field6").val();
     
     if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
+
+        login();
+
         var incomingObj = {
             name: 'addUser',
             hash: global_ID
@@ -134,6 +141,8 @@ $('#tag-submit').click(function() {
                 loadProfileMap();
             }
         });
+        postLogin();
+
     }
     else {
         alert("FILL IN ALL THE BOXES, YO!!");
@@ -146,6 +155,6 @@ function scrollPage(panelID) {
     }, 1000);
 }
 
-$('#FacebookLogin').click(function() {
-    scrollPage("#lowerPanel");
+$('#theArrow').click(function() {
+    scrollPage(".initial-tag-page");
 });

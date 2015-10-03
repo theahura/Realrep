@@ -1,20 +1,20 @@
-.divider1{
+.judgr-divider-1{
     width:100%;
     height: 6%;
     background-color: #50DF50;
 }
-.divider2{
+.judgr-divider-2{
     width: 100%;
     height:3%;
     background-color: transparent;
 }
-.divider3{
+.judgr-divider-3{
     width:100%;
     height:1.5%;
     background-color: transparent;
 }
 
-.imagecontainer{
+.image-container{
     width: 85%;
     height:50%;
     background-color: #50DF50;

@@ -4,17 +4,17 @@
     display: hidden;
 }
 	
-	#CorrelationNetwork {
+	#Correlation-Network {
 	    width: 100%;
 	    height: 90%;
 	}
 
-	.divider1{
+	.divider-1{
         width:100%;
         height: 6%;
         background-color: #50DF50;
     }
-    .divider2{
+    .divider-2{
         width:100%;
         height: 3%;
         background-color: transparent;

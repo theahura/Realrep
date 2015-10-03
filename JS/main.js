@@ -6,15 +6,8 @@
 	Description: Hooks to the actual UI
 */
 
-
-//WHEN DAT BUTTON PRESS, LOG IN, MON
-$("#FacebookLogin").click(function() {
-	//user.js
-	login();
-});
-
 //when you go to the judgr page, request a User
-$('#view-judgr').click(function() {
+$('.view-judgr').click(function() {
 	loadUser();
 });
 

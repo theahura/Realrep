@@ -13,7 +13,7 @@ var currentLoadedFriend = null;
 	Helper method that takes a list of hashtags and returns an associative list of hashtags
 */
 function getAssocHashtagList(hashtagList, callback) {
-	deferredArray = [];
+	var deferredArray = [];
 
 	var assocHashtagObj = {};
 
@@ -82,6 +82,10 @@ function loadedFriend(data, id) {
 	Pulls up a users profile info and sets up the hashtag list
 */
 function loadUser() {
+
+	if(global_friendsList.length === 0)
+		global_friendsList = global_friendsListUnmodified;
+
 	var fbID = global_friendsList.pop();
 
 	socket.emit('clientToServer', {

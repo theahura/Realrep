@@ -40,10 +40,7 @@ function setUserProfile(data) {
 }
 
 function loadData(data) {
-	if(!jQuery.isEmptyObject(data)) {
-		//If a user has previous data, load it
-	
-
+	if(!jQuery.isEmptyObject(data)) {		
 		//mainUI.js
 		postLogin();
 	}
@@ -52,10 +49,14 @@ function loadData(data) {
 	}
 }
 
-function login() {
+function login(callback) {
 	//fb.js
 	FBlogin(function(id) {
+
 		global_ID = id;
+
+		var deferred_name = new $.Deferred();
+		var deferred_friends = new $.Deferred();
 
 		FBgetName(id, function(name) {
 			global_name = name;
@@ -68,12 +69,20 @@ function login() {
 				
 				var dataObj = stripDynamoSettings(data);
 
-				loadData(dataObj);
+				deferred_name.resolve();
 			});
 		});
 
 		FBgetFriends(id, function(list) {
 			global_friendsList = global_friendsListUnmodified = list; 
+			deferred_friends.resolve();
+		});
+
+		$.when.apply(deferred_name, deferred_friends).done(function() {
+
+			if(callback)
+				callback();
+
 		});
 	});
 

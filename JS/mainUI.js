@@ -111,42 +111,56 @@ $('#tag-submit').click(function() {
     var tag4 = $("#tag-field4").val();
     var tag5 = $("#tag-field5").val();
     var tag6 = $("#tag-field6").val();
-    
-    if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
 
-        login();
+    login(function() {
+        if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
 
-        var incomingObj = {
-            name: 'addUser',
-            hash: global_ID
+            var incomingObj = {
+                name: 'addUser',
+                hash: global_ID
+            }
+
+            incomingObj[$("#tag-field1").val()] = 10;
+            incomingObj[$("#tag-field2").val()] = 10;
+            incomingObj[$("#tag-field3").val()] = 10;
+            incomingObj[$("#tag-field4").val()] = 10;
+            incomingObj[$("#tag-field5").val()] = 10;
+            incomingObj[$("#tag-field6").val()] = 10;
+            console.log("top");
+            console.log(incomingObj);
+            console.log(global_ID);
+             console.log("bottom");
+            socket.emit('clientToServer', incomingObj, function(data, err) {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(incomingObj);
+                    postInitTags();
+                    loadProfileMap();
+                }
+            });
+            postLogin();
+
         }
+        else {
 
-        incomingObj[$("#tag-field1").val()] = 10;
-        incomingObj[$("#tag-field2").val()] = 10;
-        incomingObj[$("#tag-field3").val()] = 10;
-        incomingObj[$("#tag-field4").val()] = 10;
-        incomingObj[$("#tag-field5").val()] = 10;
-        incomingObj[$("#tag-field6").val()] = 10;
-        console.log("top");
-        console.log(incomingObj);
-        console.log(global_ID);
-         console.log("bottom");
-        socket.emit('clientToServer', incomingObj, function(data, err) {
-            if(err) {
-                console.log(err);
-            }
-            else {
-                console.log(incomingObj);
-                postInitTags();
-                loadProfileMap();
-            }
-        });
-        postLogin();
+            socket.emit('clientToServer', {
+                name: 'getProfile',
+                hash: global_ID
+            }, function(data, err) {
 
-    }
-    else {
-        alert("FILL IN ALL THE BOXES, YO!!");
-    }
+                if(!data) {
+                    alert("Fill out the tags");
+                    return;
+                }
+                else {
+                    postInitTags();
+                    loadProfileMap();         
+                }
+            });
+        }
+    });
 });
 
 function scrollPage(panelID) {

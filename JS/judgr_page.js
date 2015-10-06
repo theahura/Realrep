@@ -12,7 +12,7 @@ var currentLoadedFriend = null;
 /**
 	Helper method that takes a list of hashtags and returns an associative list of hashtags
 */
-function getAssocHashtagList(hashtagList, callback) {
+function judgr_getAssocHashtagList(hashtagList, callback) {
 	var deferredArray = [];
 
 	var assocHashtagObj = {};
@@ -71,7 +71,7 @@ function getAssocHashtagList(hashtagList, callback) {
 /**
 	Defines parameters for a loaded friend
 */
-function loadedFriend(data, id) {
+function judgr_loadedFriend(data, id) {
 	this.id = id;
 	this.fullHashtagList = Object.keys(data);
 	this.hashtagRootObj = {};
@@ -81,11 +81,12 @@ function loadedFriend(data, id) {
 /**
 	Pulls up a users profile info and sets up the hashtag list
 */
-function loadUser() {
+function judgr_loadUser() {
 
 	if(global_friendsList.length === 0)
 		global_friendsList = global_friendsListUnmodified;
 
+	//NOT WORKING AS EXPECTED
 	var fbID = global_friendsList.pop();
 
 	socket.emit('clientToServer', {
@@ -124,7 +125,7 @@ function loadUser() {
 /**
 	Updates a profile with the current score for a user attribute and checks for/calls hashtag updates as needed
 */
-function updateUser(attribute, value) {
+function judgr_updateUser(attribute, value) {
 
 	//update profile globally
 	socket.emit('clientToServer', {
@@ -143,4 +144,101 @@ function updateUser(attribute, value) {
 		}
 
 	});
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------
+//UI GOES HERE
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+/**
+	Load a new user in the judgr profile slot
+*/
+$("#NewUserSelect").click(function() {
+	if (global_friendsList.length == 0) {
+		$("#ProfilePicture").attr("src", "../img/web1.png");
+		$(".hashtag").html("");
+	}
+	else {
+		loadUser();
+	}
+});
+
+
+/**
+	Select a hashtag to be associated with the profile that is currently loaded
+*/
+$('.endorsebutton').click(function() {
+	var button = $('.hashtag'); 
+
+	if(!$('.hashtag').html()) {
+		return;
+	}
+
+	updateUser($('.hashtag').html(), 1);
+
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
+	if(global_userTags.length > 0) { 
+		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		$(button).html(tag);
+	}
+	else {
+		$(button).html("");
+	}
+});
+
+/**
+	Swipe against a hashtag that should not be associated with the profile that is currnetly loaded
+*/
+$('.passbutton').click(function() {
+	var button = $('.hashtag'); 
+
+	if(!$('.hashtag').html()) {
+		return;
+	}
+
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
+	if(global_userTags.length > 0) { 
+		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		$('.hashtag').html(tag);
+	}
+	else {
+		$(button).html("");
+	}
+});
+
+
+/**
+	Loads the map for a friends profile on click from the profile picture
+*/
+$('#ProfilePicture').click(function() { 
+    $('.judgrpage').slideToggle();
+    $('.other-profile-page').slideToggle(function() {
+        loadOtherProfileMap();
+    });
+});
+
+
+/**
+	Moves from the judgr page to the self profile page
+*/
+$('.judgr-to-profile').click(function() {
+    $('.judgrpage').slideToggle();
+    $('.self-profile-page').slideToggle();
+    loadProfileMap();               
+})
+
+
+
+function postLoadUser(fbID, hashtagList) {
+
+    FBgetProfilePicture(fbID, function(url) {
+        $("#ProfilePicture").attr("src", url);
+    });
+
+    var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
+    $(".hashtag").html(tag);
 }

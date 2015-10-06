@@ -11,58 +11,23 @@ $('.view-judgr').click(function() {
 	loadUser();
 });
 
-//when you press the new user select button, call request user
-$("#NewUserSelect").click(function() {
-	if (global_friendsList.length == 0) {
-		$("#ProfilePicture").attr("src", "../img/web1.png");
-		$(".hashtag").html("");
-	}
-	else {
-		loadUser();
-	}
-});
-
-$('.endorsebutton').click(function() {
-	var button = $('.hashtag'); 
-
-	if(!$('.hashtag').html()) {
-		return;
-	}
-
-	updateUser($('.hashtag').html(), 1);
-
-	var global_userTags = currentLoadedFriend.fullHashtagList;
-
-	if(global_userTags.length > 0) { 
-		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
-		$(button).html(tag);
-	}
-	else {
-		$(button).html("");
-	}
-});
-
-$('.passbutton').click(function() {
-	var button = $('.hashtag'); 
-
-	if(!$('.hashtag').html()) {
-		return;
-	}
-
-	var global_userTags = currentLoadedFriend.fullHashtagList;
-
-	if(global_userTags.length > 0) { 
-		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
-		$('.hashtag').html(tag);
-	}
-	else {
-		$(button).html("");
-	}
-});
 
 $('.correlation-form').submit(function(event) {
 	event.preventDefault();
 	loadMap();
 });
 
+
+$( document ).ready( function() {
+    $("#loginLogo").fadeIn("slow");
+    $("#loginLogo").animate({width : "800px", height : "550px"});
+    $(".flavortext").delay( 800 ).fadeIn(1500);
+    $(this).scrollTop(0);
+});
+
+function scrollPage(panelID) {
+    $('body').animate({
+        scrollTop: $(panelID).offset().top
+    }, 1000);
+}
 

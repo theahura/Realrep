@@ -6,7 +6,7 @@
 	Description: Sets up user data
 */
 
-function setUserProfile(data) {
+function selfprofile_setUserProfile(data) {
 
 	delete data['userId']
 
@@ -39,17 +39,7 @@ function setUserProfile(data) {
 	}
 }
 
-function loadData(data) {
-	if(!jQuery.isEmptyObject(data)) {		
-		//mainUI.js
-		postLogin();
-	}
-	else {
-		getInitTags();
-	}
-}
-
-function login(callback) {
+function selfprofile_login(callback) {
 	//fb.js
 	FBlogin(function(id) {
 
@@ -74,7 +64,8 @@ function login(callback) {
 		});
 
 		FBgetFriends(id, function(list) {
-			global_friendsList = global_friendsListUnmodified = list; 
+			global_friendsList = list; 
+			global_friendsListUnmodified = list;
 			deferred_friends.resolve();
 		});
 
@@ -88,7 +79,7 @@ function login(callback) {
 
 }
 
-function loadProfileMap() {
+function selfprofile_loadProfileMap() {
 
 	socket.emit('clientToServer', {
 		name: 'getProfile',
@@ -160,15 +151,17 @@ function loadProfileMap() {
 	});
 }
 
-$(".judge").mouseenter(function() {
-       $(this).animate({width: '150px'}, "fast");
- });
-$(".judge").mouseleave(function() {
-   $(this).animate({width: '60px'}, "fast");;
-});
-$(".return").mouseenter(function() {
-   $(this).animate({width: '150px'}, "fast");
-});
-$(".return").mouseleave(function() {
-   $(this).animate({width: '60px'}, "fast");;
+//----------------------------------------------------------------------------------------------------------------------------
+//UI GOES HERE
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+$('.view-judgr').click(function() {
+    $('.self-profile-page').slideToggle();
+    $('.judgrpage').slideToggle();
+})
+
+$('.view-correlator').click(function() {
+    $('.self-profile-page').slideToggle();
+    $('.correlation-page').slideToggle();
 });

@@ -58,7 +58,7 @@ function loadOtherProfileMap() {
 			}
 
 		    // Instantiate our network object.
-		    var container = document.getElementById('OtherProfileMap');
+		    var container = document.getElementsByClassName('OtherProfileMap')[0];
 		    var data = {
 		        nodes: nodes,
 		        edges: edges

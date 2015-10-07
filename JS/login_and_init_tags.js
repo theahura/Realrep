@@ -244,7 +244,7 @@ $( document ).keydown(function(e) {
         break;
 
         case 40: // down
-            scrollPage(".initial-tag-page");
+            scrollPage(".initial-tag-page panel");
         break;
 
         default: return; // exit this handler for other keys
@@ -254,5 +254,5 @@ $( document ).keydown(function(e) {
 
 
 $('#theArrow').click(function() {
-    scrollPage(".initial-tag-page");
+    scrollPage(".initial-tag-page panel");
 });

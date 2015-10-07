@@ -1,25 +1,4 @@
- html,body
-{
-    font-family:"Raleway", "sans-serif";
-    font-weight:500;
-    -webkit-font-smoothing:antialiased;
-    -webkit-user-select: none;
-    color:#42A6F3;
-    height: 100%;
-    width: 100%;
-    font-size: 1vw;
-    padding: 0;
-    margin: 0;
-}
-
-ul, li
-{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-.login-header{
+.login-header {
     color: white;
     background-color: #00AA1E;
     font-size: 60px;
@@ -27,36 +6,6 @@ ul, li
     font-style: bold; 
     height: 100%;
 }
-
-.hidden {
-    display: none;
-}
-
-.button {
-    cursor: pointer;
-}
-
-.spacer-5 {
-    height: 5%;
-}
-
-.spacer-1 {
-    height: 1%;
-}
-
-.panel {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-}
-
-.profile-button {
-    font-size: 1.5vw;
-    border: solid;
-    width: 35%;
-    margin-top: 3%;
-    margin-left: 45%;
-}   
 
 .header {
     font-size: 3.5vw; 
@@ -71,12 +20,6 @@ ul, li
     text-align: center;
     margin-top: -100px;
 }
-
-
-.login-page {
-
-}
-
 
 .arrow {
   position: relative;
@@ -131,26 +74,3 @@ ul, li
    40% {transform: translateY(-30px);}
    60% {transform: translateY(-15px);}
 }
-
-.login-button {
-
-        margin-top: 1%;
-        width: 150px;
-        height: 150px;
-        background: white;
-        border-radius: 5px;
-        padding: .5%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: auto;
-        margin-top: auto;
-        line-height: 150px;
-        font-size: 22.5px; 
-        font-weight: bold;
-        background-color: white;
-        color: white;
-        border-radius: 75px;
-    
-    }
-
-

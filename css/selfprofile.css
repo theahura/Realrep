@@ -1,6 +1,15 @@
 .self-profile-page {
     color: #2e6391;
+	width: 100%;
+	height: 100%;
 }
+	
+	.ProfileNetwork {
+	    width: 90%;
+	    height: 60%;
+	    border: solid;
+	    margin-left: 5%;
+	}
 
 	.self-profile-page ul {
 		width: 100%;
@@ -12,73 +21,13 @@
 	}
 
 	.profile-container {
-
 		height: 80%;
 	}
 
-		.profile {
-
-		}
-
-			.profile label {
-				font-size: 3vw;
-				margin-bottom: 30%
-			}
-
-			.profile .bio {
-
-			}
-
-
-		.friends {
-			height: 100%;
-			overflow: auto;
-			margin-top: 5%;
-			margin-bottom: 5%;
-		}
-
-			.friends label {
-				font-size: 2vw;
-			}
-
-			.friends-data {
-				width: 80%;
-			    height: 80%;
-			    margin-left: 10%;
-			}
-
-				.friends-data tr {
-					height: 5%;
-					width: 80%;
-					margin-left: 10%;
-					display: table;
-				}
-
-					.friends-data .hashtag-name {
-						width: 20%;
-					}
-
-					.friends-data .bar-container {
-						width: 79%;
-						background: grey;
-						border-radius: 5px;    
-						padding: .7%;
-					}
-
-						.friends-data .bar {
-							background: blue;
-							height: 100%;
-							border-radius: 5px;
-                            color: bisque;
-						}
-
-
-		.facebook-web-container div {
-			font-size: 5vw;
-			margin-bottom: 5%;
-			color: black;
-		}
-
-        .judgr-container div {
-            font-size: 2vw;
-        }
+	.profile-button {
+	    font-size: 1.5vw;
+	    border: solid;
+	    width: 35%;
+	    margin-top: 3%;
+	    margin-left: 45%;
+	}

@@ -9,6 +9,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 		<!--CSS for various panels, one per page-->
+		<link rel="stylesheet" href="css/global.css" />
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
 		<link rel="stylesheet" href="css/otherprofilepanel.css" />
@@ -28,7 +29,7 @@
 		
 		<div class="login-page panel">
 			<div class= "login-header">
-				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px"></img>
+				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px">
 				<div class = "flavor-text">
 					<p>
 						Changing how the world sees the world,
@@ -45,7 +46,7 @@
         <div class="initial-tag-page panel">
             <div class="spacer-5"></div>
             <div class= "header" >
-				<img src="/img/realreplogo.png" style ="width: 170px; height: 116"></img>
+				<img src="/img/realreplogo.png" style ="width: 170px; height: 116">
 			</div>
             <div class="spacer-5"></div>
     
@@ -105,7 +106,7 @@
 
 		<div class="other-profile-page panel" hidden>
 			<div class="button otherprofile-to-judgr"> Back to Judgr </div>
-			<div id="OtherProfileMap"></div>
+			<div class="OtherProfileMap"></div>
 		</div>
 
 		<div class="correlation-page panel" hidden>
@@ -113,7 +114,7 @@
 			<div class="divider-2"></div>
 			<div class="divider-2"></div>
 			 <div class= "header" >
-				<img src="/img/realreplogo.png" style ="width: 170px; height: 116"></img>
+				<img src="/img/realreplogo.png" style ="width: 170px; height: 116">
 			</div>
 			<div class="divider-2"></div>
 			<form class='correlation-form'> 
@@ -123,9 +124,8 @@
 			<div class="divider-2"></div>
 			
 			<div class="button correlation-to-profile">
-			 Back to Profile </div>
-
-			<div id="Correlation-Network"></div>
+				Back to Profile
+			</div>
 		</div>
 
 		<div class="friend-network panel" hidden>
@@ -136,7 +136,7 @@
 			<div class="judgr-divider-2"> </div>
 
 			<div class="image-container"> 
-				<img style =" max-width:100%; max-height:100%" class="profile-picture" id="ProfilePicture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile"></img>
+				<img style =" max-width:100%; max-height:100%" class="profile-picture" src="../img/unknownprofile.jpg" class="button" alt="Unknown Profile">
 			</div>
 			
 			<div class="judgr-divider-2"> </div>
@@ -146,12 +146,12 @@
 			<ul class="hashtag-button-container">
 				<li>
 					<div class="endorsebutton button">
-						<img src="img/check.png"></img>
+						<img src="img/check.png">
 					</div>
 				</li>
 				<li>
 					<div class="passbutton button">
-						<img src="img/x.png"></img>
+						<img src="img/x.png">
 					</div>
 				</li>
 			</ul>
@@ -174,6 +174,12 @@
         <script src="JS/fb.js"></script> 
 		<script src="JS/mainUI.js"></script>
 		<script src="JS/main.js"></script>
+		<!-- new scripts -->
+		<script src="JS/self-profile.js"></script>
+		<script src="JS/correlation_page.js"></script>
+		<script src="JS/judgr_page.js"></script>
+		<script src="JS/login_and_init_tags.js"></script>
+		<script src="JS/fb_api.js"></script>
 
 	</body>
 </html>

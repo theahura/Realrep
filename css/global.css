@@ -1,0 +1,33 @@
+ html, body {
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+    font-size: 1vw;
+    padding: 0;
+    margin: 0;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+

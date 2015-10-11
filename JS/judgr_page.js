@@ -1,4 +1,5 @@
 /**
+/**
 	@author: Amol Kapoor
 	@date: 9-5-15
 	@version: 0.1
@@ -109,7 +110,7 @@ function judgr_loadUser() {
 
 		console.log(data);
 
-		currentLoadedFriend = new loadedFriend(data, fbID);
+		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
 
 		getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;
@@ -217,7 +218,7 @@ $('.passbutton').click(function() {
 $('.profile-picture').click(function() { 
     $('.judgrpage').slideToggle();
     $('.other-profile-page').slideToggle(function() {
-        loadOtherProfileMap();
+        otherprofile_loadOtherProfileMap();
     });
 });
 
@@ -228,7 +229,7 @@ $('.profile-picture').click(function() {
 $('.judgr-to-profile').click(function() {
     $('.judgrpage').slideToggle();
     $('.self-profile-page').slideToggle();
-    loadProfileMap();               
+    selfprofile_loadProfileMap();               
 })
 
 

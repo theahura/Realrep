@@ -6,7 +6,7 @@
 	Description: Sets up data for viewing correlations
 */
 
-function loadMap() {
+function correlation_loadMap() {
 
 	socket.emit('clientToServer', {
 		name: 'getHashtag',
@@ -85,5 +85,10 @@ function loadMap() {
 $('.correlation-to-profile').click(function() {
     $('.correlation-page').slideToggle();
     $('.self-profile-page').slideToggle();
-    loadProfileMap();               
+    selfprofile_loadProfileMap();               
+});
+
+$('.correlation-form').submit(function(event) {
+	event.preventDefault();
+	correlation_loadMap();
 });

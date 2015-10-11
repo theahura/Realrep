@@ -76,7 +76,6 @@ function selfprofile_login(callback) {
 
 		});
 	});
-
 }
 
 function selfprofile_loadProfileMap() {
@@ -165,3 +164,9 @@ $('.view-correlator').click(function() {
     $('.self-profile-page').slideToggle();
     $('.correlation-page').slideToggle();
 });
+
+//when you go to the judgr page, request a User
+$('.view-judgr').click(function() {
+	judgr_LoadUser();
+});
+

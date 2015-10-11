@@ -6,7 +6,7 @@
 	Description: Sets up data for other users
 */
 
-function loadOtherProfileMap() {
+function otherprofile_loadOtherProfileMap() {
 	socket.emit('clientToServer', {
 		name: 'getProfile',
 		hash: currentLoadedFriend.id

@@ -6,6 +6,17 @@
 	Description: Sets up data for viewing correlations
 */
 
+$('.correlation-to-profile').click(function() {
+    $('.correlation-page').slideToggle();
+    $('.self-profile-page').slideToggle();
+    selfprofile_loadProfileMap();               
+});
+
+$('.correlation-form').submit(function(event) {
+	event.preventDefault();
+	correlation_loadMap();
+});
+
 function correlation_loadMap() {
 
 	socket.emit('clientToServer', {
@@ -69,6 +80,10 @@ function correlation_loadMap() {
         	}
     	};
 
+		console.log(data)
+		console.log(container)
+		console.log(options)
+
       	var network = new vis.Network(container, data, options);
 		
 		network.on("afterDrawing", function() {
@@ -82,13 +97,3 @@ function correlation_loadMap() {
 //UI GOES HERE
 //----------------------------------------------------------------------------------------------------------------------------
 
-$('.correlation-to-profile').click(function() {
-    $('.correlation-page').slideToggle();
-    $('.self-profile-page').slideToggle();
-    selfprofile_loadProfileMap();               
-});
-
-$('.correlation-form').submit(function(event) {
-	event.preventDefault();
-	correlation_loadMap();
-});

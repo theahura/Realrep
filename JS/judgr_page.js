@@ -85,9 +85,8 @@ function judgr_loadedFriend(data, id) {
 function judgr_loadUser() {
 
 	if(global_friendsList.length === 0)
-		global_friendsList = global_friendsListUnmodified;
+		global_friendsList = global_friendsListUnmodified.slice(0);
 
-	//NOT WORKING AS EXPECTED
 	var fbID = global_friendsList.pop();
 
 	socket.emit('clientToServer', {
@@ -96,7 +95,7 @@ function judgr_loadUser() {
 	}, function(data, err) {
 
 		if(!data) {
-			loadUser();
+			judgr_loadUser();
 			return;
 		}
 
@@ -112,7 +111,7 @@ function judgr_loadUser() {
 
 		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
 
-		getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
+		judgr_getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;
 			currentLoadedFriend.hashtagRootObj = flippedHashtagObj;
 			postLoadUser(fbID, assoclist);
@@ -162,7 +161,7 @@ $("#NewUserSelect").click(function() {
 		$(".hashtag").html("");
 	}
 	else {
-		loadUser();
+		judgr_loadUser();
 	}
 });
 
@@ -235,7 +234,6 @@ $('.judgr-to-profile').click(function() {
 
 
 function postLoadUser(fbID, hashtagList) {
-
     FBgetProfilePicture(fbID, function(url) {
         $(".profile-picture").attr("src", url);
     });

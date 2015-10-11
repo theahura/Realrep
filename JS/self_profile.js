@@ -64,8 +64,10 @@ function selfprofile_login(callback) {
 		});
 
 		FBgetFriends(id, function(list) {
-			global_friendsList = list; 
-			global_friendsListUnmodified = list;
+
+			global_friendsList = list.slice(0); 
+			global_friendsListUnmodified = list.slice(0);
+			
 			deferred_friends.resolve();
 		});
 
@@ -158,6 +160,7 @@ function selfprofile_loadProfileMap() {
 $('.view-judgr').click(function() {
     $('.self-profile-page').slideToggle();
     $('.judgrpage').slideToggle();
+	judgr_loadUser();
 })
 
 $('.view-correlator').click(function() {
@@ -165,8 +168,4 @@ $('.view-correlator').click(function() {
     $('.correlation-page').slideToggle();
 });
 
-//when you go to the judgr page, request a User
-$('.view-judgr').click(function() {
-	judgr_LoadUser();
-});
 

@@ -157,7 +157,7 @@ function judgr_updateUser(attribute, value) {
 */
 $("#NewUserSelect").click(function() {
 	if (global_friendsList.length == 0) {
-		$("#ProfilePicture").attr("src", "../img/web1.png");
+		$(".profile-picture").attr("src", "../img/web1.png");
 		$(".hashtag").html("");
 	}
 	else {
@@ -214,7 +214,7 @@ $('.passbutton').click(function() {
 /**
 	Loads the map for a friends profile on click from the profile picture
 */
-$('#ProfilePicture').click(function() { 
+$('.profile-picture').click(function() { 
     $('.judgrpage').slideToggle();
     $('.other-profile-page').slideToggle(function() {
         loadOtherProfileMap();
@@ -236,7 +236,7 @@ $('.judgr-to-profile').click(function() {
 function postLoadUser(fbID, hashtagList) {
 
     FBgetProfilePicture(fbID, function(url) {
-        $("#ProfilePicture").attr("src", url);
+        $(".profile-picture").attr("src", url);
     });
 
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];

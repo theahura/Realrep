@@ -12,6 +12,11 @@
       height: 100%;
   }
 
+    .login-logo {
+      width: 60%;
+      height: 80%;
+    }
+
   .header {
       font-size: 3.5vw; 
       text-align: center; 

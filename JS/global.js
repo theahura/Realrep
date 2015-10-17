@@ -45,7 +45,6 @@ $(window).load(function() {
 	$('.initial-tag-page').delay( 300 ).fadeIn(600);
 
 	$("#loginLogo").fadeIn("slow");
-	$("#loginLogo").animate({width : "800px", height : "550px"});
 	$(".flavortext").delay( 800 ).fadeIn(1500);
 	$(this).scrollTop(0);
 });

@@ -6,6 +6,7 @@
       background-image: url('../img/login-background.jpg');
       background-size: cover;
       background-repeat: no-repeat; 
+      background-position: center;
       font-size: 60px;
       text-align: center; 
       font-style: bold; 

@@ -1,5 +1,9 @@
 .initial-tag-page {
     color: blue;
+    background-image: url('../img/initial-tag-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center;
 }
 
 .initial-tag-page .instructions{

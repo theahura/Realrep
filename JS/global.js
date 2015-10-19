@@ -37,6 +37,17 @@ var global_NeutralAssociations = ['Democrat', 'Republican', 'Conservative', 'Lib
 
 var global_baseAssociations = global_PositiveAssociations.concat(global_NeutralAssociations, global_NegativeAssociations);
 
+/**
+	Triggers page load
+*/
+$(window).load(function() {
+	$('.login-page').delay( 300 ).fadeIn(600);
+	$('.initial-tag-page').delay( 300 ).fadeIn(600);
+
+	$("#loginLogo").fadeIn("slow");
+	$(".flavortext").delay( 800 ).fadeIn(1500);
+	$(this).scrollTop(0);
+});
 
 /**
 	Returns an object as key value pairs 
@@ -64,13 +75,6 @@ function stripDynamoSettings(data) {
 function sortObject(data) {
 	return Object.keys(data).sort(function(a,b){return data[a]-data[b]});
 }
-
-$( document ).ready( function() {
-    $("#loginLogo").fadeIn("slow");
-    $("#loginLogo").animate({width : "800px", height : "550px"});
-    $(".flavortext").delay( 800 ).fadeIn(1500);
-    $(this).scrollTop(0);
-});
 
 function scrollPage(panelID) {
     $('body').animate({

@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
 		<link rel="stylesheet" href="css/otherprofilepanel.css" />
-		<link rel="stylesheet" href="css/userprofile.css" />
         <link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
         <link rel="stylesheet" href="css/initialtag.css" />
@@ -27,23 +26,16 @@
 
 	<body>
 		
-		<div class="login-page panel">
+		<div class="login-page panel" hidden>
 			<div class= "login-header">
-				<img id="loginLogo" src="img/logo1.png" style ="width: 410px; height: 290px">
-				<div class = "flavor-text">
-					<p>
-						Changing how the world sees the world,
-						<br>
-						one swipe at a time
-					</p>
-	            </div>
+				<!-- <img class="login-logo" src="img/logo1.png"> -->
 			</div>
 			<div class="arrow animated bounce button" id="theArrow">
 				<img width="80" height="80" alt="" src="img/downarrow.svg" />
 			</div>
         </div>
     
-        <div class="initial-tag-page panel">
+        <div class="initial-tag-page panel" hidden>
             <div class="spacer-5"></div>
             <div class= "header" >
 				<img src="/img/realreplogo.png" style ="width: 170px; height: 116">
@@ -90,17 +82,19 @@
             </div>
         </div>
 		
-		<div class="self-profile-page panel" hidden>                   
-			<div id="ProfileNetwork"></div>
+		<div class="self-profile-page panel" hidden>
+			<div class="imageholder">                   
+				<div id="ProfileNetwork"></div>
 
-        	<ul>
-        		<li>
-                    <div class = "profile-button button view-judgr"> Judge Your Friends </div>
-                </li>
-                <li>
-                    <div class = "profile-button button view-correlator"> See What the World Thinks </div>
-                </li>
-            </ul>
+	        	<ul>
+	        		<li>
+	                    <div class = "profile-button button view-judgr"> Judge Your Friends </div>
+	                </li>
+	                <li>
+	                    <div class = "profile-button button view-correlator"> Correlation Page </div>
+	                </li>
+	            </ul>
+	        </div>
 
 		</div>
 

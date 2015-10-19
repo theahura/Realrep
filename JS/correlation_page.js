@@ -6,17 +6,15 @@
 	Description: Sets up data for viewing correlations
 */
 
-$('.correlation-to-profile').click(function() {
-    $('.correlation-page').slideToggle();
-    $('.self-profile-page').slideToggle();
-    selfprofile_loadProfileMap();               
-});
+/**
+	Loads a hashtag map based on user output to an HTML text input.
 
-$('.correlation-form').submit(function(event) {
-	event.preventDefault();
-	correlation_loadMap();
-});
+	Emits a request 
 
+	Dependent on mapping library. 
+
+	TODO: Combine with other loadmap functions - see otherprofile and selfprofile
+*/
 function correlation_loadMap() {
 
 	socket.emit('clientToServer', {
@@ -97,3 +95,19 @@ function correlation_loadMap() {
 //UI GOES HERE
 //----------------------------------------------------------------------------------------------------------------------------
 
+/**
+	Sets up 'back' button to go from correlation page to home page
+*/
+$('.correlation-to-profile').click(function() {
+    $('.correlation-page').slideToggle();
+    $('.self-profile-page').slideToggle();
+    selfprofile_loadProfileMap();               
+});
+
+/**
+	Triggers new map loading
+*/
+$('.correlation-form').submit(function(event) {
+	event.preventDefault();
+	correlation_loadMap();
+});

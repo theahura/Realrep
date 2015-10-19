@@ -7,18 +7,37 @@
 */
 
 
+/**
+    Mechanism to call the past user data. Logs into facebook, emits getProfile with the facebook userId on callback, and
+    triggers UI change if successful login on both Facebook AND RealRep
+*/
+function loginPastUser() {
+    selfprofile_login(function() {
+        socket.emit('clientToServer', {
+            name: 'getProfile',
+            hash: global_ID
+        }, function(data, err) {
 
-//----------------------------------------------------------------------------------------------------------------------------
-//UI GOES HERE
-//----------------------------------------------------------------------------------------------------------------------------
+            if(!data) {
+                alert("Fill out the tags and create a new user");
+                return;
+            }
+            else {
+                postLogin();
+            }
+        });
+    });
+}
 
 
-$("#old-user-login").click(function() {
-    selfprofile_login();
-});
+/**
+    Mechanism to sign up new users. Logs into facebook, generates a set of tags based on user input, sends those tags to server, 
+    and triggers UI change if everything is successful. If the tags are not all full, attempts to log in as old user. 
 
-$('#tag-submit').click(function() {
-
+    TODO: Make sure that if a user signs up WITH tags and there is already old data for that user, it does not pass the system check 
+*/
+function loginNewUser() {
+    
     var tag1 = $("#tag-field1").val();
     var tag2 = $("#tag-field2").val();
     var tag3 = $("#tag-field3").val();
@@ -53,39 +72,46 @@ $('#tag-submit').click(function() {
                 }
                 else {
                     console.log(incomingObj);
-                    postInitTags();
-                    selfprofile_loadProfileMap();
+                    postLogin();
                 }
             });
-
-            postLogin();
-
         }
         else {
-
-            socket.emit('clientToServer', {
-                name: 'getProfile',
-                hash: global_ID
-            }, function(data, err) {
-
-                if(!data) {
-                    alert("Fill out the tags");
-                    return;
-                }
-                else {
-                    postInitTags();
-                    selfprofile_loadProfileMap();         
-                }
-            });
+            loginPastUser();
         }
     });
-});
-
-function postInitTags() {
-    $('.initial-tag-page').slideToggle();
-    $('.self-profile-page').slideToggle();
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------
+//UI GOES HERE
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+/**
+    Click binding so that when hitting the downbounce arrow, the screen scrolls down 
+*/
+$('#theArrow').click(function() {
+    scrollPage(".initial-tag-page");
+});
+
+/**
+    Triggers sign-in process for old users. If data cannot be found for a FB userID, requests a new signup
+*/
+$("#old-user-login").click(function() {
+    loginPastUser();
+});
+
+/**
+    Sets up a new user, or, if an old user exists, signs in the old user. 
+*/
+$('#tag-submit').click(function() {
+    loginNewUser();
+});
+
+/**
+    After signing in or signing up, opens up the user's personal map page
+*/
 function postLogin() {
     $(".login-page").slideToggle();
     $(".initial-tag-page").slideToggle();
@@ -93,6 +119,9 @@ function postLogin() {
     selfprofile_loadProfileMap();
 }
 
+/**
+    Key binding for key up and key down with the downbounce arrow
+*/
 $( document ).keydown(function(e) {
     switch(e.which) {
         case 38: // up
@@ -106,9 +135,4 @@ $( document ).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-
-
-$('#theArrow').click(function() {
-    scrollPage(".initial-tag-page");
 });

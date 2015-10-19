@@ -1,28 +1,22 @@
 .initial-tag-page {
-    color: white;
+    color: blue;
     background-image: url('../img/initial-tag-background.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
     background-position: center;
 }
 
     .initial-tag-page .initial-tag-content {
-        background: rgba(138, 172, 184, 0.90);
-        width: 40%;
-        height: 80%;
-        margin-left: 30%;
-        padding: 2%;
-        border-radius: 5vw;
-        /* margin-top: 5%; */
+        background: grey;
     }
 
         .initial-tag-page .instructions{
             font-size: 2vw;
-            /* font-family: monospace; */
+            font-family: monospace; 
         }
 
         .initial-tag-page .suggestion{
-            /* font-family: monospace; */
+            font-family: monospace;
             font-size: 1.25vw;
         }
 
@@ -43,21 +37,21 @@
             width: 100%;
             padding: 7px;
             border: none;
-            border-bottom: 4px solid #ddd;
+            border-bottom: 1px solid #ddd;
             background: transparent;
             margin-bottom: 10px;
             font: 16px 'Raleway';
             height: 45px;
         }
 
-    .initial-tag-page input[type="button"] {
-        background-color: #415fb1;
-        border: 1px solid #27A0A0;
-        display: inline-block;
-        cursor: pointer;
-        color: #FFFFFF;
-        font-family: 'Raleway';
-        font-size: 14px;
-        padding: 8px 18px;
-        text-decoration: none;
-    }
+        .initial-tag-form input[type="button"] {
+            background-color: #415fb1;
+            border: 1px solid #27A0A0;
+            display: inline-block;
+            cursor: pointer;
+            color: #FFFFFF;
+            font-family: 'Raleway';
+            font-size: 14px;
+            padding: 8px 18px;
+            text-decoration: none;
+        }

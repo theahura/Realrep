@@ -1,0 +1,17 @@
+.correlation-page {
+	width: 100%;
+	height: 100%;
+    display: hidden;
+}
+
+	.divider-1{
+        width:100%;
+        height: 6%;
+        background-color: #50DF50;
+    }
+
+    .divider-2{
+        width:100%;
+        height: 3%;
+        background-color: transparent;
+    }

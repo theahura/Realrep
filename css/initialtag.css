@@ -1,61 +1,63 @@
 .initial-tag-page {
-    color: blue;
+    color: white;
     background-image: url('../img/initial-tag-background.jpg');
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
 }
 
-.initial-tag-page .instructions{
-    font-size: 2vw;
-    font-family: monospace; 
-}
+    .initial-tag-page .initial-tag-content {
+        background: radial-gradient(rgba(138, 172, 184, .5), rgba(138, 172, 184, ));
+        width: 40%;
+        height: 80%;
+        margin-left: 30%;
+        padding: 2%;
+        border-radius: 5vw;
+        /* margin-top: 5%; */
+    }
 
-.initial-tag-page .suggestion{
-    font-family: monospace;
-    font-size: 1.25vw;
-}
+        .initial-tag-page .instructions{
+            font-size: 2vw;
+            /* font-family: monospace; */
+        }
 
-.initial-tag-page table{
-    width: 100%;
-}
+        .initial-tag-page .suggestion{
+            /* font-family: monospace; */
+            font-size: 1.25vw;
+        }
 
-.initial-tag-form{
-    font-family: 'Raleway';
-    width: 500px;
-    margin: 20px auto;
-}
+        .initial-tag-page table{
+            width: 100%;
+        }
 
-.initial-tag-form input[type="text"] {
-    box-sizing: border-box;
-    outline: none;
-    display: block;
-    width: 100%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin-bottom: 10px;
-    font: 16px 'Raleway';
-    height: 45px;
-}
+        .initial-tag-form{
+            font-family: 'Raleway';
+            width: 500px;
+            margin: 20px auto;
+        }
 
-.initial-tag-form input[type="button"] {
-    background-color: #415fb1;
-    border: 1px solid #27A0A0;
-    display: inline-block;
-    cursor: pointer;
-    color: #FFFFFF;
-    font-family: 'Raleway';
-    font-size: 14px;
-    padding: 8px 18px;
-    text-decoration: none;
-}
+        .initial-tag-form input[type="text"] {
+            box-sizing: border-box;
+            outline: none;
+            display: block;
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-bottom: 4px solid #ddd;
+            background: transparent;
+            margin-bottom: 10px;
+            font: 16px 'Raleway';
+            height: 45px;
+        }
 
-.spacer-5 {
-    height: 5%;
-}
-
-.spacer-1 {
-    height: 1%;
-}
+    .initial-tag-page input[type="button"] {
+        background-color: #415fb1;
+        border: 1px solid #27A0A0;
+        display: inline-block;
+        cursor: pointer;
+        color: #FFFFFF;
+        font-family: 'Raleway';
+        font-size: 14px;
+        padding: 8px 18px;
+        text-decoration: none;
+    }

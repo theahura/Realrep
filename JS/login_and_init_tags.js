@@ -103,6 +103,15 @@ $("#old-user-login").click(function() {
 });
 
 /**
+    Opens the init tag div
+*/
+$('#new-user-login').click(function() {
+    $(".old-user-signup").fadeOut(function() {
+        $(".new-user-signup").fadeIn();
+    });
+});
+
+/**
     Sets up a new user, or, if an old user exists, signs in the old user. 
 */
 $('#tag-submit').click(function() {

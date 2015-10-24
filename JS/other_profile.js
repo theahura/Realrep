@@ -89,6 +89,9 @@ function otherprofile_loadOtherProfileMap() {
 //UI GOES HERE
 //----------------------------------------------------------------------------------------------------------------------------
 
+/**
+	Switches back from the other profile page to the judgr page
+*/
 $('.otherprofile-to-judgr').click(function() {
     $('.other-profile-page').slideToggle();
     $('.judgrpage').slideToggle();

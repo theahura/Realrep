@@ -6,6 +6,9 @@
 	Description: Sets up user data
 */
 
+/**
+	Loads the user data for a given logged in user. 
+
 function selfprofile_setUserProfile(data) {
 
 	delete data['userId']
@@ -38,7 +41,13 @@ function selfprofile_setUserProfile(data) {
     	$('#DataBar-' + i).find('.bar').width(data[sortedKeys[i]]/divisor + "%");
 	}
 }
+*/
 
+/**
+	Logs in a user to facebook. Loads the user's id, friends list. 
+
+	@param: callback; type: function; what to do when both user id and friends list have loaded
+*/
 function selfprofile_login(callback) {
 	//fb.js
 	FBlogin(function(id) {
@@ -80,6 +89,9 @@ function selfprofile_login(callback) {
 	});
 }
 
+/**
+	Loads the profile map for a logged in user
+*/
 function selfprofile_loadProfileMap() {
 
 	socket.emit('clientToServer', {

@@ -11,7 +11,7 @@
     Mechanism to call the past user data. Logs into facebook, emits getProfile with the facebook userId on callback, and
     triggers UI change if successful login on both Facebook AND RealRep
 */
-function loginPastUser() {
+function loginPastUser(callback) {
     selfprofile_login(function() {
         socket.emit('clientToServer', {
             name: 'getProfile',
@@ -19,7 +19,11 @@ function loginPastUser() {
         }, function(data, err) {
 
             if(!data) {
-                alert("Fill out the tags and create a new user");
+                if(!callback)
+                    alert("Fill out the tags and create a new user");
+                else 
+                    callback();
+
                 return;
             }
             else {
@@ -33,8 +37,6 @@ function loginPastUser() {
 /**
     Mechanism to sign up new users. Logs into facebook, generates a set of tags based on user input, sends those tags to server, 
     and triggers UI change if everything is successful. If the tags are not all full, attempts to log in as old user. 
-
-    TODO: Make sure that if a user signs up WITH tags and there is already old data for that user, it does not pass the system check 
 */
 function loginNewUser() {
     
@@ -45,40 +47,62 @@ function loginNewUser() {
     var tag5 = $("#tag-field5").val();
     var tag6 = $("#tag-field6").val();
 
-    selfprofile_login(function() {
-        //NEED TO ADD CHECK TO MAKE SURE GLOBAL ID ISN'T ALREADY REFERENCED
-        if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
-
-            var incomingObj = {
-                name: 'addUser',
-                hash: global_ID
+    function notEqual(array) {
+       for(var i = 0; i < array.length; i++) {
+            for(var j = i; j < array.length; i++) {
+                if(array[i] === array[j]) {
+                    return false;
+                }
             }
+       }
 
-            incomingObj[$("#tag-field1").val()] = 10;
-            incomingObj[$("#tag-field2").val()] = 10;
-            incomingObj[$("#tag-field3").val()] = 10;
-            incomingObj[$("#tag-field4").val()] = 10;
-            incomingObj[$("#tag-field5").val()] = 10;
-            incomingObj[$("#tag-field6").val()] = 10;
-            
-            console.log("top");
-            console.log(incomingObj);
-            console.log(global_ID);
-            console.log("bottom");
+       return true;             
+    }
 
-            socket.emit('clientToServer', incomingObj, function(data, err) {
-                if(err) {
-                    console.log(err);
+    selfprofile_login(function() {
+
+        loginPastUser(function() {
+
+            if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
+
+                var tagArray = [tag1, tag2, tag3, tag4, tag5, tag6];
+
+                if(!notEqual(tagArray)) {
+                    alert("Please select different tags for each value");
+                    return;
                 }
-                else {
-                    console.log(incomingObj);
-                    postLogin();
+
+                if(tagArray.every)
+
+                var incomingObj = {
+                    name: 'addUser',
+                    hash: global_ID
                 }
-            });
-        }
-        else {
-            loginPastUser();
-        }
+
+                incomingObj[$("#tag-field1").val()] = 10;
+                incomingObj[$("#tag-field2").val()] = 10;
+                incomingObj[$("#tag-field3").val()] = 10;
+                incomingObj[$("#tag-field4").val()] = 10;
+                incomingObj[$("#tag-field5").val()] = 10;
+                incomingObj[$("#tag-field6").val()] = 10;
+      
+
+                socket.emit('clientToServer', incomingObj, function(data, err) {
+                    if(err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(incomingObj);
+                        postLogin();
+                    }
+                });
+            }
+            else {
+                alert("Please fill out all of the tags before continuing");
+            }
+     
+        });
+
     });
 }
 
@@ -100,6 +124,15 @@ $('#theArrow').click(function() {
 */
 $("#old-user-login").click(function() {
     loginPastUser();
+});
+
+/**
+    Opens the init tag div
+*/
+$('#new-user-login').click(function() {
+    $(".old-user-signup").fadeOut(function() {
+        $(".new-user-signup").fadeIn();
+    });
 });
 
 /**

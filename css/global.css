@@ -38,3 +38,15 @@ ul, li {
 .spacer-1 {
     height: 1%;
 }
+
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+

@@ -90,6 +90,7 @@ function selfprofile_login(callback) {
 }
 
 function createGraph(DOMelement, graph) {
+
 	var width = 960,
 	    height = 500;
 
@@ -97,7 +98,7 @@ function createGraph(DOMelement, graph) {
 
 	var force = d3.layout.force()
 	    .charge(-120)
-	    .linkDistance(30)
+	    .linkDistance(60)
 	    .size([width, height]);
 
 	var svg = d3.select(DOMelement).append("svg")
@@ -113,18 +114,20 @@ function createGraph(DOMelement, graph) {
 		.data(graph.links)
 	.enter().append("line")
 		.attr("class", "link")
-		.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+		.style("stroke-width", function(d) { return 5; });
 
 	var node = svg.selectAll(".node")
 		.data(graph.nodes)
 	.enter().append("circle")
 		.attr("class", "node")
-		.attr("r", 5)
-		.style("fill", function(d) { return color(d.group); })
+		.attr("r", function(d) { return d.value})
+		.style("fill", function(d) { return d3.rgb("white"); })
 		.call(force.drag);
 
+	//http://stackoverflow.com/questions/24388982/text-not-showing-in-forcelayout-d3js-but-present-in-view
+	//this needs to be in a group, not attached to the same thing
 	node.append("title")
-		.text(function(d) { return d.name; });
+		.text(function(d) {	return d.label; });
 
 	force.on("tick", function() {
 		link.attr("x1", function(d) { return d.source.x; })
@@ -172,7 +175,7 @@ function selfprofile_loadProfileMap() {
 		var nodes = [];
 		var edges = [];
 
-		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
+		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20});
 
 		for(index in sortedKeys) {
 			if(sortedKeys[index] === global_name)
@@ -189,7 +192,7 @@ function selfprofile_loadProfileMap() {
 		graph.nodes = nodes;
 		graph.links = edges;
 
-		createGraph("#ProfileNetwork",graph);
+		createGraph(".imageholder",graph);
 
 	});
 }

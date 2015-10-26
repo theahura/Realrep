@@ -80,6 +80,56 @@ function selfprofile_login(callback) {
 	});
 }
 
+
+function createGraph(DOMelement, graph) {
+	var width = 960,
+	    height = 500;
+
+	var color = d3.scale.category20();
+
+	var force = d3.layout.force()
+	    .charge(-120)
+	    .linkDistance(30)
+	    .size([width, height]);
+
+	var svg = d3.select(DOMelement).append("svg")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	force
+		.nodes(graph.nodes)
+		.links(graph.links)
+		.start();
+
+	var link = svg.selectAll(".link")
+		.data(graph.links)
+	.enter().append("line")
+		.attr("class", "link")
+		.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+	var node = svg.selectAll(".node")
+		.data(graph.nodes)
+	.enter().append("circle")
+		.attr("class", "node")
+		.attr("r", 5)
+		.style("fill", function(d) { return color(d.group); })
+		.call(force.drag);
+
+	node.append("title")
+		.text(function(d) { return d.name; });
+
+	force.on("tick", function() {
+		link.attr("x1", function(d) { return d.source.x; })
+		    .attr("y1", function(d) { return d.source.y; })
+		    .attr("x2", function(d) { return d.target.x; })
+		    .attr("y2", function(d) { return d.target.y; });
+
+		node.attr("cx", function(d) { return d.x; })
+		    .attr("cy", function(d) { return d.y; });
+	});	
+}
+
+
 function selfprofile_loadProfileMap() {
 
 	socket.emit('clientToServer', {
@@ -112,7 +162,7 @@ function selfprofile_loadProfileMap() {
 		var nodes = [];
 		var edges = [];
 
-		nodes.push({id: 0, label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
+		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 1});
 
 		for(index in sortedKeys) {
 			if(sortedKeys[index] === global_name)
@@ -120,37 +170,20 @@ function selfprofile_loadProfileMap() {
 
 			index = parseInt(index);
 
-			nodes.push({id: index + 1, label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
-			edges.push({from: index + 1, to: 0});
+			nodes.push({label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
+			edges.push({source: index + 1, target: 0});
 		}
 
+		var graph = {};
 
-	    // Instantiate our network object.
-	    var container = document.getElementById('ProfileNetwork');
-	    var data = {
-	        nodes: nodes,
-	        edges: edges
-	    };
-	    var options = {
-	        nodes: {
-	            shape: 'dot',
-	          	scaling:{
-	            	label: {
-	              		min:50,
-	              		max:200
-	            	}
-	          	}
-        	}
-    	};
+		graph.nodes = nodes;
+		graph.links = edges;
 
-      	var network = new vis.Network(container, data, options);
+		createGraph("#ProfileNetwork",graph);
 
-      	network.on("afterDrawing", function() {
-      		if(network.getScale() !== 1.0)
-      			network.focus(0, {scale: 1.0, offset: {y:20}});
-      	});
 	});
 }
+**/
 
 //----------------------------------------------------------------------------------------------------------------------------
 //UI GOES HERE

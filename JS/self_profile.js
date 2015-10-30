@@ -89,6 +89,13 @@ function selfprofile_login(callback) {
 	});
 }
 
+
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
+
 function createGraph(DOMelement, graph) {
 
 	var width = 960,
@@ -97,8 +104,8 @@ function createGraph(DOMelement, graph) {
 	var color = d3.scale.category20();
 
 	var force = d3.layout.force()
-	    .charge(-200)
-	    .linkDistance(100)
+	    .charge(-1000)
+	    .linkDistance(150)
 	    .size([width, height]);
 
 	var svg = d3.select(DOMelement).append("svg")
@@ -121,24 +128,37 @@ function createGraph(DOMelement, graph) {
 	.enter().append("g")
 		.attr("class", "node")
 		.call(force.drag)
+		.on("mouseover", function(d) {
+			d3.select(this).moveToFront();
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value * 5});
+		    d3.select(this).select(".node-text").transition().text(function(d) { return d.label + " - " + d.value; });
+		})
+		.on("mouseout", function(d) {
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value});
+		    d3.select(this).select(".node-text").transition().text(function(d) { 
+		    	if(!d.name) 
+					return d.value; 
+				
+				return d.label;
+			});
+		});
 
 	node.append('circle')
 		.attr("r", function(d) { return d.value})
+		.attr("class", "node-circle")
 		.style("fill", function(d) { return d3.rgb("red"); })
-		.on("mouseover", function(d) {
-			d3.select(this).transition().attr("r", function(d) { return d.value * 5});
-		})
-		.on("mouseout", function(d) {
-			d3.select(this).transition().attr("r", function(d) { return d.value});
-		});
-
 
 	//http://stackoverflow.com/questions/24388982/text-not-showing-in-forcelayout-d3js-but-present-in-view
 	//this needs to be in a group, not attached to the same thing
 	node.append("text")
-    	.attr("x", 12)
-    	.attr("dy", ".35em")
-		.text(function(d) {	return d.label; });
+	    .attr("text-anchor", "middle")
+		.attr("class", "node-text")
+		.text(function(d) {	
+			if(!d.name) 
+				return d.value;
+			
+			return d.label; 
+		});
 
 	force.on("tick", function() {
 		link.attr("x1", function(d) { return d.source.x; })
@@ -186,7 +206,7 @@ function selfprofile_loadProfileMap() {
 		var nodes = [];
 		var edges = [];
 
-		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20});
+		nodes.push({name: true, label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 30});
 
 		for(index in sortedKeys) {
 			if(sortedKeys[index] === global_name)
@@ -194,7 +214,7 @@ function selfprofile_loadProfileMap() {
 
 			index = parseInt(index);
 
-			nodes.push({label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
+			nodes.push({label: sortedKeys[index], value: dataObj[sortedKeys[index]] + 5});
 			edges.push({source: index + 1, target: 0});
 		}
 

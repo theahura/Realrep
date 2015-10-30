@@ -97,8 +97,8 @@ function createGraph(DOMelement, graph) {
 	var color = d3.scale.category20();
 
 	var force = d3.layout.force()
-	    .charge(-120)
-	    .linkDistance(60)
+	    .charge(-200)
+	    .linkDistance(100)
 	    .size([width, height]);
 
 	var svg = d3.select(DOMelement).append("svg")
@@ -118,15 +118,26 @@ function createGraph(DOMelement, graph) {
 
 	var node = svg.selectAll(".node")
 		.data(graph.nodes)
-	.enter().append("circle")
+	.enter().append("g")
 		.attr("class", "node")
+		.call(force.drag)
+
+	node.append('circle')
 		.attr("r", function(d) { return d.value})
-		.style("fill", function(d) { return d3.rgb("white"); })
-		.call(force.drag);
+		.style("fill", function(d) { return d3.rgb("red"); })
+		.on("mouseover", function(d) {
+			d3.select(this).transition().attr("r", function(d) { return d.value * 5});
+		})
+		.on("mouseout", function(d) {
+			d3.select(this).transition().attr("r", function(d) { return d.value});
+		});
+
 
 	//http://stackoverflow.com/questions/24388982/text-not-showing-in-forcelayout-d3js-but-present-in-view
 	//this needs to be in a group, not attached to the same thing
-	node.append("title")
+	node.append("text")
+    	.attr("x", 12)
+    	.attr("dy", ".35em")
 		.text(function(d) {	return d.label; });
 
 	force.on("tick", function() {
@@ -135,8 +146,8 @@ function createGraph(DOMelement, graph) {
 		    .attr("x2", function(d) { return d.target.x; })
 		    .attr("y2", function(d) { return d.target.y; });
 
-		node.attr("cx", function(d) { return d.x; })
-		    .attr("cy", function(d) { return d.y; });
+		node
+			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	});	
 }
 

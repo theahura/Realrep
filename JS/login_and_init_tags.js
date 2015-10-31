@@ -148,8 +148,9 @@ $('#tag-submit').click(function() {
 function postLogin() {
     $(".login-page").slideToggle();
     $(".initial-tag-page").slideToggle();
-    $(".self-profile-page").slideToggle();
-    selfprofile_loadProfileMap();
+    $(".self-profile-page").slideToggle(function() {
+        selfprofile_loadProfileMap();
+    });
 }
 
 /**

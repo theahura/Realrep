@@ -100,8 +100,8 @@ d3.selection.prototype.moveToFront = function() {
 
 function createGraph(DOMelement, graph) {
 
-	var width = 960,
-	    height = 500;
+	var width = 800,
+	    height = 800;
 
 	var color = d3.scale.category20();
 
@@ -110,10 +110,15 @@ function createGraph(DOMelement, graph) {
 	    .linkDistance(150)
 	    .size([width, height]);
 
-	var svg = d3.select(DOMelement).append("svg")
-	    .attr("width", width)
-	    .attr("height", height);
-
+	var svg = d3.select(DOMelement)
+   		.append("svg")
+   			//responsive SVG needs these 2 attributes and no width and height attr
+   			.attr("preserveAspectRatio", "xMinYMin meet")
+   			.attr("viewBox", "0 0 " + width + " " + height)
+   			//class to make it responsive
+   			.classed("svg-content-responsive", true)
+			.attr("width", $('.svg-container').width())
+			.attr("height", $('.svg-container').height());
 	force
 		.nodes(graph.nodes)
 		.links(graph.links)
@@ -123,7 +128,7 @@ function createGraph(DOMelement, graph) {
 		.data(graph.links)
 	.enter().append("line")
 		.attr("class", "link")
-		.style("stroke-width", function(d) { return 5; });
+		.style("stroke-width", function(d) { return 3; });
 
 	var node = svg.selectAll(".node")
 		.data(graph.nodes)
@@ -136,7 +141,7 @@ function createGraph(DOMelement, graph) {
 		    d3.select(this).select(".node-text").transition().text(function(d) { return d.label + " - " + d.value; });
 		})
 		.on("mouseout", function(d) {
-			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value});
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value + 5});
 		    d3.select(this).select(".node-text").transition().text(function(d) { 
 		    	if(!d.name) 
 					return d.value; 
@@ -146,7 +151,7 @@ function createGraph(DOMelement, graph) {
 		});
 
 	node.append('circle')
-		.attr("r", function(d) { return d.value})
+		.attr("r", function(d) { return d.value + 5})
 		.attr("class", "node-circle")
 		.style("fill", function(d) { return d3.rgb(d.color); })
 
@@ -171,6 +176,11 @@ function createGraph(DOMelement, graph) {
 		node
 			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	});	
+
+	$(window).on("resize", function() {
+	    $('.svg-content-responsive').attr("width", $('.svg-container').width());
+	    $('.svg-content-responsive').attr("height", $('.svg-container').height());
+	});
 }
 
 /**
@@ -190,10 +200,10 @@ function selfprofile_loadProfileMap() {
 		var color = 'gray';
 		var len = undefined;
 
-		nodes = [];
-		edges = [];
+		var nodes = [];
+		var edges = [];
 
-		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, color: 'white'});
+		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, color: 'black'});
 
 		for(index in sortedKeys) {
 			if(sortedKeys[index] === global_name)
@@ -201,21 +211,17 @@ function selfprofile_loadProfileMap() {
 
 			index = parseInt(index);
 
-			nodes.push({label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]] + 5, color: 'red'});
+			nodes.push({label: sortedKeys[index], value: dataObj[sortedKeys[index]], color: 'red'});
 
 			edges.push({source: index + 1, target: 0});
 		}
 
-		graph = {};
+		var graph = {};
 
 		graph.nodes = nodes;
 		graph.links = edges;
 
-		createGraph(".imageholder",graph);
-
-
-
-
+		createGraph(".mapcontainer",graph);
 	});
 }
 

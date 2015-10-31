@@ -1,7 +1,8 @@
 .self-profile-page {
     color: #2e6391;
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/self-profile-background.jpg');
 }
 	
 	.ProfileNetwork {
@@ -13,12 +14,32 @@
 
 	.self-profile-page ul {
 		width: 100%;
+		height: 100%;
+		overflow: hidden;
 	}
 
 	.self-profile-page li {
 		display: inline-block;
-		width: 45%;
+		/* width: 45%; */
 	}
+
+		.self-profile-page .ui-container {
+			width: 20%;
+			height: 100%;
+			float: left;
+			text-align: center;
+			/* margin: auto; */
+			background: rgba(0, 0, 0, .4);
+		}
+
+		.self-profile-page .datacontainer {
+			width: 80%;
+			height: 100%;
+		}
+
+			.self-profile-page .mapcontainer {
+
+			}
 
 	.profile-container {
 		height: 80%;
@@ -27,29 +48,17 @@
 	.profile-button {
 	    font-size: 1.5vw;
 	    line-height: 5vw;
-	    width: 40%;
-	    margin-top: 20%;
-	    border-radius: 4vw;
-	    margin-left: 30%;
-	    background: #7EC0EE;
+	    /* width: 40%; */
+	    /* margin-top: 41%; */
+	    /* border-radius: 4vw; */
+	    /* margin-left: 30%; */
+	    /* background: #7EC0EE; */
 	    color: white;
+	    margin: auto;
+	    margin-top: 30%;
+	    /* width: 75%; */
 	}
 
-
-	#ProfileNetwork {
-	    width: 100%;
-	    height: 100%;
-	    /* margin-left: 5%; */
-	    /* text-align: center; */
-	    /* margin-top: 2%; */
-	    /* border-image: radial-gradient(ellipse at center, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%); */
-	}
-
-	.imageholder {
-		background-image: url('../img/self-profile-background.jpg');
-		width: 100%;
-		height: 100%;
-		background-size: cover;
-		background-repeat: no-repeat; 
-	}
-	
+		.profile-button:hover {
+			background-color: rgba(0, 0, 0, 1);
+		}

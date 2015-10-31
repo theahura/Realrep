@@ -89,6 +89,9 @@ function selfprofile_login(callback) {
 	});
 }
 
+/**
+	Creates a d3 force layout graph
+*/
 function createGraph(DOMelement, graph) {
 
 	var width = 960,
@@ -124,7 +127,7 @@ function createGraph(DOMelement, graph) {
 
 	node.append('circle')
 		.attr("r", function(d) { return d.value})
-		.style("fill", function(d) { return d3.rgb("red"); })
+		.style("fill", function(d) { return d3.rgb(d.color); })
 		.on("mouseover", function(d) {
 			d3.select(this).transition().attr("r", function(d) { return d.value * 5});
 		})
@@ -161,32 +164,17 @@ function selfprofile_loadProfileMap() {
 		hash: global_ID
 	}, function(data, err) {
 
-		var dataObj = {};
-
-		delete data['userId'];
-		delete data['hashtag'];
-
-		for(key in data) {
-			if('S' in data[key]) {
-				dataObj[key] = data[key].S
-			}
-			else if('N' in data[key]) {
-				if(parseInt(data[key].N) <= 0)
-					continue;
-
-				dataObj[key] = parseInt(data[key].N)			
-			}
-		}
+		var dataObj = stripDynamoSettings(data);
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
 		var color = 'gray';
 		var len = undefined;
 
-		var nodes = [];
-		var edges = [];
+		nodes = [];
+		edges = [];
 
-		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20});
+		nodes.push({label: global_name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, color: 'white'});
 
 		for(index in sortedKeys) {
 			if(sortedKeys[index] === global_name)
@@ -194,16 +182,19 @@ function selfprofile_loadProfileMap() {
 
 			index = parseInt(index);
 
-			nodes.push({label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]]});
+			nodes.push({label: dataObj[sortedKeys[index]] + " - " + sortedKeys[index], value: dataObj[sortedKeys[index]], color: 'red'});
 			edges.push({source: index + 1, target: 0});
 		}
 
-		var graph = {};
+		graph = {};
 
 		graph.nodes = nodes;
 		graph.links = edges;
 
 		createGraph(".imageholder",graph);
+
+
+
 
 	});
 }

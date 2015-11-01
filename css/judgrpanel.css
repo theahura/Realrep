@@ -1,40 +1,46 @@
-.judgr-divider-1{
-    width:100%;
-    height: 6%;
-    background-color: #50DF50;
-}
-.judgr-divider-2{
+.judgrpage {
+    color: white;
     width: 100%;
-    height:3%;
-    background-color: transparent;
-}
-.judgr-divider-3{
-    width:100%;
-    height:1.5%;
-    background-color: transparent;
+    height: 100%;
+    background-image: url('../img/judgr-background.jpg');
 }
 
-.image-container{
-    width: 85%;
-    height:50%;
-    background-color: #50DF50;
-    margin-right: auto; 
-    margin-left: auto;
-    border-radius: 10px;
-
-}
-
-    .profile-picture {
-        max-width: 100%;
-        max-height: 100%;
+    .content-container{
+        width: 55%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        margin-right: auto;
+        margin-left: auto;
         border-radius: 10px;
     }
+        
+        .friend-name {
+            font-size: 3vw;
+        }
 
-.hashtag-button-container {
-    width: 100%;
-    text-align: center;
-}
+        .hashtag {
+            font-size: 2vw;
+        }
 
-    .hashtag-button-container li {
-        display: inline-block;
+        .profile-picture {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+
+    .hashtag-button-container {
+        width: 100%;
+        text-align: center;
+    }
+
+        .hashtag-button-container li {
+            display: inline-block;
+        }
+
+    #NewUserSelect {
+        font-size: 1vw;
+    }
+
+    .judgr-to-profile {
+        font-size: 1vw;
     }

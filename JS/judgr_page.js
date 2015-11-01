@@ -176,7 +176,7 @@ $('.endorsebutton').click(function() {
 		return;
 	}
 
-	updateUser($('.hashtag').html(), 1);
+	judgr_updateUser($('.hashtag').html(), 1);
 
 	var global_userTags = currentLoadedFriend.fullHashtagList;
 
@@ -236,6 +236,10 @@ $('.judgr-to-profile').click(function() {
 function postLoadUser(fbID, hashtagList) {
     FBgetProfilePicture(fbID, function(url) {
         $(".profile-picture").attr("src", url);
+    });
+
+    FBgetName(fbID, function(name) {
+    	$(".friend-name").html(name);
     });
 
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];

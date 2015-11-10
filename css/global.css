@@ -64,4 +64,5 @@ ul, li {
     position: absolute;
     /* top: 10px; */
     left: 0;
+    font-size: 1vw;
 }

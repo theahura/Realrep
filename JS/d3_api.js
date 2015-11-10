@@ -100,8 +100,8 @@ function createGraph(DOMelement, graph) {
 	});	
 
 	$(window).on("resize", function() {
-	    $('.svg-content-responsive').attr("width", $('.svg-container').width());
-	    $('.svg-content-responsive').attr("height", $('.svg-container').height());
+	    $('.svg-content-responsive').attr("width", $(DOMelement).width());
+	    $('.svg-content-responsive').attr("height", $(DOMelement).height());
 	});
 }
 

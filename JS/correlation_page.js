@@ -101,7 +101,7 @@ function correlation_loadMap() {
 $('.correlation-to-profile').click(function() {
     $('.correlation-page').slideToggle();
     $('.self-profile-page').slideToggle();
-    selfprofile_loadProfileMap();               
+    loadProfileMap('.self_mapcontainer', global_ID);               
 });
 
 /**

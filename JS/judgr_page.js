@@ -228,8 +228,8 @@ $('.profile-picture').click(function() {
 $('.judgr-to-profile').click(function() {
     $('.judgrpage').slideToggle();
     $('.self-profile-page').slideToggle();
-    selfprofile_loadProfileMap();               
-})
+    loadProfileMap('.self_mapcontainer', global_ID);               
+});
 
 
 

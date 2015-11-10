@@ -55,7 +55,7 @@ ul, li {
     position: relative;
     width: 100%;
     height: 100%;
-    padding-bottom: 100%;/* aspect ratio */
+    /* padding-bottom: 100%; *//* aspect ratio */
     vertical-align: top;
     overflow: hidden;
 }

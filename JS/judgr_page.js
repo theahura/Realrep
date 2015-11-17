@@ -214,7 +214,7 @@ $('.passbutton').click(function() {
 /**
 	Loads the map for a friends profile on click from the profile picture
 */
-$('.profile-picture').click(function() { 
+$('.judgrpage .profile-picture').click(function() { 
     $('.judgrpage').slideToggle();
     $('.other-profile-page').slideToggle(function() {
         otherprofile_loadOtherProfileMap();

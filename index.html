@@ -121,34 +121,33 @@
 		<div class="other-profile-page panel" hidden>
 			<ul>
         		<li class="ui-container">
+        			<div class="spacer-5"></div>
+					<img class="profile-picture" src="../img/unknownprofile.jpg" alt="Unknown Profile">
+					<div class="spacer-5"></div>
+					<div class="friend-name"> </div>
+					<div class="spacer-5"></div>
                     <div class = "profile-button button otherprofile-to-judgr"> Back to Judgr </div>
                 </li>
                 <li class="datacontainer">
                 	<div class="other_mapcontainer svg-container"></div>
                 </li>
             </ul>
-
 		</div>
 
 		<div class="correlation-page panel" hidden>
-			<div class="divider-1"></div>
-			<div class="divider-2"></div>
-			<div class="divider-2"></div>
-			 <div class= "header" >
-				<img src="/img/realreplogo.png" style ="width: 170px; height: 116">
-			</div>
-			<div class="divider-2"></div>
-			<form class='correlation-form'> 
-				<input type="text" id="SearchForCorrelation" placeholder="Search for a hashtag"></input>
-				<input type="submit" id="SubmitSearch"></input>
-			</form>
-			<div class="divider-2"></div>
-			
-			<div class="button correlation-to-profile">
-				Back to Profile
-			</div>
 
-			<div id="CorrelationNetwork"></div>
+			<ul>
+        		<li class="ui-container">
+        			<form class='correlation-form'> 
+						<input type="text" id="SearchForCorrelation" placeholder="Search for a hashtag"></input>
+						<input type="submit" id="SubmitSearch"></input>
+					</form>
+	                <div class = "profile-button button correlation-to-profile"> Back to Profile </div>
+                </li>
+                <li class="datacontainer">
+                	<div class="correlation_mapcontainer svg-container"></div>
+                </li>
+            </ul>
 		</div>
 
 		<div class="friend-network panel" hidden>

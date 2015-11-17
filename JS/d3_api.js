@@ -108,10 +108,13 @@ function createGraph(DOMelement, graph) {
 /**
 	Loads the profile map for a logged in user
 */
-function loadProfileMap(DOMelement, id) {
+function loadProfileMap(DOMelement, id, command) {
+
+	if(!command)
+		command = 'getProfile';
 
 	socket.emit('clientToServer', {
-		name: 'getProfile',
+		name: command,
 		hash: id
 	}, function(data, err) {
 

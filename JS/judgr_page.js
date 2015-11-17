@@ -227,8 +227,9 @@ $('.profile-picture').click(function() {
 */
 $('.judgr-to-profile').click(function() {
     $('.judgrpage').slideToggle();
-    $('.self-profile-page').slideToggle();
-    loadProfileMap('.self_mapcontainer', global_ID);               
+    $('.self-profile-page').slideToggle(function() {
+    	loadProfileMap('.self_mapcontainer', global_ID);               
+    });
 });
 
 

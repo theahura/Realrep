@@ -18,6 +18,9 @@ function otherprofile_loadOtherProfileMap() {
 	Switches back from the other profile page to the judgr page
 */
 $('.otherprofile-to-judgr').click(function() {
-    $('.other-profile-page').slideToggle();
+    $('.other-profile-page').slideToggle(function() {
+    	$('.other_mapcontainer').empty();
+    });
+
     $('.judgrpage').slideToggle();
 });

@@ -6,42 +6,6 @@
 	Description: Sets up user data
 */
 
-/**
-	Loads the user data for a given logged in user. 
-
-function selfprofile_setUserProfile(data) {
-
-	delete data['userId']
-
-	var sortedKeys = Object.keys(data).sort(function(a,b){return data[a]-data[b]});
-
-	var max = data[sortedKeys[sortedKeys.length - 1]];
-	console.log(max)
-	var divisor = max/100;
-
-	for(var i = 0; i < sortedKeys.length; i++) {
-
-    	$(".friends-data > tbody:last-child").append(
-    		"<tr id=\"DataBar-" + i + "\">"+
-				"<td class=\"hashtag-name\">" + 
-				"</td>"+
-				"<td class=\"bar-container\">"+
-					"<div class=\"bar\"> </div>"+
-				"</td>"+
-			"</tr>");
-
-    	if (data[sortedKeys[i]]/divisor < 8) {
-    		$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]]);
-    	}
-    	else {
-    		$('#DataBar-' + i).find('.bar').html(data[sortedKeys[i]] + " rep");
-    	}
-
-    	$('#DataBar-' + i).find('.hashtag-name').html(sortedKeys[i]);
-    	$('#DataBar-' + i).find('.bar').width(data[sortedKeys[i]]/divisor + "%");
-	}
-}
-*/
 
 /**
 	Logs in a user to facebook. Loads the user's id, friends list. 
@@ -98,12 +62,20 @@ function selfprofile_login(callback) {
 
 $('.view-judgr').click(function() {
     $('.self-profile-page').slideToggle();
-    $('.judgrpage').slideToggle();
-	judgr_loadUser();
+
+    $('.judgrpage').slideToggle(function() {
+    	$('.self_mapcontainer').empty();
+    });
+	
+	if(!currentLoadedFriend)
+		judgr_loadUser();
 })
 
 $('.view-correlator').click(function() {
-    $('.self-profile-page').slideToggle();
+    $('.self-profile-page').slideToggle(function() {
+    	$('.self_mapcontainer').empty();
+    });
+    
     $('.correlation-page').slideToggle();
 });
 

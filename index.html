@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ReRep</title>
+		<link rel="icon" type="image/png" href="img/favicon.png">
+
+		<!-- FONTS -->
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+		<!--CSS for various panels, one per page-->
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/loginpanel.css" />
+		<link rel="stylesheet" href="css/judgrpanel.css" />
+		<link rel="stylesheet" href="css/otherprofilepanel.css" />
+        <link rel="stylesheet" href="css/selfprofile.css" />
+		<link rel="stylesheet" href="css/correlationpanel.css" />
+        <link rel="stylesheet" href="css/initialtag.css" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.css"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.8.0/vis.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+		<script src="http://54.86.173.127:6010/socket.io/socket.io.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	</head>
+
+	<body>
+		
+		<div class="login-page panel" hidden>
+			<div class= "login-header">
+				<!-- <img class="login-logo" src="img/logo1.png"> -->
+			</div>
+			<div class="arrow animated bounce button" id="theArrow">
+				<img width="80" height="80" alt="" src="img/downarrow.svg" />
+			</div>
+        </div>
+    
+        <div class="initial-tag-page panel" hidden>
+        	<div class="spacer-5"></div>
+        	<div class="initial-tag-content">
+	            <div class= "header" >
+					<img src="/img/realreplogo.png">
+				</div>
+				<div class="old-user-signup">
+		            <div class="spacer-5"></div>
+
+		            <div class="suggestion"> New to Real Rep? </div>	   	  		
+
+		            <div class="spacer-1"></div>
+		            <div class="spacer-1"></div>
+
+		            <input type="button" value="Create a New Account" id="new-user-login" />
+
+		   	  		<div class="spacer-5"></div>
+
+		            <div class="suggestion">Already have an account? </div>	   	  		
+		   	  		
+		            <div class="spacer-1"></div>
+		            <div class="spacer-1"></div>
+
+		            <input type="button" value="Sign in with Facebook" id="old-user-login" />
+
+		        </div>
+
+	            <div class='new-user-signup' hidden>
+		            <div class="instructions">Start by adding a few, short</div>
+		            <div class="instructions">tags about yourself like:</div>
+		    
+		            <div class="spacer-1"></div>
+		            <div class="suggestion">hiking</div>
+		            <div class="suggestion">reading</div>
+		            <div class="suggestion">competitive crabwalking</div>
+		            <div class="spacer-1"></div>
+		    
+		            <div class="initial-tag-form">
+		                <table>
+			                <tr>
+				                <td>
+				                    <form>
+					                    <input type="text" id="tag-field1" />
+					                    <input type="text" id="tag-field2" />
+					                    <input type="text" id="tag-field3" />
+				                    </form>
+				                </td>
+				                <td></td>
+				                <td></td>
+				                <td></td>
+				                <td>
+				                    <form>
+					                    <input type="text" id="tag-field4" />
+					                    <input type="text" id="tag-field5" />
+					                    <input type="text" id="tag-field6" />
+				                    </form>
+				                </td>
+			                </tr>
+		                </table>
+		                <br>
+		                <input type="button" value="Create a New Account with Facebook" id="tag-submit" />
+		                <br>
+		                <br>
+		            </div>
+		        </div>
+	        </div>
+        </div>
+		
+		<div class="self-profile-page panel" hidden>
+        	<ul>
+        		<li class="ui-container">
+                    <div class = "profile-button button view-judgr"> Judge Your Friends </div>
+                    <div class = "profile-button button view-correlator"> Correlation Page </div>
+                </li>
+                <li class="datacontainer">
+                	<div class="self_mapcontainer svg-container">
+                	</div>
+                </li>
+            </ul>
+		</div>
+
+		<div class="other-profile-page panel" hidden>
+			<ul>
+        		<li class="ui-container">
+        			<div class="spacer-5"></div>
+					<img class="profile-picture" src="../img/unknownprofile.jpg" alt="Unknown Profile">
+					<div class="spacer-5"></div>
+					<div class="friend-name"> </div>
+					<div class="spacer-5"></div>
+                    <div class = "profile-button button otherprofile-to-judgr"> Back to Judgr </div>
+                </li>
+                <li class="datacontainer">
+                	<div class="other_mapcontainer svg-container"></div>
+                </li>
+            </ul>
+		</div>
+
+		<div class="correlation-page panel" hidden>
+
+			<ul>
+        		<li class="ui-container">
+        			<form class='correlation-form'> 
+						<input type="text" id="SearchForCorrelation" placeholder="Search for a hashtag"></input>
+						<input type="submit" id="SubmitSearch"></input>
+					</form>
+	                <div class = "profile-button button correlation-to-profile"> Back to Profile </div>
+                </li>
+                <li class="datacontainer">
+                	<div class="correlation_mapcontainer svg-container"></div>
+                </li>
+            </ul>
+		</div>
+
+		<div class="friend-network panel" hidden>
+		</div>
+
+		<div class="judgrpage panel" hidden>
+
+			<div class="content-container"> 
+
+				<div class="spacer-5"></div>
+				<img class="profile-picture button" src="../img/unknownprofile.jpg" alt="Unknown Profile">
+				<div class="spacer-5"></div>
+				<div class="friend-name"> </div>
+				<div class="spacer-5"></div>
+
+				<div class="hashtag"></div>
+				<div class="spacer-1"></div>
+				<div class="spacer-1"></div>
+				<ul class="hashtag-button-container">
+					<li>
+						<div class="endorsebutton button">
+							<img src="img/check.png">
+						</div>
+					</li>
+					<li>
+						<div class="passbutton button">
+							<img src="img/x.png">
+						</div>
+					</li>
+				</ul>
+				
+				<div class="spacer-1"></div>
+				<div class="spacer-1"></div>
+				<div id ="NewUserSelect"> SELECT A NEW USER </div>
+				<div class="spacer-1"></div>
+				<div class="spacer-1"></div>
+				<div class="button judgr-to-profile"> Back to Profile </div>
+
+			</div>		
+		</div>
+
+		<!--Enviro and API-->
+		<script src="JS/global.js"></script>
+        <script src="JS/fb_api.js"></script>
+        <script src="JS/d3_api.js"></script>
+
+        <!-- Panels -->
+		<script src="JS/self_profile.js"></script>
+		<script src="JS/correlation_page.js"></script>
+		<script src="JS/judgr_page.js"></script>
+		<script src="JS/other_profile.js"></script>
+		<script src="JS/login_and_init_tags.js"></script>
+
+	</body>
+</html>

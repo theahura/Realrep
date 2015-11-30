@@ -1,0 +1,82 @@
+/**
+	@author: Amol Kapoor
+	@date: 9-5-15
+	@version: 0.1
+
+	Description: Sets up user data
+*/
+
+
+/**
+	Logs in a user to facebook. Loads the user's id, friends list. 
+
+	@param: callback; type: function; what to do when both user id and friends list have loaded
+*/
+function selfprofile_login(callback) {
+	//fb.js
+	FBlogin(function(id) {
+
+		global_ID = id;
+
+		var deferred_name = new $.Deferred();
+		var deferred_friends = new $.Deferred();
+
+		FBgetName(id, function(name) {
+			global_name = name;
+			$('.profile label').html(global_name);
+
+			socket.emit('clientToServer', {
+				name: 'checkUser', 
+				hash: global_ID
+			}, function(data) {
+				
+				var dataObj = stripDynamoSettings(data);
+
+				deferred_name.resolve();
+			});
+		});
+
+		FBgetFriends(id, function(list) {
+
+			global_friendsList = list.slice(0); 
+			global_friendsListUnmodified = list.slice(0);
+			
+			deferred_friends.resolve();
+		});
+
+		$.when.apply(deferred_name, deferred_friends).done(function() {
+
+			if(callback)
+				callback();
+
+		});
+	});
+}
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------
+//UI GOES HERE
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+$('.view-judgr').click(function() {
+    $('.self-profile-page').slideToggle();
+
+    $('.judgrpage').slideToggle(function() {
+    	$('.self_mapcontainer').empty();
+    });
+	
+	if(!currentLoadedFriend)
+		judgr_loadUser();
+})
+
+$('.view-correlator').click(function() {
+    $('.self-profile-page').slideToggle(function() {
+    	$('.self_mapcontainer').empty();
+    });
+    
+    $('.correlation-page').slideToggle();
+});
+
+

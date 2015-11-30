@@ -1,0 +1,68 @@
+ html, body {
+    font-family:"Raleway", "sans-serif";
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select: none;
+    color:#42A6F3;
+    height: 100%;
+    width: 100%;
+    font-size: 1vw;
+    padding: 0;
+    margin: 0;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.spacer-5 {
+    height: 5%;
+}
+
+.spacer-1 {
+    height: 1%;
+}
+
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* padding-bottom: 100%; *//* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    /* top: 10px; */
+    left: 0;
+    font-size: 1vw;
+}

@@ -1,0 +1,57 @@
+.correlation-page {
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-image: url('../img/other-background.jpg');
+}
+
+    .correlation-page ul {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .correlation-page li {
+        display: inline-block;
+        /* width: 45%; */
+    }
+
+        .correlation-page .ui-container {
+            width: 20%;
+            height: 100%;
+            float: left;
+            text-align: center;
+            /* margin: auto; */
+            background: rgba(0, 0, 0, .4);
+        }
+
+        .correlation-page .datacontainer {
+            width: 80%;
+            height: 100%;
+        }
+    
+            .correlation-page .other_mapcontainer {
+
+            }
+
+    .correlation-page .profile-container {
+        height: 80%;
+    }
+
+    .correlation-page .profile-button {
+        font-size: 1.5vw;
+        line-height: 5vw;
+        /* width: 40%; */
+        /* margin-top: 41%; */
+        /* border-radius: 4vw; */
+        /* margin-left: 30%; */
+        /* background: #7EC0EE; */
+        color: white;
+        margin: auto;
+        margin-top: 30%;
+        /* width: 75%; */
+    }
+
+        .correlation-page .profile-button:hover {
+            background-color: rgba(0, 0, 0, 1);
+        }

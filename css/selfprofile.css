@@ -1,0 +1,64 @@
+.self-profile-page {
+    color: #2e6391;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/self-profile-background.jpg');
+}
+	
+	.ProfileNetwork {
+	    width: 90%;
+	    height: 60%;
+	    border: solid;
+	    margin-left: 5%;
+	}
+
+	.self-profile-page ul {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.self-profile-page li {
+		display: inline-block;
+		/* width: 45%; */
+	}
+
+		.self-profile-page .ui-container {
+			width: 20%;
+			height: 100%;
+			float: left;
+			text-align: center;
+			/* margin: auto; */
+			background: rgba(0, 0, 0, .4);
+		}
+
+		.self-profile-page .datacontainer {
+			width: 80%;
+			height: 100%;
+		}
+
+			.self-profile-page .mapcontainer {
+
+			}
+
+	.self-profile-page .profile-container {
+		height: 80%;
+	}
+
+	.self-profile-page .profile-button {
+	    font-size: 1.5vw;
+	    line-height: 5vw;
+	    /* width: 40%; */
+	    /* margin-top: 41%; */
+	    /* border-radius: 4vw; */
+	    /* margin-left: 30%; */
+	    /* background: #7EC0EE; */
+	    color: white;
+	    margin: auto;
+	    margin-top: 30%;
+	    /* width: 75%; */
+	}
+
+		.self-profile-page .profile-button:hover {
+			background-color: rgba(0, 0, 0, 1);
+		}

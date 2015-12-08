@@ -59,12 +59,20 @@ function createGraph(DOMelement, graph) {
 		.call(force.drag)
 		.on("mouseover", function(d) {
 			d3.select(this).moveToFront();
-			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value * 5});
-		    d3.select(this).select(".node-text").transition().text(function(d) { return d.label + " - " + d.value; });
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return Math.min(d.size * 5, 200)});
+		    d3.select(this).select(".node-text").transition().text(function(d) { 
+		    	if(d.center)
+		    		return d.label;
+		    	else
+		    		return d.label + " - " + d.value; 
+		    });
 		})
 		.on("mouseout", function(d) {
-			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.value + 5});
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.size});
 		    d3.select(this).select(".node-text").transition().text(function(d) { 
+		    	if(d.center)
+		    		return;
+
 		    	if(!d.name) 
 					return d.value; 
 				
@@ -73,7 +81,7 @@ function createGraph(DOMelement, graph) {
 		});
 
 	node.append('circle')
-		.attr("r", function(d) { return d.value + 5})
+		.attr("r", function(d) { return d.size; })
 		.attr("class", "node-circle")
 		.style("fill", function(d) { return d3.rgb(d.color); })
 
@@ -83,6 +91,9 @@ function createGraph(DOMelement, graph) {
 	    .attr("text-anchor", "middle")
 		.attr("class", "node-text")
 		.text(function(d) {	
+			if(d.center)
+				return;
+
 			if(!d.name) 
 				return d.value;
 			
@@ -130,7 +141,13 @@ function loadProfileMap(DOMelement, id, command) {
 
 		FBgetName(id, function(name) {
 
-			nodes.push({label: name, value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, color: 'black'});
+			nodes.push({
+				label: name, 
+				value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, 
+				color: 'black', 
+				center: true, 
+				size: Math.max(40, dataObj[sortedKeys[sortedKeys.length - 1]] + 20)
+			});
 
 			for(index in sortedKeys) {
 				if(sortedKeys[index] === name)
@@ -138,7 +155,12 @@ function loadProfileMap(DOMelement, id, command) {
 
 				index = parseInt(index);
 
-				nodes.push({label: sortedKeys[index], value: dataObj[sortedKeys[index]], color: 'red'});
+				nodes.push({
+					label: sortedKeys[index], 
+					value: dataObj[sortedKeys[index]], 
+					color: 'red',
+					size: Math.max(20, dataObj[sortedKeys[index]])
+				});
 
 				edges.push({source: index + 1, target: 0});
 			}

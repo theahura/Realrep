@@ -25,6 +25,32 @@
             background: rgba(0, 0, 0, .4);
         }
 
+
+            .correlation-page .correlation-form {
+                height: 10%;
+                line-height: 4.5vw;
+                background-color: #ff6666;
+            }
+
+                .correlation-page .correlation-form .search {
+                    padding:8px 15px;
+                    background:rgba(50, 50, 50, 0.2);
+                    border:0px solid #dbdbdb;
+                }
+                
+                .correlation-page .correlation-form .button {
+                    position:relative;
+                    padding:6px 15px;
+                    left:-8px;
+                    border:2px solid #207cca;
+                    background-color:#207cca;
+                    color:#fafafa;
+                }
+                .correlation-page .correlation-form .button:hover  {
+                    background-color:#fafafa;
+                    color:#207cca;
+                }
+
         .correlation-page .datacontainer {
             width: 80%;
             height: 100%;

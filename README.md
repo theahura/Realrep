@@ -1,3 +1,4 @@
+
 Izze says hi
 Steve says hi
 ln says hii
@@ -56,5 +57,4 @@ Data base:
 			{} with keys as hashtag names and values as numbers (weights) representing # of users with 
 			top-5 values as that hashtag
 
-	
 	

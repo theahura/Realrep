@@ -60,7 +60,7 @@ function createGraph(DOMelement, graph) {
 		.on("mouseover", function(d) {
 			d3.select(this).moveToFront();
 
-			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return Math.min(d.size * 5, 200)});
+			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return Math.min(d.size * 3, 200)});
 		    d3.select(this).select(".node-text").transition().text(function(d) { 
 		    	if(d.center)
 		    		return d.label;
@@ -71,12 +71,6 @@ function createGraph(DOMelement, graph) {
 		.on("mouseout", function(d) {
 			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.size});
 		    d3.select(this).select(".node-text").transition().text(function(d) { 
-		    	if(d.center)
-		    		return;
-
-		    	if(!d.name) 
-					return d.value; 
-				
 				return d.label;
 			});
 		});
@@ -90,15 +84,10 @@ function createGraph(DOMelement, graph) {
 	//this needs to be in a group, not attached to the same thing
 	node.append("text")
 	    .attr("text-anchor", "middle")
+	    .attr("dy", 5)
 		.attr("class", "node-text")
 		.text(function(d) {	
-			if(d.center)
-				return;
-
-			if(!d.name) 
-				return d.value;
-			
-			return d.label; 
+			return d.label;		
 		});
 
 	force.on("tick", function() {

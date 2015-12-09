@@ -22,6 +22,8 @@ d3.selection.prototype.moveToFront = function() {
 */
 function createGraph(DOMelement, graph) {
 
+	console.log(graph)
+
 	var width = 800,
 	    height = 800;
 
@@ -106,6 +108,50 @@ function createGraph(DOMelement, graph) {
 	});
 }
 
+
+/**
+	Helper to load graph
+*/
+function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
+
+	var color = 'gray';
+	var len = undefined;
+
+	var nodes = [];
+	var edges = [];
+
+	nodes.push({
+		label: name, 
+		value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, 
+		color: 'black', 
+		center: true, 
+		size: Math.max(40, dataObj[sortedKeys[sortedKeys.length - 1]] + 20)
+	});
+
+	for(index in sortedKeys) {
+		if(sortedKeys[index] === name)
+			continue;
+
+		index = parseInt(index);
+
+		nodes.push({
+			label: sortedKeys[index], 
+			value: dataObj[sortedKeys[index]], 
+			color: 'red',
+			size: Math.max(20, dataObj[sortedKeys[index]])
+		});
+
+		edges.push({source: index + 1, target: 0});
+	}
+
+	var graph = {};
+
+	graph.nodes = nodes;
+	graph.links = edges;
+
+	createGraph(DOMelement, graph);
+}
+
 /**
 	Loads the profile map for a logged in user
 */
@@ -123,45 +169,17 @@ function loadProfileMap(DOMelement, id, command) {
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
-		var color = 'gray';
-		var len = undefined;
+		if(command == 'getProfile') {
+			FBgetName(id, function(name) {
 
-		var nodes = [];
-		var edges = [];
+				createGraph_helper(name, sortedKeys, dataObj, DOMelement);
 
-		FBgetName(id, function(name) {
+			});	
+		}
+			
+		else {
+			createGraph_helper(id, sortedKeys, dataObj, DOMelement);
+		} 
 
-			nodes.push({
-				label: name, 
-				value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, 
-				color: 'black', 
-				center: true, 
-				size: Math.max(40, dataObj[sortedKeys[sortedKeys.length - 1]] + 20)
-			});
-
-			for(index in sortedKeys) {
-				if(sortedKeys[index] === name)
-					continue;
-
-				index = parseInt(index);
-
-				nodes.push({
-					label: sortedKeys[index], 
-					value: dataObj[sortedKeys[index]], 
-					color: 'red',
-					size: Math.max(20, dataObj[sortedKeys[index]])
-				});
-
-				edges.push({source: index + 1, target: 0});
-			}
-
-			var graph = {};
-
-			graph.nodes = nodes;
-			graph.links = edges;
-
-			createGraph(DOMelement, graph);
-
-		});
 	});
 }

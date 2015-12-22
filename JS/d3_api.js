@@ -108,6 +108,16 @@ function createGraph(DOMelement, graph) {
 	});
 }
 
+function loadNodes(nodes, reverseNodes) {
+	for(node in nodes) {
+		socket.emit('clientToServer', {
+			name: 'getHashtag',
+			hash: node.label
+		}, function(data, err) {
+
+		}
+	}
+}
 
 /**
 	Helper to load graph
@@ -119,6 +129,7 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 
 	var nodes = [];
 	var edges = [];
+	var reverseNodes = {};
 
 	nodes.push({
 		label: name, 
@@ -141,10 +152,14 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 			size: Math.max(20, dataObj[sortedKeys[index]])
 		});
 
+		reverseNodes[sortedKeys[index]] = nodes.length - 1;
+
 		edges.push({source: index + 1, target: 0});
 	}
 
 	var graph = {};
+	
+	console.log(reverseNodes);
 
 	graph.nodes = nodes;
 	graph.links = edges;

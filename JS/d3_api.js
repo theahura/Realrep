@@ -148,8 +148,10 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 				if(sortedKeys[index] === currentLoadingNodeLabel) 
 					continue;
 
+				console.log(nodes[0]);
 
-				if(reverseNodes[sortedKeys[index]]) {
+				if(reverseNodes[sortedKeys[index]] !== undefined) {
+					console.log(sortedKeys[index] + " already exists");
 					if(nodes[reverseNodes[sortedKeys[index]]].layer <= 1)
 						continue;
 
@@ -210,6 +212,8 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 		center: true, 
 		size: Math.max(40, dataObj[sortedKeys[sortedKeys.length - 1]] + 20)
 	});
+
+	reverseNodes[name] = 0;
 
 	for(index in sortedKeys) {
 		if(sortedKeys[index] === name)

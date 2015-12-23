@@ -127,6 +127,8 @@ function judgr_loadUser() {
 */
 function judgr_updateUser(attribute, value) {
 
+	//TODO: Cant currently add new things because system expects a root object to add to; NEEDS BACKEND FIX
+
 	//update profile globally
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores', 
@@ -181,11 +183,20 @@ $('.endorsebutton').click(function() {
 	var global_userTags = currentLoadedFriend.fullHashtagList;
 
 	if(global_userTags.length > 0) { 
-		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+
+		var tag = "";
+
+		if(Math.random() <= global_randomAssociationNum) {
+			tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		} else {
+			tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		}
+
 		$(button).html(tag);
 	}
 	else {
-		$(button).html("");
+		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		$(button).html(tag);
 	}
 });
 
@@ -202,11 +213,20 @@ $('.passbutton').click(function() {
 	var global_userTags = currentLoadedFriend.fullHashtagList;
 
 	if(global_userTags.length > 0) { 
-		var tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
-		$('.hashtag').html(tag);
+
+		var tag = "";
+
+		if(Math.random() <= global_randomAssociationNum) {
+			tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		} else {
+			tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
+		}
+
+		$(button).html(tag);
 	}
 	else {
-		$(button).html("");
+		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		$(button).html(tag);
 	}
 });
 

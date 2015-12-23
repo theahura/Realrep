@@ -110,13 +110,15 @@ function createGraph(DOMelement, graph) {
 
 /**
 	Loads second layer nodes
+
+	For each node in nodes, loads the second layer of nodes
+	For each second layer node, checks if the node already exists in the previous layers - if it does, simply adds an edge;
+	if not, adds a new node and an edge
 **/
 function loadNodes(nodes, reverseNodes, edges, callback) {
 
 	var deferredArray = [];
   
-	console.log(nodes)
-
 	for(node in nodes) {
 
 		if(nodes[node].center) {
@@ -137,21 +139,14 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 
 			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
-			console.log("===============================")
-			console.log(currentLoadingNodeLabel)
-
 			for(index in sortedKeys) {
-
-				console.log(sortedKeys[index])
-				console.log(reverseNodes[sortedKeys[index]])
 
 				if(sortedKeys[index] === currentLoadingNodeLabel) 
 					continue;
 
-				console.log(nodes[0]);
 
 				if(reverseNodes[sortedKeys[index]] !== undefined) {
-					console.log(sortedKeys[index] + " already exists");
+
 					if(nodes[reverseNodes[sortedKeys[index]]].layer <= 1)
 						continue;
 
@@ -172,8 +167,6 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 				}
 			}
 			
-			console.log('out of for loop')
-
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
 					deferredArray[index].resolve();

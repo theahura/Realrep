@@ -30,7 +30,7 @@ function createGraph(DOMelement, graph) {
 	var color = d3.scale.category20();
 
 	var force = d3.layout.force()
-	    .charge(-1000)
+	    .charge(-10000)
 	    .linkDistance(150)
 	    .size([width, height]);
 
@@ -108,15 +108,86 @@ function createGraph(DOMelement, graph) {
 	});
 }
 
-function loadNodes(nodes, reverseNodes) {
+/**
+	Loads second layer nodes
+**/
+function loadNodes(nodes, reverseNodes, edges, callback) {
+
+	var deferredArray = [];
+  
+	console.log(nodes)
+
 	for(node in nodes) {
+
+		if(nodes[node].center) {
+			continue;
+		}
+
+		deferred = new $.Deferred();
+
+
 		socket.emit('clientToServer', {
 			name: 'getHashtag',
-			hash: node.label
+			hash: nodes[node].label
 		}, function(data, err) {
+			
+			var currentLoadingNodeLabel = data['hashtag']['S'];
 
-		}
+			var dataObj = stripDynamoSettings(data);
+
+			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+
+			console.log("===============================")
+			console.log(currentLoadingNodeLabel)
+
+			for(index in sortedKeys) {
+
+				console.log(sortedKeys[index])
+				console.log(reverseNodes[sortedKeys[index]])
+
+				if(sortedKeys[index] === currentLoadingNodeLabel) 
+					continue;
+
+
+				if(reverseNodes[sortedKeys[index]]) {
+					if(nodes[reverseNodes[sortedKeys[index]]].layer <= 1)
+						continue;
+
+					edges.push({source: reverseNodes[sortedKeys[index]], target: reverseNodes[currentLoadingNodeLabel]});
+				} else {
+
+					nodes.push({
+						layer: 2, 
+						label: sortedKeys[index], 
+						value: dataObj[sortedKeys[index]], 
+						color: 'blue',
+						size: Math.max(20, dataObj[sortedKeys[index]])
+					});
+
+					reverseNodes[sortedKeys[index]] = nodes.length - 1;
+
+					edges.push({source: nodes.length - 1, target: reverseNodes[currentLoadingNodeLabel]});
+				}
+			}
+			
+			console.log('out of for loop')
+
+			for(index in deferredArray) {
+				if(deferredArray[index].state() === 'pending') {
+					deferredArray[index].resolve();
+					break;
+				}			
+			}
+		});
+
+	   deferredArray.push(deferred);
 	}
+
+	$.when.apply($, deferredArray).then(function() {
+		if(callback) {
+			callback();
+		}
+	});
 }
 
 /**
@@ -132,6 +203,7 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 	var reverseNodes = {};
 
 	nodes.push({
+		layer: 0,
 		label: name, 
 		value: dataObj[sortedKeys[sortedKeys.length - 1]] + 20, 
 		color: 'black', 
@@ -146,6 +218,7 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 		index = parseInt(index);
 
 		nodes.push({
+			layer: 1, 
 			label: sortedKeys[index], 
 			value: dataObj[sortedKeys[index]], 
 			color: 'red',
@@ -155,16 +228,17 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 		reverseNodes[sortedKeys[index]] = nodes.length - 1;
 
 		edges.push({source: index + 1, target: 0});
+
 	}
 
-	var graph = {};
-	
-	console.log(reverseNodes);
+	loadNodes(nodes, reverseNodes, edges, function() {
+		var graph = {};
 
-	graph.nodes = nodes;
-	graph.links = edges;
+		graph.nodes = nodes;
+		graph.links = edges;
 
-	createGraph(DOMelement, graph);
+		createGraph(DOMelement, graph);
+	});
 }
 
 /**

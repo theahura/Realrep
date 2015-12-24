@@ -97,21 +97,23 @@ function serverHandler(socket, incomingObj, callback) {
 		//update the hashtag data in a profile
 		//incomingObj must contain userId and a root
 		if(!incomingObj.checkRoot) {
-			callback(null, {message: 'Attribute root name not given'}, 'appError');
-			return;
+			//callback(null, {message: 'Attribute root name not given'}, 'appError');
+			//return;
 		}
 
-		storageTools.checkRoot(incomingObj, hashtagTable, function(err) {
-			if(err) {
-				callback(null, err);
-				return;
-			}
+		//storageTools.checkRoot(incomingObj, hashtagTable, function(err) {
+		//	if(err) {
+		//		callback(null, err);
+		//		return;
+		//	}
 
 			storageTools.updateScores(incomingObj, userTable, function(data) {
+				console.log('updated scores');
 				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
+				console.log('updated tags');
 				callback(data);
 			});		
-		});
+		//});
 	}
 	else if(incomingObj.name === 'addUser') {
 		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);

@@ -71,8 +71,10 @@ module.exports = {
 
 		if(!incomingObj['value'])
 			incomingObj['value'] = 0;
-		else if(incomingObj['value'] > 1 || incomingObj['value'] < -1)
-			return;
+		else if(incomingObj['value'] > 1 || incomingObj['value'] < -1) {
+			callback(null, {message:"Value too high or too low"});
+			return;			
+		}
 		
 
 		var requestObj = {
@@ -119,7 +121,14 @@ module.exports = {
 		var newHashtag = Object.keys(updateData.Attributes)[0]
 		var newHashtagValue = parseInt(updateData.Attributes[incomingObj['attribute']]['N']);
 
-		if(newHashtagValue > incomingObj.friendLength/5) {
+		console.log('ready to update tags')
+		console.log(incomingObj.hash)
+		console.log(newHashtagValue)
+		console.log(Math.floor(incomingObj.friendLength/5))
+
+		if(newHashtagValue === Math.floor(incomingObj.friendLength/5)) {
+			console.log('new value greater than friends length');
+			console.log(newHashtag)
 			this.retrieveData(incomingObj, usertable, function(data, err) {
 
 				if(err) {

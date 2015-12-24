@@ -127,8 +127,6 @@ function judgr_loadUser() {
 */
 function judgr_updateUser(attribute, value) {
 
-	//TODO: Cant currently add new things because system expects a root object to add to; NEEDS BACKEND FIX
-
 	//update profile globally
 	socket.emit('clientToServer', {
 		name: 'updateProfileScores', 

@@ -140,6 +140,9 @@ module.exports = {
 					delete data['userId'];
 					for(key in data) {
 
+						if(key === newHashtag)
+							continue;
+
 						var updateObj = {
 							hash: key,
 							attribute: newHashtag,

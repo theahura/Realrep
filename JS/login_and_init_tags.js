@@ -77,22 +77,72 @@ function loginNewUser() {
                     hash: global_ID
                 }
 
-                incomingObj[$("#tag-field1").val()] = 10;
-                incomingObj[$("#tag-field2").val()] = 10;
-                incomingObj[$("#tag-field3").val()] = 10;
-                incomingObj[$("#tag-field4").val()] = 10;
-                incomingObj[$("#tag-field5").val()] = 10;
-                incomingObj[$("#tag-field6").val()] = 10;
-      
+                var initNum = global_friendsListUnmodified.length/5;
 
-                socket.emit('clientToServer', incomingObj, function(data, err) {
-                    if(err) {
-                        console.log(err);
+                incomingObj[$("#tag-field1").val()] = initNum;
+                incomingObj[$("#tag-field2").val()] = initNum;
+                incomingObj[$("#tag-field3").val()] = initNum;
+                incomingObj[$("#tag-field4").val()] = initNum;
+                incomingObj[$("#tag-field5").val()] = initNum;
+                incomingObj[$("#tag-field6").val()] = initNum;
+      
+                //GET THE UPDATES ON USER LIKES SOMEWHERE HERE
+                var deferredLikes = new $.Deferred();
+                var deferredHometown = new $.Deferred();
+                var deferredLocation = new $.Deferred();
+                var deferredEdu = new $.Deferred();
+
+                var fbTagList = [];
+
+                FBgetLikes(global_ID, function(likes) {
+                    if(likes) {
+                        fbTagList = fbTagList.concat(likes);
                     }
-                    else {
-                        console.log(incomingObj);
-                        postLogin();
+
+                    deferredLikes.resolve();
+                });
+
+                FBgetHomeTown(global_ID, function(hometown) {
+                    if(hometown) {
+                        fbTagList.push(hometown);
                     }
+                   
+                    deferredHometown.resolve();
+                });
+
+                FBgetLocation(global_ID, function(location) {
+                    if(location) {
+                        fbTagList.push(location);
+                    }
+                    
+                    deferredLocation.resolve();
+                });
+
+                FBgetEdu(global_ID, function(edu) {
+                    if(edu) {
+                        fbTagList = fbTagList.concat(edu);   
+                    }
+                   
+                    deferredEdu.resolve();
+                });
+
+                $.when.apply($, [deferredEdu, deferredLocation, deferredHometown, deferredLikes]).then(function() {
+                    alert('loaded')
+                    for(index in fbTagList) {
+                        incomingObj[fbTagList[index]] = initNum;
+                    }
+
+                    console.log(fbTagList);
+                    console.log(incomingObj);
+
+                   socket.emit('clientToServer', incomingObj, function(data, err) {
+                        if(err) {
+                            console.log(err);
+                        }
+                        else {
+                            postLogin();
+                        }
+                    });
                 });
             }
             else {
@@ -145,10 +195,8 @@ $('#tag-submit').click(function() {
 */
 function postLogin() {
     $(".login-page").slideToggle();
-    $(".initial-tag-page").slideToggle();
-    $(".self-profile-page").slideToggle(function() {
-        loadProfileMap('.self_mapcontainer', global_ID);               
-    });
+
+    changePage('self-profile-page', 'initial-tag-page', global_ID);
 }
 
 /**

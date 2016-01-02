@@ -16,7 +16,7 @@ function FBlogin(callback) {
 			callback(response.id);
 			//console.log(response.id);
 		});
-   }, {scope: 'public_profile,user_friends'});
+   }, {scope: 'public_profile,user_friends,user_likes,user_hometown,user_education_history,user_location'});
 };
 
 /**
@@ -58,6 +58,71 @@ function FBgetFriends(id, callback) {
 	});
 };
 
+/**
+	Gets a list of pages the user likes
+**/
+function FBgetLikes(id, callback) {
+	var query = "/" + id + "/likes";
+	FB.api(query, function(response) {
+		if(response && response.data) {
+			var likesList = [];
+			for(index in response.data) {
+				likesList.push(response.data[index].name)
+			}
+			callback(likesList);
+		} else {
+			callback(null);
+		}
+	});
+}
+
+/**
+	Gets user hometown
+**/
+function FBgetHomeTown(id, callback) {
+	var query = "/" + id + "?fields=hometown";
+	FB.api(query, function(response) {
+		if(response && response.hometown) {
+			var hometown = response.hometown.name;
+			callback(hometown);
+		} else {
+			callback(null);
+		}
+	});
+}
+
+/**
+	Gets user location
+**/
+function FBgetLocation(id, callback) {
+	var query = "/" + id + "?fields=location";
+	FB.api(query, function(response) {
+		if(response && response.location) {
+			var location = response.location.name;
+			callback(location);
+		} else {
+			callback(null);
+		}
+	});
+}
+
+/**
+	Gets user education
+**/
+function FBgetEdu(id, callback) {
+	var query = "/" + id + "?fields=education";
+	FB.api(query, function(response) {
+		if(response && response.education) {
+			var eduList = [];
+			for(index in response.education) {
+				eduList.push(response.education[index].school.name);
+			}
+			callback(eduList);
+		} else {
+			callback(null);
+		}
+	});
+}
 
 //==================================================================================
 //Facebook settings

@@ -61,22 +61,14 @@ function selfprofile_login(callback) {
 
 
 $('.view-judgr').click(function() {
-    $('.self-profile-page').slideToggle();
-
-    $('.judgrpage').slideToggle(function() {
-    	$('.self_mapcontainer').empty();
-    });
-	
-	if(!currentLoadedFriend)
-		judgr_loadUser();
-})
+	changePage('judgrpage', 'self-profile-page', null, null, function() {
+		if(!currentLoadedFriend)
+			judgr_loadUser();	
+	});
+});
 
 $('.view-correlator').click(function() {
-    $('.self-profile-page').slideToggle(function() {
-    	$('.self_mapcontainer').empty();
-    });
-    
-    $('.correlation-page').slideToggle();
+	changePage('correlation-page', 'self-profile-page');
 });
 
 

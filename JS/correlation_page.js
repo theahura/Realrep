@@ -14,10 +14,9 @@
 	Sets up 'back' button to go from correlation page to home page
 */
 $('.correlation-to-profile').click(function() {
-    $('.correlation-page').slideToggle();
-    $('.self-profile-page').slideToggle(function() {
-    	loadProfileMap('.self_mapcontainer', global_ID);               
-    });
+	changePage('self-profile-page', 'correlation-page', global_ID, {
+		hashtagSearch: $('#SearchForCorrelation').val()
+	});
 });
 
 /**

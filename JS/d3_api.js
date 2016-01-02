@@ -22,7 +22,7 @@ d3.selection.prototype.moveToFront = function() {
 */
 function createGraph(DOMelement, graph) {
 
-	console.log(graph)
+	//console.log(graph)
 
 	var width = 800,
 	    height = 800;
@@ -42,19 +42,22 @@ function createGraph(DOMelement, graph) {
    			//class to make it responsive
    			.classed("svg-content-responsive", true)
 			.attr("width", $(DOMelement).width())
-			.attr("height", $(DOMelement).height());
+			.attr("height", $(DOMelement).height())
+
+	var networkContainer = svg.append("g");
+
 	force
 		.nodes(graph.nodes)
 		.links(graph.links)
 		.start();
 
-	var link = svg.selectAll(".link")
+	var link = networkContainer.selectAll(".link")
 		.data(graph.links)
 	.enter().append("line")
 		.attr("class", "link")
 		.style("stroke-width", function(d) { return 3; });
 
-	var node = svg.selectAll(".node")
+	var node = networkContainer.selectAll(".node")
 		.data(graph.nodes)
 	.enter().append("g")
 		.attr("class", "node")
@@ -69,21 +72,33 @@ function createGraph(DOMelement, graph) {
 		    	else
 		    		return d.label + " - " + d.value; 
 		    });
+
+		    fade(d, .1);
 		})
 		.on("mouseout", function(d) {
 			d3.select(this).select(".node-circle").transition().attr("r", function(d) { return d.size});
 		    d3.select(this).select(".node-text").transition().text(function(d) { 
 				return d.label;
 			});
+
+			fade(d, 1);
 		});
+
+
+    var linkedByIndex = {};
+    graph.links.forEach(function(d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = 1;
+    });
+
+    function isConnected(a, b) {
+        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+    }
 
 	node.append('circle')
 		.attr("r", function(d) { return d.size; })
 		.attr("class", "node-circle")
 		.style("fill", function(d) { return d3.rgb(d.color); })
 
-	//http://stackoverflow.com/questions/24388982/text-not-showing-in-forcelayout-d3js-but-present-in-view
-	//this needs to be in a group, not attached to the same thing
 	node.append("text")
 	    .attr("text-anchor", "middle")
 	    .attr("dy", 5)
@@ -106,6 +121,29 @@ function createGraph(DOMelement, graph) {
 	    $('.svg-content-responsive').attr("width", $(DOMelement).width());
 	    $('.svg-content-responsive').attr("height", $(DOMelement).height());
 	});
+
+	var zoom = d3.behavior.zoom()
+    	.scaleExtent([.1, 10])
+    	.on("zoom", zoomed);
+
+    function zoomed() {
+	  	networkContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+	}
+
+	d3.select("svg").call(zoom);
+
+	function fade(d, opacity) {
+        node.style("stroke-opacity", function(o) {
+            thisOpacity = isConnected(d, o) ? 1 : opacity;
+            this.setAttribute('fill-opacity', thisOpacity);
+            return thisOpacity;
+        });
+
+        link.style("stroke-opacity", function(o) {
+            return o.source === d || o.target === d ? 1 : opacity;
+        });
+    }
+
 }
 
 /**

@@ -145,7 +145,7 @@ function judgr_updateUser(attribute, value) {
 
 	});
 }
-
+ 
 
 //----------------------------------------------------------------------------------------------------------------------------
 //UI GOES HERE
@@ -167,10 +167,41 @@ $("#NewUserSelect").click(function() {
 
 
 /**
+	Load tags to HTML elements
+**/
+function judgr_loadTag() {
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
+	if(global_userTags.length > 0) { 
+
+		var tag = "";
+
+		if(Math.random() <= global_randomAssociationNum) {
+
+			var index = Math.floor(Math.random()*global_adj_associations.length);
+
+			tag = global_adj_associations[index];
+
+		} else {
+
+			var index = Math.floor(Math.random()*global_userTags.length);
+
+			tag = global_userTags.splice(index, 1);
+
+		}
+
+		$('.hashtag').html(tag);
+	}
+	else {
+		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		$('.hashtag').html(tag);
+	}
+}
+
+/**
 	Select a hashtag to be associated with the profile that is currently loaded
 */
 $('.endorsebutton').click(function() {
-	var button = $('.hashtag'); 
 
 	if(!$('.hashtag').html()) {
 		return;
@@ -178,54 +209,19 @@ $('.endorsebutton').click(function() {
 
 	judgr_updateUser($('.hashtag').html(), 1);
 
-	var global_userTags = currentLoadedFriend.fullHashtagList;
-
-	if(global_userTags.length > 0) { 
-
-		var tag = "";
-
-		if(Math.random() <= global_randomAssociationNum) {
-			tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		} else {
-			tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
-		}
-
-		$(button).html(tag);
-	}
-	else {
-		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		$(button).html(tag);
-	}
+	judgr_loadTag();
 });
 
 /**
 	Swipe against a hashtag that should not be associated with the profile that is currnetly loaded
 */
 $('.passbutton').click(function() {
-	var button = $('.hashtag'); 
 
 	if(!$('.hashtag').html()) {
 		return;
 	}
 
-	var global_userTags = currentLoadedFriend.fullHashtagList;
-
-	if(global_userTags.length > 0) { 
-
-		var tag = "";
-
-		if(Math.random() <= global_randomAssociationNum) {
-			tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		} else {
-			tag = global_userTags[Math.floor(Math.random()*global_userTags.length)];
-		}
-
-		$(button).html(tag);
-	}
-	else {
-		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		$(button).html(tag);
-	}
+	judgr_loadTag();
 });
 
 
@@ -233,10 +229,9 @@ $('.passbutton').click(function() {
 	Loads the map for a friends profile on click from the profile picture
 */
 $('.judgrpage .profile-picture').click(function() { 
-    $('.judgrpage').slideToggle();
-    $('.other-profile-page').slideToggle(function() {
-        otherprofile_loadOtherProfileMap();
-    });
+    changePage('other-profile-page', 'judgrpage', currentLoadedFriend.id, {
+		loadedFriend: currentLoadedFriend
+	});
 });
 
 
@@ -244,10 +239,9 @@ $('.judgrpage .profile-picture').click(function() {
 	Moves from the judgr page to the self profile page
 */
 $('.judgr-to-profile').click(function() {
-    $('.judgrpage').slideToggle();
-    $('.self-profile-page').slideToggle(function() {
-    	loadProfileMap('.self_mapcontainer', global_ID);               
-    });
+	changePage('self-profile-page', 'judgrpage', global_ID, {
+		loadedFriend: currentLoadedFriend
+	});
 });
 
 

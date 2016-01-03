@@ -47,6 +47,21 @@ $(window).load(function() {
 });
 
 /**
+	Checks if all elements in an array are not equal
+*/
+function notEqual(array) {
+   for(var i = 0; i < array.length; i++) {
+        for(var j = i + 1; j < array.length; j++) {
+            if(array[i] === array[j]) {
+                return false;
+            }
+        }
+   }
+
+   return true;             
+}
+
+/**
 	Returns an object as key value pairs 
 */
 function stripDynamoSettings(data) {
@@ -155,4 +170,5 @@ window.onpopstate = function(event) {
 		postLoadUser(fbID, currentLoadedFriend.fullHashtagList);	
 	}
 };
+
 

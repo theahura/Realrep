@@ -33,6 +33,53 @@ function loginPastUser(callback) {
     });
 }
 
+/**
+    Helper method for login new user, designed to get a list of tags that defines a user profile
+**/
+function getFacebookProfileTags(callback) {
+    var deferredLikes = new $.Deferred();
+    var deferredHometown = new $.Deferred();
+    var deferredLocation = new $.Deferred();
+    var deferredEdu = new $.Deferred();
+
+    var fbTagList = [];
+
+    FBgetLikes(global_ID, function(likes) {
+        if(likes) {
+            fbTagList = fbTagList.concat(likes);
+        }
+
+        deferredLikes.resolve();
+    });
+
+    FBgetHomeTown(global_ID, function(hometown) {
+        if(hometown) {
+            fbTagList.push(hometown);
+        }
+       
+        deferredHometown.resolve();
+    });
+
+    FBgetLocation(global_ID, function(location) {
+        if(location) {
+            fbTagList.push(location);
+        }
+        
+        deferredLocation.resolve();
+    });
+
+    FBgetEdu(global_ID, function(edu) {
+        if(edu) {
+            fbTagList = fbTagList.concat(edu);   
+        }
+       
+        deferredEdu.resolve();
+    });
+
+    $.when.apply($, [deferredEdu, deferredLocation, deferredHometown, deferredLikes]).then(function() {
+        callback(fbTagList);
+    });
+}
 
 /**
     Mechanism to sign up new users. Logs into facebook, generates a set of tags based on user input, sends those tags to server, 
@@ -47,111 +94,29 @@ function loginNewUser() {
     var tag5 = $("#tag-field5").val();
     var tag6 = $("#tag-field6").val();
 
-    function notEqual(array) {
-       for(var i = 0; i < array.length; i++) {
-            for(var j = i + 1; j < array.length; j++) {
-                if(array[i] === array[j]) {
-                    return false;
-                }
+    loginPastUser(function() {
+
+        if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
+
+            var tagArray = [tag1, tag2, tag3, tag4, tag5, tag6];
+
+            if(!notEqual(tagArray)) {
+                alert("Please select different tags for each value");
+                return;
             }
-       }
+  
+            getFacebookProfileTags(function(fbTagList) {
 
-       return true;             
-    }
-
-    selfprofile_login(function() {
-
-        loginPastUser(function() {
-
-            if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
-
-                var tagArray = [tag1, tag2, tag3, tag4, tag5, tag6];
-
-                if(!notEqual(tagArray)) {
-                    alert("Please select different tags for each value");
-                    return;
-                }
-
-                var incomingObj = {
-                    name: 'addUser',
-                    hash: global_ID
-                }
-
-                var initNum = global_friendsListUnmodified.length/5;
-
-                incomingObj[$("#tag-field1").val()] = initNum;
-                incomingObj[$("#tag-field2").val()] = initNum;
-                incomingObj[$("#tag-field3").val()] = initNum;
-                incomingObj[$("#tag-field4").val()] = initNum;
-                incomingObj[$("#tag-field5").val()] = initNum;
-                incomingObj[$("#tag-field6").val()] = initNum;
-      
-                //GET THE UPDATES ON USER LIKES SOMEWHERE HERE
-                var deferredLikes = new $.Deferred();
-                var deferredHometown = new $.Deferred();
-                var deferredLocation = new $.Deferred();
-                var deferredEdu = new $.Deferred();
-
-                var fbTagList = [];
-
-                FBgetLikes(global_ID, function(likes) {
-                    if(likes) {
-                        fbTagList = fbTagList.concat(likes);
-                    }
-
-                    deferredLikes.resolve();
-                });
-
-                FBgetHomeTown(global_ID, function(hometown) {
-                    if(hometown) {
-                        fbTagList.push(hometown);
-                    }
-                   
-                    deferredHometown.resolve();
-                });
-
-                FBgetLocation(global_ID, function(location) {
-                    if(location) {
-                        fbTagList.push(location);
-                    }
-                    
-                    deferredLocation.resolve();
-                });
-
-                FBgetEdu(global_ID, function(edu) {
-                    if(edu) {
-                        fbTagList = fbTagList.concat(edu);   
-                    }
-                   
-                    deferredEdu.resolve();
-                });
-
-                $.when.apply($, [deferredEdu, deferredLocation, deferredHometown, deferredLikes]).then(function() {
-                    alert('loaded')
-                    for(index in fbTagList) {
-                        incomingObj[fbTagList[index]] = initNum;
-                    }
-
-                    console.log(fbTagList);
-                    console.log(incomingObj);
-
-                   socket.emit('clientToServer', incomingObj, function(data, err) {
-                        if(err) {
-                            console.log(err);
-                        }
-                        else {
-                            postLogin();
-                        }
-                    });
-                });
-            }
-            else {
-                alert("Please fill out all of the tags before continuing");
-            }
-     
-        });
-
+                generateCheckboxList(fbTagList, tagArray);
+            
+            });
+        }
+        else {
+            alert("Please fill out all of the tags before continuing");
+        }
+ 
     });
+
 }
 
 
@@ -190,6 +155,38 @@ $('#tag-submit').click(function() {
     loginNewUser();
 });
 
+
+/**
+    Key binding the actual submission to the db for new user info
+**/
+$('#login-new-user').click(function(){
+
+    if($('.checkbox-container input:checked').length < 6) {
+        alert("Please select at least 6 options");
+        return false;
+    }
+
+    var initNum = Math.floor(global_friendsListUnmodified.length/5);
+
+    var incomingObj = {
+        name: 'addUser',
+        hash: global_ID
+    }
+
+    $('.checkbox-container input:checked').each(function() {
+        incomingObj[this.value] = initNum;
+    });
+
+    socket.emit('clientToServer', incomingObj, function(data, err) {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            postLogin();
+        }
+    });
+});
+
 /**
     After signing in or signing up, opens up the user's personal map page
 */
@@ -198,6 +195,23 @@ function postLogin() {
 
     changePage('self-profile-page', 'initial-tag-page', global_ID);
 }
+
+function generateCheckboxList(fbTagList, tagArray) {
+
+    $('.new-user-signup').fadeOut(function() {
+
+        $('.new-user-facebook-signup').fadeIn();
+
+        for(index in fbTagList) {
+            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + fbTagList[index] + "\" value=\"" + fbTagList[index] + "\">" + fbTagList[index] + "<li>");
+        }
+
+        for(index in tagArray) {
+            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + tagArray[index] + "\" value=\"" + tagArray[index] + "\" checked>" + tagArray[index] + "<li>");
+        }
+    });
+}
+
 
 /**
     Key binding for key up and key down with the downbounce arrow

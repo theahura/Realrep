@@ -66,3 +66,21 @@
         padding: 8px 18px;
         text-decoration: none;
     }
+
+    .new-user-facebook-signup {
+        height: 70%;
+    }
+
+        .facebook-tag-form {
+            height: 65%;
+        }
+
+            .facebook-tag-form ul {
+                overflow: auto;
+                height: 100%;
+            }
+
+                .facebook-tag-form ul li {
+                    height: 5%;
+                }
+

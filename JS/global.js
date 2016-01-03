@@ -7,7 +7,7 @@ Global config location for all multi-file-wide files (client side)
 */
 
 //Connection to Backend
-var socket = io('http://54.86.173.127:6010');
+var socket = io('http://52.90.127.98:6010');
 
 //the logged in user's facebook id 
 var global_ID = "";

@@ -3,7 +3,7 @@
 
   .login-header {
       color: white;
-      background-image: url('../img/login-background.svg');
+      background-image: url('../img/login-background-with-logo.svg');
       background-size: cover;
       background-repeat: no-repeat; 
       background-position: center;
@@ -14,8 +14,10 @@
   }
 
     .login-logo {
-      width: 60%;
-      height: 80%;
+     margin: auto;
+     position: absolute;
+     top: 0; left: 0; bottom: 0; right: 0;    
+     height: 50%;
     }
 
   .header {

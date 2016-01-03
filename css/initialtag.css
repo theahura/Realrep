@@ -6,6 +6,10 @@
     background-position: center;
 }
 
+    .initial-tag-page .header img {
+        width: 30%;
+    }
+
     .initial-tag-page .initial-tag-content {
         background: radial-gradient(rgba(138, 172, 184, 1), rgba(138, 172, 184, .9));
         width: 40%;

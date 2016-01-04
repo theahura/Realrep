@@ -273,4 +273,8 @@ function postLoadUser(fbID, hashtagList) {
 
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
     $(".hashtag").html(tag);
+
+    global_state.page_state = {
+    	loadedFriend: currentLoadedFriend
+    };
 }

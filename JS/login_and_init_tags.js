@@ -197,7 +197,6 @@ $('#login-new-user').click(function(){
 */
 function postLogin() {
     $(".login-page").slideToggle();
-
     changePage('self-profile-page', 'initial-tag-page', global_ID);
 }
 

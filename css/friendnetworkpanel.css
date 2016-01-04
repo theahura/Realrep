@@ -1,0 +1,66 @@
+.friend-network {
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-image: url('../img/friend-network-background.png');
+}
+
+    .friend-network ul {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+    }
+
+    .friend-network li {
+        display: inline-block;
+        width: 80%;
+    }
+
+        .friend-network .ui-container {
+            width: 20%;
+            height: 100%;
+            float: left;
+            text-align: center;
+            /* margin: auto; */
+            background: rgba(0, 0, 0, .4);
+        }
+
+            .friend-network .profile-button {
+                font-size: 1.5vw;
+                line-height: 5vw;
+                /* width: 40%; */
+                /* margin-top: 41%; */
+                /* border-radius: 4vw; */
+                /* margin-left: 30%; */
+                /* background: #7EC0EE; */
+                color: white;
+                margin: auto;
+                margin-top: 30%;
+                /* width: 75%; */
+            }
+
+                .friend-network .profile-button:hover {
+                    background-color: rgba(0, 0, 0, 1);
+                }
+
+    .friend-network .friend-container {
+        width: 80%;
+        height: 100%;
+        overflow: auto;
+    }
+
+        .friend-network .friend-container li {
+            width: 10%;
+            /* display: inline; */
+            padding: 1%;
+            margin: 3%;
+            border-radius: 20px;
+            border: solid;
+            background: rgba(106 ,118,112,.5);
+        }
+
+            .friend-network .friend-container li img {
+                max-width:100%;
+                max-height:100%;
+            }

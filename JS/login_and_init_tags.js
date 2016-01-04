@@ -42,11 +42,12 @@ function getFacebookProfileTags(callback) {
     var deferredLocation = new $.Deferred();
     var deferredEdu = new $.Deferred();
 
-    var fbTagList = [];
+    var unchecked_fbTagList = [];
+    var prechecked_fbTagList = [];
 
     FBgetLikes(global_ID, function(likes) {
         if(likes) {
-            fbTagList = fbTagList.concat(likes);
+            unchecked_fbTagList = unchecked_fbTagList.concat(likes);
         }
 
         deferredLikes.resolve();
@@ -54,7 +55,7 @@ function getFacebookProfileTags(callback) {
 
     FBgetHomeTown(global_ID, function(hometown) {
         if(hometown) {
-            fbTagList.push(hometown);
+            prechecked_fbTagList.push(hometown);
         }
        
         deferredHometown.resolve();
@@ -62,7 +63,7 @@ function getFacebookProfileTags(callback) {
 
     FBgetLocation(global_ID, function(location) {
         if(location) {
-            fbTagList.push(location);
+            prechecked_fbTagList.push(location);
         }
         
         deferredLocation.resolve();
@@ -70,14 +71,16 @@ function getFacebookProfileTags(callback) {
 
     FBgetEdu(global_ID, function(edu) {
         if(edu) {
-            fbTagList = fbTagList.concat(edu);   
+            prechecked_fbTagList = prechecked_fbTagList.concat(edu);   
         }
        
         deferredEdu.resolve();
     });
 
+
+
     $.when.apply($, [deferredEdu, deferredLocation, deferredHometown, deferredLikes]).then(function() {
-        callback(fbTagList);
+        callback(unchecked_fbTagList, prechecked_fbTagList);
     });
 }
 
@@ -105,9 +108,11 @@ function loginNewUser() {
                 return;
             }
   
-            getFacebookProfileTags(function(fbTagList) {
+            getFacebookProfileTags(function(unchecked_fbTagList, prechecked_fbTagList) {
 
-                generateCheckboxList(fbTagList, tagArray);
+                prechecked_fbTagList = prechecked_fbTagList.concat(tagArray);
+
+                generateCheckboxList(unchecked_fbTagList, prechecked_fbTagList);
             
             });
         }

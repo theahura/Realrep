@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="css/loginpanel.css" />
 		<link rel="stylesheet" href="css/judgrpanel.css" />
 		<link rel="stylesheet" href="css/otherprofilepanel.css" />
+		<link rel="stylesheet" href="css/friendnetworkpanel.css" />
         <link rel="stylesheet" href="css/selfprofile.css" />
 		<link rel="stylesheet" href="css/correlationpanel.css" />
         <link rel="stylesheet" href="css/initialtag.css" />
@@ -128,6 +129,7 @@
         		<li class="ui-container">
                     <div class = "profile-button button view-judgr"> Judge Your Friends </div>
                     <div class = "profile-button button view-correlator"> Correlation Page </div>
+                    <div class = "profile-button button view-friendnetwork"> Friend Network </div>
                 </li>
                 <li class="datacontainer">
                 	<div class="self_mapcontainer svg-container">
@@ -171,6 +173,16 @@
 		</div>
 
 		<div class="friend-network panel" hidden>
+			<ul>
+        		<li class="ui-container">
+	                <div class = "profile-button button friendnetwork-to-profile"> Back to Profile </div>
+                </li>
+                <li class="datacontainer">
+                	<ul class="friend-container"> 
+                		
+                	</ul>
+                </li>
+            </ul>
 		</div>
 
 		<div class="judgrpage panel" hidden>
@@ -214,6 +226,8 @@
 			</div>		
 		</div>
 
+
+
 		<!--Enviro and API-->
 		<script src="JS/global.js"></script>
         <script src="JS/fb_api.js"></script>
@@ -222,6 +236,7 @@
         <!-- Panels -->
 		<script src="JS/self_profile.js"></script>
 		<script src="JS/correlation_page.js"></script>
+		<script src="JS/friend_network.js"></script>
 		<script src="JS/judgr_page.js"></script>
 		<script src="JS/other_profile.js"></script>
 		<script src="JS/login_and_init_tags.js"></script>

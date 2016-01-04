@@ -20,7 +20,9 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 
 	var flippedHashtagObj = {};
 
+	console.log(hashtagList.length)
 	for(index in hashtagList) {	
+
 		deferred = new $.Deferred();
 
 		socket.emit('clientToServer', {
@@ -34,17 +36,19 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 				return;
 			}
 
-			var baseHashtag = hashtagList[index];
+			if(data) {
+				var baseHashtag = hashtagList[index];
 
-			data = stripDynamoSettings(data);
+				data = stripDynamoSettings(data);
 
-			flippedHashtagObj[baseHashtag] = baseHashtag;
+				flippedHashtagObj[baseHashtag] = baseHashtag;
 
-			for(key in data) {
-				flippedHashtagObj[key] = baseHashtag;
+				for(key in data) {
+					flippedHashtagObj[key] = baseHashtag;
+				}
+
+				jQuery.extend(assocHashtagObj, data);
 			}
-
-			jQuery.extend(assocHashtagObj, data);
 
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
@@ -59,7 +63,6 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 
 	//store information about file to dynamo through a server
 	$.when.apply($, deferredArray).then(function() {
-
 		var assocHashtagList = Object.keys(assocHashtagObj);
 
 		if(callback)
@@ -72,36 +75,44 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 /**
 	Defines parameters for a loaded friend
 */
-function judgr_loadedFriend(data, id) {
+function judgr_loadedFriend(data, id, friendLength) {
 	this.id = id;
 	this.fullHashtagList = Object.keys(data);
 	this.hashtagRootObj = {};
+	this.friendLength = friendLength;
 }
 
 
 /**
 	Pulls up a users profile info and sets up the hashtag list
 */
-function judgr_loadUser() {
+function judgr_loadUser(fbID) {
 
-	if(global_friendsList.length === 0)
-		global_friendsList = global_friendsListUnmodified.slice(0);
+	if(!fbID) {
+		if(global_friendsListUnmodified.length === 0) {
+			return;
+		}
 
-	var fbID = global_friendsList.pop();
+		if(global_friendsList.length === 0)
+			global_friendsList = global_friendsListUnmodified.slice(0);
+
+		fbID = global_friendsList.pop();		
+	}
+	
 
 	socket.emit('clientToServer', {
 		name: 'getProfile',
 		hash: fbID
 	}, function(data, err) {
 
-		if(!data) {
-			judgr_loadUser();
-			return;
-		}
-
 		if(err) {
 			alert(err);
 			console.log(err);
+			return;
+		}
+
+		if(!data) {
+			judgr_loadUser();
 			return;
 		}
 
@@ -114,6 +125,11 @@ function judgr_loadUser() {
 		judgr_getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;
 			currentLoadedFriend.hashtagRootObj = flippedHashtagObj;
+
+			FBgetFriends(fbID, function(friends) {
+				currentLoadedFriend.friendLength = friends.length;
+			});
+
 			postLoadUser(fbID, assoclist);
 		});
 	});
@@ -134,7 +150,7 @@ function judgr_updateUser(attribute, value) {
 		attribute: attribute, 
 		value: value,
 		checkRoot: currentLoadedFriend['hashtagRootObj'][attribute], 
-		friendLength: global_friendsListUnmodified.length
+		friendLength: currentLoadedFriend.friendLength
 	}, function(data, err) {
 		
 		if(err) {

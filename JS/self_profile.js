@@ -71,4 +71,10 @@ $('.view-correlator').click(function() {
 	changePage('correlation-page', 'self-profile-page');
 });
 
+$('.view-friendnetwork').click(function() {
+	changePage('friend-network', 'self-profile-page', null, null, function() {
+		if ($('.friend-network .friend-container li').length === 0)
+			friendnetwork_loadFriends();
+	});
+});
 

@@ -32,6 +32,9 @@ var mapReference = {}
 	mapReference['correlation-page'] = 'correlation_mapcontainer';
 	mapReference['other-profile-page'] = 'other_mapcontainer';
 
+//stores where in the stack you are for forward/back calls
+var stackLocation = 0;
+
 history.pushState({}, "");
 
 /**
@@ -103,7 +106,7 @@ function changePage(newPageClass, oldPageClass, mapData, pageState, callback, on
        		loadProfileMap('.' + mapReference[newPageClass], mapData);               
     	}
 
-    	if(oldPageClass) {
+    	if(oldPageClass && !$('.' + oldPageClass).is(":hidden")) {
 
     		$('.' + oldPageClass).slideToggle();
 
@@ -118,12 +121,14 @@ function changePage(newPageClass, oldPageClass, mapData, pageState, callback, on
 	    	'global_ID': global_ID, 
 	    	'pageToLoad': oldPageClass,
 	    	'pageToHide': newPageClass,
-	    	'pageState': pageState 
+	    	'pageState': pageState,
+	    	'index': stackLocation 
 	    };
 		
 		if(!onNavButton) {
 			history.replaceState(state, "");
 			history.pushState({}, "");
+			stackLocation++;
 		}
 			
     });
@@ -132,15 +137,30 @@ function changePage(newPageClass, oldPageClass, mapData, pageState, callback, on
 
 window.onpopstate = function(event) {
 
-	var state = event.state;
-
-	if(!event.state)
+	if(!event.state || stackLocation === 0)
 		return;
 
-	//console.log(event.state)
+	var state = event.state;
 
-	var pageToLoad = state.pageToLoad;
-	var pageToHide = state.pageToHide;
+	console.log(event.state)
+
+	var pageToLoad, pageToHide;
+
+	//if going backwards, else going forwards
+	if(state.index < stackLocation) {
+		pageToLoad = state.pageToLoad;
+		pageToHide = state.pageToHide;		
+	} else {
+		pageToLoad = state.pageToHide;
+		pageToHide = state.pageToLoad;	
+	}
+
+	alert(pageToLoad)
+	alert(pageToHide)
+	alert(state.index)
+	alert(stackLocation)
+
+	stackLocation = state.index;
 
 	if (pageToLoad === 'initial-tag-page') {
 		changePage(pageToLoad, pageToHide, null, null, null, true);
@@ -149,7 +169,9 @@ window.onpopstate = function(event) {
 	} 
 
 	if(pageToLoad === 'self-profile-page') {
+
 		changePage(pageToLoad, pageToHide, global_ID, null, null, true);
+
 	} else if (pageToLoad === 'correlation-page') {
 		changePage(pageToLoad, null, null, null, null, true);
 
@@ -160,14 +182,19 @@ window.onpopstate = function(event) {
 
 		changePage(pageToLoad, pageToHide, currentLoadedFriend.id, null, null, true);
 
-		postLoadUser(fbID, currentLoadedFriend.fullHashtagList);
+		postLoadUser(currentLoadedFriend.id, currentLoadedFriend.fullHashtagList);
 
 	} else if (pageToLoad === 'judgrpage') {
 		changePage(pageToLoad, pageToHide, null, null, null, true);
 		
 		currentLoadedFriend = state.pageState.loadedFriend;
 
-		postLoadUser(fbID, currentLoadedFriend.fullHashtagList);	
+		postLoadUser(currentLoadedFriend.id, currentLoadedFriend.fullHashtagList);	
+	} else if (pageToLoad === 'friend-network') {
+		changePage(pageToLoad, pageToHide, null, null, null, true);
+
+		if ($('.friend-network .friend-container li').length === 0)
+			friendnetwork_loadFriends();
 	}
 };
 

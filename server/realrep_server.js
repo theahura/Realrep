@@ -23,12 +23,11 @@ var global_loggedInRoomName = 'loggedIn';
 //Sockets
 var io = require('socket.io').listen(6010);
 
-var hashtagTable = new AWS.DynamoDB({params: {TableName: 'pennapps2015hashtags'}});
-var userTable = new AWS.DynamoDB({params: {TableName: 'pennapps2015users'}});
+var hashtagTable = new AWS.DynamoDB({params: {TableName: 'rerep_hashtags'}});
+var userTable = new AWS.DynamoDB({params: {TableName: 'rerep_users'}});
 
 userTable.hashVal = "userId";
 hashtagTable.hashVal = "hashtag";
-
 
 /**
 	Checks an input string to make sure it is sanitized for database input

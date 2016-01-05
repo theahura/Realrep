@@ -21,13 +21,11 @@ function friendnetwork_loadFriends() {
 		    	$("." + global_friendsListUnmodified[specific_index] + "_name").html(name);
 		    });
 		}
-		
 
 		$('.friend-network .friend-container').append("<li class=\"button\" id=\"" + global_friendsListUnmodified[index] + "\"> <img class=\"" + global_friendsListUnmodified[index] + "_img\"> </img> <div class=\"" + global_friendsListUnmodified[index] + "_name\"> TEST TEXT </div> </li>");
 		loadProPic(index);
 		loadName(index);
 	}
-
 
 	setImageClick();
 }
@@ -63,7 +61,7 @@ function setImageClick() {
 			}
 
 			if(data) {
-				
+
 				changePage('other-profile-page', 'friend-network', fbID);
 
 	    		judgr_loadUser(fbID);

@@ -12,6 +12,11 @@ var currentLoadedFriend = null;
 
 /**
 	Helper method that takes a list of hashtags and returns an associative list of hashtags
+
+	@param: hashtagList; the list of hashtags to search over
+	@param: callback; function(assocHashtagList, flippedHashtagObj)
+		list of the associated hashtags
+		obj tying an assoc hashtag to the original one
 */
 function judgr_getAssocHashtagList(hashtagList, callback) {
 	var deferredArray = [];
@@ -85,6 +90,8 @@ function judgr_loadedFriend(data, id, friendLength) {
 
 /**
 	Pulls up a users profile info and sets up the hashtag list
+
+	@param: fbID; string; a facebook id
 */
 function judgr_loadUser(fbID) {
 
@@ -140,6 +147,9 @@ function judgr_loadUser(fbID) {
 
 /**
 	Updates a profile with the current score for a user attribute and checks for/calls hashtag updates as needed
+
+	@param: attribute; string; the user id
+	@param: value; string; the value of the score being updated
 */
 function judgr_updateUser(attribute, value) {
 
@@ -261,7 +271,12 @@ $('.judgr-to-profile').click(function() {
 });
 
 
+/**
+	After a user has been loaded to the judgr frontend, load all of the UI elements
 
+	@param: fbID; the id of the loaded friend
+	@param: hashtagList; the list to pop from
+**/
 function postLoadUser(fbID, hashtagList) {
     FBgetProfilePicture(fbID, function(url) {
         $(".profile-picture").attr("src", url);
@@ -271,10 +286,12 @@ function postLoadUser(fbID, hashtagList) {
     	$(".friend-name").html(name);
     });
 
+    $('.' + mapReference['other-profile-page']).empty();
+
     var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
     $(".hashtag").html(tag);
 
-    global_state.page_state = {
+    global_state.pageState = {
     	loadedFriend: currentLoadedFriend
     };
 }

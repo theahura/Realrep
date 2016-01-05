@@ -59,7 +59,9 @@ function selfprofile_login(callback) {
 //UI GOES HERE
 //----------------------------------------------------------------------------------------------------------------------------
 
-
+/**
+	Loads the judgr page
+**/
 $('.view-judgr').click(function() {
 	changePage('judgrpage', 'self-profile-page', null, null, function() {
 		if(!currentLoadedFriend)
@@ -67,10 +69,16 @@ $('.view-judgr').click(function() {
 	});
 });
 
+/**
+	Loads the correlator page
+**/
 $('.view-correlator').click(function() {
 	changePage('correlation-page', 'self-profile-page');
 });
 
+/**
+	Loads the friend page (and friend network)
+**/
 $('.view-friendnetwork').click(function() {
 	changePage('friend-network', 'self-profile-page', null, null, function() {
 		if ($('.friend-network .friend-container li').length === 0)

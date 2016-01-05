@@ -10,6 +10,8 @@
 
 /**
 	Makes sure all other pages are closed besides passed one
+
+	@param: pageToLoad; string; class describing which page should NOT be closed
 **/
 function ensureOthersAreClosed(pageToLoad) {
 	for(key in mapReference) {
@@ -23,18 +25,30 @@ function ensureOthersAreClosed(pageToLoad) {
 }
 
 /**
-	Handles changing pages, includes forward/next button magic
+	Handles changing pages, includes forward/next button magic. Loads global state to history. 
+
+	@param: newPageClass; string; class describing which page to load
+	@param: oldPageClass; deprecated
+	@param: mapData; string; id or some other information needed to load maps on various pages
+	@param: pageState; deprecated
+	@param: callback; function()
+	@param: onNavButton; bool; checks whether this is being called on a back or forward button call
 **/
 function changePage(newPageClass, oldPageClass, mapData, pageState, callback, onNavButton) {
 
     $('.' + newPageClass).slideToggle(function() {
 
     	if(mapReference[newPageClass] && mapData) {
-       		loadProfileMap('.' + mapReference[newPageClass], mapData);               
-    	}
 
-    	if(oldPageClass && mapReference[oldPageClass]) 
-    		$('.' + mapReference[oldPageClass]).empty();
+    		if(isEmpty($('.' + mapReference[newPageClass]))) {
+       			loadProfileMap('.' + mapReference[newPageClass], mapData);      
+       		} else {
+       			console.log(newPageClass)
+       			console.log(mapReference[newPageClass])
+    			d3.select("." + mapReference[newPageClass] + " svg").call(zoom, d3.select("." + mapReference[newPageClass] + " .networkContainer"));
+       		}
+
+    	} 
 
     	ensureOthersAreClosed(newPageClass);
 
@@ -49,27 +63,31 @@ function changePage(newPageClass, oldPageClass, mapData, pageState, callback, on
 			global_state.prevPage = global_state.currentPage;
 			global_state.currentPage = newPageClass;
 			global_state.nextPage = null;
-			document.title = docTitle + nameReference[global_state.currentPage];
 
 			stackLocation++;
 
 			global_state.index = stackLocation;
 
 			history.pushState(global_state, "");
+
+			document.title = docTitle + nameReference[global_state.currentPage];
 		}
 			
     });
 }
 
+/**
+	Deals with back and forward button navigation. Loads the passed in global state and changes page accordingly.
 
+	@param: event; event; passed in from the function call, the event contains the global state obj that defines
+			how to set up the app for the new state given
+**/
 window.onpopstate = function(event) {
 
 	if(!event.state || !event.state.currentPage)
 		return;
 
 	var state = event.state;
-
-	console.log(event.state)
 
 	var pageToLoad, pageToHide;
 
@@ -82,21 +100,15 @@ window.onpopstate = function(event) {
 		pageToHide = state.prevPage;	
 	}
 
-	alert(pageToLoad)
-	alert(pageToHide)
-	alert(state.index)
-	alert(stackLocation)
-
 	global_state = state;
+	stackLocation = state.index;
 	document.title = docTitle + nameReference[global_state.currentPage];
 
 	if (pageToLoad === 'initial-tag-page') {
+		
 		changePage(pageToLoad, pageToHide, null, null, null, true);
-    	$(".login-page").slideToggle();
-		return;
-	} 
 
-	if(pageToLoad === 'self-profile-page') {
+	} else if(pageToLoad === 'self-profile-page') {
 
 		changePage(pageToLoad, pageToHide, global_ID, null, null, true);
 

@@ -19,6 +19,11 @@ d3.selection.prototype.moveToFront = function() {
 
 /**
 	Creates a d3 force layout graph
+
+	@param: DOMelement; html element; where the map is going to go
+	@param: graph; {}
+		nodes: list of nodes
+		edges: list of edges
 */
 function createGraph(DOMelement, graph) {
 
@@ -44,7 +49,7 @@ function createGraph(DOMelement, graph) {
 			.attr("width", $(DOMelement).width())
 			.attr("height", $(DOMelement).height())
 
-	var networkContainer = svg.append("g");
+	var networkContainer = svg.append("g").attr("class", "networkContainer");
 
 	force
 		.nodes(graph.nodes)
@@ -122,15 +127,8 @@ function createGraph(DOMelement, graph) {
 	    $('.svg-content-responsive').attr("height", $(DOMelement).height());
 	});
 
-	var zoom = d3.behavior.zoom()
-    	.scaleExtent([.1, 10])
-    	.on("zoom", zoomed);
 
-    function zoomed() {
-	  	networkContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-	}
-
-	d3.select("svg").call(zoom);
+	svg.call(zoom, networkContainer);
 
 	function fade(d, opacity) {
         node.style("stroke-opacity", function(o) {
@@ -146,12 +144,45 @@ function createGraph(DOMelement, graph) {
 
 }
 
+
+/**
+	Handles zooming stuff. Specifically trigerrs zoom behavior. 
+
+	@param: selection; d3 element (svg); passed in by select call
+	@param: networkContainer; d3 element (g); element that contains the map in question 
+**/
+function zoom(selection, networkContainer) {
+	console.log(networkContainer)
+	console.log(selection)
+	var innerzoom = d3.behavior.zoom()
+    	.scaleExtent([.1, 10])
+    	.on("zoom", function() {
+    		zoomed(networkContainer);
+    	});
+
+	selection.call(innerzoom)
+}
+
+/**
+	Explains how an element should behave on zoom behavior
+
+	@param: container; d3 element (g); element that contains the map in question
+**/
+function zoomed(container) {
+  	container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
 /**
 	Loads second layer nodes
 
 	For each node in nodes, loads the second layer of nodes
 	For each second layer node, checks if the node already exists in the previous layers - if it does, simply adds an edge;
 	if not, adds a new node and an edge
+
+	@param: nodes; []; list of nodes
+	@param: reverseNodes; {}; list of nodes by name linking to their index in nodes[]
+	@param: edges; []; list of edges
+	@param: callback; function()
 **/
 function loadNodes(nodes, reverseNodes, edges, callback) {
 
@@ -225,6 +256,11 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 
 /**
 	Helper to load graph
+
+	@param: name; String; node label
+	@param: sortedKeys; list of tags associated with a base tag
+	@param: dataObj; the original object listing values with keys
+	@param: DOMelement; where to load the map
 */
 function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 
@@ -278,6 +314,10 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 
 /**
 	Loads the profile map for a logged in user
+
+	@param: DOMelement; html element; where to load the map
+	@param: id; string; the hash call for the map to load
+	@param: command; string; the program server call for the map to load
 */
 function loadProfileMap(DOMelement, id, command) {
 

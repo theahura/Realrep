@@ -34,6 +34,7 @@ var mapReference = {};
 	mapReference['judgrpage'] = null;
 	mapReference['friend-network'] = null;
 	mapReference['initial-tag-page'] = null;
+	mapReference['login-page'] = null;
 
 //Stores a reference of class names of panels to userfriendly names
 var nameReference = {};
@@ -60,9 +61,10 @@ var global_state = {
 	'pageState': null
 };
 
+//Initial loading stuff
 document.title = docTitle + nameReference['initial-tag-page'];
 
-history.pushState(global_state, "");
+history.replaceState(global_state, "");
 
 /**
 	Triggers page load
@@ -92,7 +94,7 @@ function notEqual(array) {
 }
 
 /**
-	Returns an object as key value pairs 
+	Returns a dynamo object as key value pairs 
 */
 function stripDynamoSettings(data) {
 	delete data['userId'];
@@ -118,10 +120,18 @@ function sortObject(data) {
 	return Object.keys(data).sort(function(a,b){return data[a]-data[b]});
 }
 
+//Scrolls the page
 function scrollPage(panelID) {
     $('body').animate({
         scrollTop: $(panelID).offset().top
     }, 1000);
+}
+
+/**
+	Checks if an html element is empty
+**/
+function isEmpty( el ){
+    return !$.trim(el.html())
 }
 
 

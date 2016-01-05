@@ -6,7 +6,9 @@
 	Description: Lists friends data and links to their maps
 */
 
-
+/**
+	Loads profile pictures and names for the friend network
+**/
 function friendnetwork_loadFriends() {
 	for(index in global_friendsListUnmodified) {
 
@@ -41,7 +43,13 @@ $('.friendnetwork-to-profile').click(function() {
 	changePage('self-profile-page', 'friend-network', global_ID);
 });
 
+/**
+	Sets what happens when you click a friend (moves to other friend page and loads map)
+**/
 function setImageClick() {
+
+	$('.' + mapReference['other-profile-page']).empty();
+
 	/**
 		Sends picture to other-profile-panel map loading
 	*/

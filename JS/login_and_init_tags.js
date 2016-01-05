@@ -34,7 +34,11 @@ function loginPastUser(callback) {
 }
 
 /**
-    Helper method for login new user, designed to get a list of tags that defines a user profile
+    Helper method for login new user, designed to get a list of tags that defines a user profile from facebook
+
+    @param: callback; function(list1, list2);
+                list1: list of tags that are pulled from facebook likes
+                list2: list of tags pulled from facebook hometown/location/education 
 **/
 function getFacebookProfileTags(callback) {
     var deferredLikes = new $.Deferred();
@@ -200,6 +204,12 @@ function postLogin() {
     changePage('self-profile-page', 'initial-tag-page', global_ID);
 }
 
+/**
+    Creates a list of tags pulled from facebook
+
+    @param: fbTagList; list of strings; list that is unchecked 
+    @param: tagArray; list of strings; list that is prechecked
+**/
 function generateCheckboxList(fbTagList, tagArray) {
 
     $('.new-user-signup').fadeOut(function() {

@@ -27,6 +27,10 @@
             max-height: 100%;
             border-radius: 10px;
         }
+        .resize{
+        width:150px; /* you can use % */
+         height: auto;
+}
 
     .hashtag-button-container {
         width: 100%;

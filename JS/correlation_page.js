@@ -11,11 +11,20 @@
 //----------------------------------------------------------------------------------------------------------------------------
 
 /**
-	Sets up 'back' button to go from correlation page to home page
+	Sets up button to go from correlation page to other pages
 */
 $('.correlation-to-profile').click(function() {
-	changePage('self-profile-page', 'correlation-page', global_ID, {
-		hashtagSearch: $('#SearchForCorrelation').val()
+	changePage('self-profile-page');
+});
+
+$('.correlation-to-friends').click(function() {
+	changePage('friend-network');
+});
+
+$('.correlation-to-judgr').click(function() {
+	changePage('judgrpage', null, function() {
+		if(!currentLoadedFriend)
+			judgr_loadUser();	
 	});
 });
 

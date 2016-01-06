@@ -63,7 +63,7 @@ function selfprofile_login(callback) {
 	Loads the judgr page
 **/
 $('.view-judgr').click(function() {
-	changePage('judgrpage', 'self-profile-page', null, null, function() {
+	changePage('judgrpage', null, function() {
 		if(!currentLoadedFriend)
 			judgr_loadUser();	
 	});
@@ -73,16 +73,23 @@ $('.view-judgr').click(function() {
 	Loads the correlator page
 **/
 $('.view-correlator').click(function() {
-	changePage('correlation-page', 'self-profile-page');
+	changePage('correlation-page');
 });
 
 /**
 	Loads the friend page (and friend network)
 **/
 $('.view-friendnetwork').click(function() {
-	changePage('friend-network', 'self-profile-page', null, null, function() {
+	changePage('friend-network', null, function() {
 		if ($('.friend-network .friend-container li').length === 0)
 			friendnetwork_loadFriends();
 	});
 });
 
+/**
+	Refreshes the home profile map
+**/
+$('.self-profile-page .refresh-map').click(function() {
+	$('.' + mapReference['self-profile-page']).empty();
+	loadProfileMap('.' + mapReference['self-profile-page'], global_ID);
+})

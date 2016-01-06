@@ -34,7 +34,7 @@ function ensureOthersAreClosed(pageToLoad) {
 	@param: callback; function()
 	@param: onNavButton; bool; checks whether this is being called on a back or forward button call
 **/
-function changePage(newPageClass, oldPageClass, mapData, pageState, callback, onNavButton) {
+function changePage(newPageClass, mapData, callback, onNavButton) {
 
     $('.' + newPageClass).slideToggle(function() {
 
@@ -106,32 +106,32 @@ window.onpopstate = function(event) {
 
 	if (pageToLoad === 'initial-tag-page') {
 		
-		changePage(pageToLoad, pageToHide, null, null, null, true);
+		changePage(pageToLoad, null, null, true);
 
 	} else if(pageToLoad === 'self-profile-page') {
 
 		changePage(pageToLoad, pageToHide, global_ID, null, null, true);
 
 	} else if (pageToLoad === 'correlation-page') {
-		changePage(pageToLoad, pageToHide, null, null, null, true);
+		changePage(pageToLoad, null, null, true);
 
 		//load hashtag value from global_pageState
 
 	} else if (pageToLoad === 'other-profile-page') {
 		currentLoadedFriend = state.pageState.loadedFriend;
 
-		changePage(pageToLoad, pageToHide, currentLoadedFriend.id, null, null, true);
+		changePage(pageToLoad, currentLoadedFriend.id, null, true);
 
 		postLoadUser(currentLoadedFriend.id, currentLoadedFriend.fullHashtagList);
 
 	} else if (pageToLoad === 'judgrpage') {
-		changePage(pageToLoad, pageToHide, null, null, null, true);
+		changePage(pageToLoad, null, null, true);
 		
 		currentLoadedFriend = state.pageState.loadedFriend;
 
 		postLoadUser(currentLoadedFriend.id, currentLoadedFriend.fullHashtagList);	
 	} else if (pageToLoad === 'friend-network') {
-		changePage(pageToLoad, pageToHide, null, null, null, true);
+		changePage(pageToLoad, null, null, true);
 
 		if ($('.friend-network .friend-container li').length === 0)
 			friendnetwork_loadFriends();

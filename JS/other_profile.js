@@ -11,10 +11,25 @@
 //----------------------------------------------------------------------------------------------------------------------------
 
 /**
-	Switches back from the other profile page to the judgr page
+	Switches back from the other profile page to other pages
 */
 $('.otherprofile-to-judgr').click(function() {
-	changePage('judgrpage', 'other-profile-page', {
-		loadedFriend: currentLoadedFriend
-	});
+	changePage('judgrpage');
+});
+
+$('.otherprofile-to-profile').click(function() {
+	changePage('self-profile-page');
+});
+
+$('.otherprofile-to-correlations').click(function() {
+	changePage('correlation-page');
+});
+
+$('.otherprofile-to-friends').click(function() {
+	changePage('friend-network');
+});
+
+$('.other-profile-page .refresh-map').click(function() {
+	$('.' + mapReference['other-profile-page']).empty();
+	loadProfileMap('.' + mapReference['other-profile-page'], currentLoadedFriend.id);
 });

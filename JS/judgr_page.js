@@ -255,9 +255,7 @@ $('.passbutton').click(function() {
 	Loads the map for a friends profile on click from the profile picture
 */
 $('.judgrpage .profile-picture').click(function() { 
-    changePage('other-profile-page', 'judgrpage', currentLoadedFriend.id, {
-		loadedFriend: currentLoadedFriend
-	});
+    changePage('other-profile-page', currentLoadedFriend.id);
 });
 
 
@@ -265,9 +263,7 @@ $('.judgrpage .profile-picture').click(function() {
 	Moves from the judgr page to the self profile page
 */
 $('.judgr-to-profile').click(function() {
-	changePage('self-profile-page', 'judgrpage', global_ID, {
-		loadedFriend: currentLoadedFriend
-	});
+	changePage('self-profile-page');
 });
 
 

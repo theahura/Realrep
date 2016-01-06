@@ -29,23 +29,19 @@ function createGraph(DOMelement, graph) {
 
 	//console.log(graph)
 
-	var width = 800,
-	    height = 800;
+	var width = 1300,
+	    height = 750;
 
 	var color = d3.scale.category20();
 
 	var force = d3.layout.force()
+		.gravity(1)
 	    .charge(-10000)
 	    .linkDistance(150)
 	    .size([width, height]);
 
 	var svg = d3.select(DOMelement)
    		.append("svg")
-   			//responsive SVG needs these 2 attributes and no width and height attr
-   			.attr("preserveAspectRatio", "xMinYMin meet")
-   			.attr("viewBox", "0 0 " + width + " " + height)
-   			//class to make it responsive
-   			.classed("svg-content-responsive", true)
 			.attr("width", $(DOMelement).width())
 			.attr("height", $(DOMelement).height())
 
@@ -121,12 +117,6 @@ function createGraph(DOMelement, graph) {
 		node
 			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	});	
-
-	$(window).on("resize", function() {
-	    $('.svg-content-responsive').attr("width", $(DOMelement).width());
-	    $('.svg-content-responsive').attr("height", $(DOMelement).height());
-	});
-
 
 	svg.call(zoom, networkContainer);
 

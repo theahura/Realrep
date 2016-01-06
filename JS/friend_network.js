@@ -37,11 +37,23 @@ function friendnetwork_loadFriends() {
 //----------------------------------------------------------------------------------------------------------------------------
 
 /**
-	Sets up 'back' button to go from network page to home page
+	Sets up buttons to go from network page to other pages
 */
 $('.friendnetwork-to-profile').click(function() {
 	changePage('self-profile-page', 'friend-network', global_ID);
 });
+
+$('.friendnetwork-to-judgr').click(function() {
+	changePage('judgrpage', null, function() {
+		if(!currentLoadedFriend)
+			judgr_loadUser();	
+	});
+});
+
+$('.friendnetwork-to-correlations').click(function() {
+	changePage('correlation-page');
+});
+
 
 /**
 	Sets what happens when you click a friend (moves to other friend page and loads map)

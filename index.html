@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>RealRep</title>
-		<link rel="icon" type="image/png" href="img/realreplogo.png">
+		<link rel="icon" type="image/png" href="img/logo1.png">
 
 		<!-- FONTS -->
 		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -130,6 +130,7 @@
                     <div class = "profile-button button view-judgr"> Judge Your Friends </div>
                     <div class = "profile-button button view-correlator"> Correlation Page </div>
                     <div class = "profile-button button view-friendnetwork"> Friend Network </div>
+                    <div class = "profile-button button refresh-map"> Refresh Map </div>
                 </li>
                 <li class="datacontainer">
                 	<div class="self_mapcontainer svg-container">
@@ -146,7 +147,12 @@
 					<div class="spacer-5"></div>
 					<div class="friend-name"> </div>
 					<div class="spacer-5"></div>
-                    <div class = "profile-button button otherprofile-to-judgr"> Back to Judgr </div>
+
+					<div class = "profile-button button otherprofile-to-profile"> Home </div>					
+                    <div class = "profile-button button otherprofile-to-judgr"> Judge Your Friends </div>
+                    <div class = "profile-button button otherprofile-to-correlations"> Correlations </div>
+                    <div class = "profile-button button otherprofile-to-friends"> Friend Network </div>
+                    <div class = "profile-button button refresh-map"> Refresh Map </div>
                 </li>
                 <li class="datacontainer">
                 	<div class="other_mapcontainer svg-container"></div>
@@ -164,7 +170,9 @@
 						<input class="search" type="text" id="SearchForCorrelation" placeholder="Search for a hashtag"></input>
 						<input class="button" type="submit" id="SubmitSearch"></input>
 					</form>
-	                <div class = "profile-button button correlation-to-profile"> Back to Profile </div>
+	                <div class = "profile-button button correlation-to-profile"> Home </div>
+	             	<div class = "profile-button button correlation-to-judgr"> Judge Your Friends </div>
+	             	<div class = "profile-button button correlation-to-friends"> Friend Network </div>
                 </li>
                 <li class="datacontainer">
                 	<div class="correlation_mapcontainer svg-container"></div>
@@ -175,7 +183,9 @@
 		<div class="friend-network panel" hidden>
 			<ul>
         		<li class="ui-container">
-	                <div class = "profile-button button friendnetwork-to-profile"> Back to Profile </div>
+	                <div class = "profile-button button friendnetwork-to-profile"> Home </div>
+	             	<div class = "profile-button button friendnetwork-to-judgr"> Judge Your Friends </div>
+					<div class = "profile-button button friendnetwork-to-correlations"> Correlations </div>	                
                 </li>
                 <li class="datacontainer">
                 	<ul class="friend-container"> 

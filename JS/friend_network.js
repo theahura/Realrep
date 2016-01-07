@@ -40,7 +40,7 @@ function friendnetwork_loadFriends() {
 	Sets up buttons to go from network page to other pages
 */
 $('.friendnetwork-to-profile').click(function() {
-	changePage('self-profile-page', 'friend-network', global_ID);
+	changePage('self-profile-page', global_ID);
 });
 
 $('.friendnetwork-to-judgr').click(function() {

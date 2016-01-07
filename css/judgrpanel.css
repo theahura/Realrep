@@ -2,7 +2,7 @@
     color: white;
     width: 100%;
     height: 100%;
-    background-image: url('../img/judgr-background.jpg');
+    background-image: url('../img/background5.png');
 }
 
     .content-container{
@@ -30,12 +30,43 @@
 
     .hashtag-button-container {
         width: 100%;
+        height: 30%;
         text-align: center;
     }
 
         .hashtag-button-container li {
             display: inline-block;
+            width: 20%;
+            height: 100%;
         }
+
+            .hashtag-button-container li .endorsebutton {
+                width: 100%;
+                height: 100%;
+                background-image: url('../img/check.png');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+
+            .hashtag-button-container li .passbutton {
+                width: 100%;
+                height: 100%;
+                background-image: url('../img/x.png');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+
+
+            .hashtag-button-container li .passbutton.already-seen {
+                width: 100%;
+                height: 100%;
+                background-image: url('../img/pass.png');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
 
     #NewUserSelect {
         font-size: 1vw;

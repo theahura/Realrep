@@ -80,10 +80,7 @@ $('.view-correlator').click(function() {
 	Loads the friend page (and friend network)
 **/
 $('.view-friendnetwork').click(function() {
-	changePage('friend-network', null, function() {
-		if ($('.friend-network .friend-container li').length === 0)
-			friendnetwork_loadFriends();
-	});
+	changePage('friend-network');
 });
 
 /**

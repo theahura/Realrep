@@ -201,7 +201,9 @@ $('#login-new-user').click(function(){
 */
 function postLogin() {
     $(".login-page").slideToggle();
-    changePage('self-profile-page', global_ID);
+    changePage('self-profile-page', global_ID, function() {
+        friendnetwork_loadFriends();
+    });
 }
 
 /**

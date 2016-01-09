@@ -82,7 +82,7 @@ function setImageClick() {
 
 			if(data) {
 
-				changePage('other-profile-page', 'friend-network', fbID);
+				changePage('other-profile-page', fbID);
 
 	    		judgr_loadUser(fbID);
 

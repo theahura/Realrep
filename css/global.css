@@ -39,6 +39,9 @@ ul, li {
     height: 1%;
 }
 
+.spacer-5-h {
+    width: 5%;
+}
 
 .node {
   stroke: #fff;

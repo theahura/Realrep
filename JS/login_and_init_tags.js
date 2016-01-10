@@ -22,7 +22,7 @@ function loginPastUser(callback) {
                 if(!callback)
                     alert("Fill out the tags and create a new user");
                 else 
-                    callback();
+                    callback(null);
 
                 return;
             }
@@ -101,7 +101,12 @@ function loginNewUser() {
     var tag5 = $("#tag-field5").val();
     var tag6 = $("#tag-field6").val();
 
-    loginPastUser(function() {
+    loginPastUser(function(data) {
+
+        if(!data) {
+            alert("Make sure you allow Facebook permissions before proceeding.");
+            return;
+        }
 
         if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
 

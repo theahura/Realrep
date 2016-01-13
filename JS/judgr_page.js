@@ -103,7 +103,8 @@ function judgr_loadUser(fbID) {
 		if(global_friendsList.length === 0)
 			global_friendsList = global_friendsListUnmodified.slice(0);
 
-		fbID = global_friendsList.pop();		
+		var popIndex = Math.floor(Math.random() * global_friendsList.length);
+		fbID = global_friendsList.splice(popIndex, 1)[0];
 	}
 	
 

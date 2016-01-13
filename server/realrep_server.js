@@ -78,6 +78,8 @@ function serverError(socket, message) {
 */
 function serverHandler(socket, incomingObj, callback) {
 
+	//console.log(incomingObj.name)
+
 	if(incomingObj.name === 'getProfile') {
 		//load all of the hashtag data for a given user and send it back in callback
 		//incomingObj must contain: userId
@@ -107,9 +109,7 @@ function serverHandler(socket, incomingObj, callback) {
 		//	}
 
 			storageTools.updateScores(incomingObj, userTable, function(data) {
-				console.log('updated scores');
 				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
-				console.log('updated tags');
 				callback(data);
 			});		
 		//});
@@ -119,7 +119,6 @@ function serverHandler(socket, incomingObj, callback) {
 	}
 	//Error pipe
 	else {
-		console.log(incomingObj)
 		callback(null, {message: 'Login first/Name not recognized'}, 'appError');
 	}
 

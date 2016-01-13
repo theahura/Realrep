@@ -27,7 +27,6 @@ d3.selection.prototype.moveToFront = function() {
 
 */
 function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
-
 	//Sets the initial graph parameters to the width and height of the screen
 	var width = Math.floor($(DOMelement).width()),
 	    height = Math.floor($(DOMelement).height());

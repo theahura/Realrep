@@ -21,16 +21,20 @@ module.exports = {
 		var requestObj = {Key: {}};
 
 		requestObj['Key'][table.hashVal] = {'S':incomingObj['hash']};
+		requestObj['ReturnConsumedCapacity'] = 'TOTAL'
 
 		table.getItem(requestObj, function(err, data)  {
 
 			if(err) {
+				console.log('got error')
 				callback(null, err);
 			}
 			else if(data.Item) {
+				console.log(data.ConsumedCapacity)
 				callback(data.Item);
 			}
 			else {
+				console.log('coundnt find anything')
 				callback(null);
 			}
 		});
@@ -121,14 +125,8 @@ module.exports = {
 		var newHashtag = Object.keys(updateData.Attributes)[0]
 		var newHashtagValue = parseInt(updateData.Attributes[incomingObj['attribute']]['N']);
 
-		console.log('ready to update tags')
-		console.log(incomingObj.hash)
-		console.log(newHashtagValue)
-		console.log(Math.floor(incomingObj.friendLength/5))
-
 		if(newHashtagValue === Math.floor(incomingObj.friendLength/5)) {
-			console.log('new value greater than friends length');
-			console.log(newHashtag)
+
 			this.retrieveData(incomingObj, usertable, function(data, err) {
 
 				if(err) {

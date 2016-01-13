@@ -22,56 +22,68 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 
 	var deferredArray = [];
   
+	console.log(nodes.length)
+	var counter = 0;
+
 	for(node in nodes) {
 
 		if(nodes[node].center) {
 			continue;
 		}
 
-		deferred = new $.Deferred();
+		//if(nodes[node].value < Math.floor(global_friendsListUnmodified.length/5))
+		//	continue; 
 
+		deferred = new $.Deferred();
 
 		socket.emit('clientToServer', {
 			name: 'getHashtag',
 			hash: nodes[node].label
 		}, function(data, err) {
-			
-			var currentLoadingNodeLabel = data['hashtag']['S'];
 
-			var dataObj = stripDynamoSettings(data);
+			if(err) {
+				console.log(err);
+			} else if(!data) {
+				console.log('no data found');
+			} else {
+				console.log('got data')
+				var currentLoadingNodeLabel = data['hashtag']['S'];
 
-			var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
+				var dataObj = stripDynamoSettings(data);
 
-			for(index in sortedKeys) {
+				var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
-				if(sortedKeys[index] === currentLoadingNodeLabel) 
-					continue;
+				for(index in sortedKeys) {
 
-
-				if(reverseNodes[sortedKeys[index]] !== undefined) {
-
-					if(nodes[reverseNodes[sortedKeys[index]]].layer <= 1)
+					if(sortedKeys[index] === currentLoadingNodeLabel) 
 						continue;
 
-					nodes[reverseNodes[sortedKeys[index]]].value[currentLoadingNodeLabel] = dataObj[sortedKeys[index]];
-					edges.push({source: reverseNodes[sortedKeys[index]], target: reverseNodes[currentLoadingNodeLabel]});
-				} else {
 
-					var node = {
-						layer: 2, 
-						label: sortedKeys[index], 
-						value: {}, 
-						color: 'blue',
-						size: Math.max(20, dataObj[sortedKeys[index]])
+					if(reverseNodes[sortedKeys[index]] !== undefined) {
+
+						if(nodes[reverseNodes[sortedKeys[index]]].layer <= 1)
+							continue;
+
+						nodes[reverseNodes[sortedKeys[index]]].value[currentLoadingNodeLabel] = dataObj[sortedKeys[index]];
+						edges.push({source: reverseNodes[sortedKeys[index]], target: reverseNodes[currentLoadingNodeLabel]});
+					} else {
+
+						var node = {
+							layer: 2, 
+							label: sortedKeys[index], 
+							value: {}, 
+							color: 'blue',
+							size: Math.max(20, dataObj[sortedKeys[index]])
+						}
+
+						node.value[currentLoadingNodeLabel] = dataObj[sortedKeys[index]];
+
+						nodes.push(node);
+
+						reverseNodes[sortedKeys[index]] = nodes.length - 1;
+
+						edges.push({source: nodes.length - 1, target: reverseNodes[currentLoadingNodeLabel]});
 					}
-
-					node.value[currentLoadingNodeLabel] = dataObj[sortedKeys[index]];
-
-					nodes.push(node);
-
-					reverseNodes[sortedKeys[index]] = nodes.length - 1;
-
-					edges.push({source: nodes.length - 1, target: reverseNodes[currentLoadingNodeLabel]});
 				}
 			}
 			
@@ -101,8 +113,7 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 	@param: dataObj; the original object listing values with keys
 	@param: DOMelement; where to load the map
 */
-function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
-
+function createGraph_helper(name, sortedKeys, dataObj, DOMelement, id) {
 	var color = 'gray';
 	var len = undefined;
 
@@ -126,15 +137,29 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 			continue;
 
 		index = parseInt(index);
-
-		nodes.push({
+		
+		var node = {
 			layer: 1, 
 			label: sortedKeys[index], 
 			value: dataObj[sortedKeys[index]], 
-			color: 'red',
 			size: Math.max(20, dataObj[sortedKeys[index]])
-		});
+		}
 
+		var friendLength; 
+
+		if(id === global_ID) {
+			friendLength = global_friendsListUnmodified.length;
+		} else {
+			friendLength = currentLoadedFriend.friendLength;
+		}
+
+		if(node.value < Math.floor(friendLength/5))
+			node.color = 'grey';
+		else
+			node.color = 'red';
+
+		nodes.push(node);
+			
 		reverseNodes[sortedKeys[index]] = nodes.length - 1;
 
 		edges.push({source: index + 1, target: 0});
@@ -162,7 +187,6 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement) {
 		should have a .title and a .data section underneath 
 */
 function loadProfileMap(DOMelement, id, command, piChartElement, otherDataElement) {
-
 	if(!command)
 		command = 'getProfile';
 
@@ -178,7 +202,7 @@ function loadProfileMap(DOMelement, id, command, piChartElement, otherDataElemen
 		if(command == 'getProfile') {
 			FBgetName(id, function(name) {
 
-				createGraph_helper(name, sortedKeys, dataObj, DOMelement);
+				createGraph_helper(name, sortedKeys, dataObj, DOMelement, id);
 
 			});	
 		}

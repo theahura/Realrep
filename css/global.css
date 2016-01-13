@@ -28,7 +28,7 @@ ul, li {
 .panel {
     width: 100%;
     height: 100%;
-    min-height: 950px;
+    /* min-height: 950px; */
     text-align: center;
 }
 

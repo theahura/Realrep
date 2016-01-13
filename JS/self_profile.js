@@ -16,6 +16,11 @@ function selfprofile_login(callback) {
 	//fb.js
 	FBlogin(function(id) {
 
+		if(!id) {
+			callback(false);
+			return;
+		}
+
 		global_ID = id;
 
 		var deferred_name = new $.Deferred();
@@ -47,7 +52,7 @@ function selfprofile_login(callback) {
 		$.when.apply(deferred_name, deferred_friends).done(function() {
 
 			if(callback)
-				callback();
+				callback(true);
 
 		});
 	});

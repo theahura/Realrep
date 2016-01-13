@@ -110,7 +110,7 @@ window.onpopstate = function(event) {
 
 	} else if(pageToLoad === 'self-profile-page') {
 
-		changePage(pageToLoad, pageToHide, global_ID, null, null, true);
+		changePage(pageToLoad, global_ID, null, null, true);
 
 	} else if (pageToLoad === 'correlation-page') {
 		changePage(pageToLoad, null, null, true);

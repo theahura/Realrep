@@ -12,7 +12,13 @@
     triggers UI change if successful login on both Facebook AND RealRep
 */
 function loginPastUser(callback) {
-    selfprofile_login(function() {
+    selfprofile_login(function(success) {
+
+        if(!success) {
+            alert("Make sure to allow Facebook permissions before proceeding.")
+            return;
+        }
+
         socket.emit('clientToServer', {
             name: 'getProfile',
             hash: global_ID
@@ -22,7 +28,7 @@ function loginPastUser(callback) {
                 if(!callback)
                     alert("Fill out the tags and create a new user");
                 else 
-                    callback(null);
+                    callback();
 
                 return;
             }
@@ -30,6 +36,7 @@ function loginPastUser(callback) {
                 postLogin();
             }
         });
+              
     });
 }
 
@@ -101,12 +108,7 @@ function loginNewUser() {
     var tag5 = $("#tag-field5").val();
     var tag6 = $("#tag-field6").val();
 
-    loginPastUser(function(data) {
-
-        if(!data) {
-            alert("Make sure you allow Facebook permissions before proceeding.");
-            return;
-        }
+    loginPastUser(function() {
 
         if (tag1 && tag2 && tag3 && tag4 && tag5 && tag6) {
 

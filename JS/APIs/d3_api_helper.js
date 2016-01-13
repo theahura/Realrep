@@ -132,6 +132,18 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement, id) {
 
 	reverseNodes[name] = 0;
 
+	var friendLength; 
+		
+	if(id) {
+		if(id === global_ID) {
+			friendLength = global_friendsListUnmodified.length;
+		} else {
+			friendLength = currentLoadedFriend.friendLength;
+		}			
+	} else {
+		friendLength = Math.floor((dataObj[sortedKeys[0]] + dataObj[sortedKeys[sortedKeys.length - 1]])/2 * 5);
+	}
+
 	for(index in sortedKeys) {
 		if(sortedKeys[index] === name)
 			continue;
@@ -143,14 +155,6 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement, id) {
 			label: sortedKeys[index], 
 			value: dataObj[sortedKeys[index]], 
 			size: Math.max(20, dataObj[sortedKeys[index]])
-		}
-
-		var friendLength; 
-
-		if(id === global_ID) {
-			friendLength = global_friendsListUnmodified.length;
-		} else {
-			friendLength = currentLoadedFriend.friendLength;
 		}
 
 		if(node.value < Math.floor(friendLength/5))

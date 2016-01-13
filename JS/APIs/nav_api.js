@@ -6,6 +6,16 @@
 	Description: API to hook into HTML5 history api. Handles changing pages as well. 
 */
 
+function toggle(page, callback) {
+	var minHeight = $(page).css('min-height');
+    
+    $(page).css('min-height',0).slideToggle(400, function() {
+        $(this).css('min-height', minHeight);
+
+        if(callback)
+    		callback();
+    });
+}
 
 
 /**
@@ -19,7 +29,7 @@ function ensureOthersAreClosed(pageToLoad) {
 			continue;
 		
 		if(!$('.' + key).is(":hidden")) {
-			$('.' + key).slideToggle();
+			toggle('.' + key);
 		}
 	}
 }
@@ -36,7 +46,7 @@ function ensureOthersAreClosed(pageToLoad) {
 **/
 function changePage(newPageClass, mapData, callback, onNavButton) {
 
-    $('.' + newPageClass).slideToggle(function() {
+	toggle('.' + newPageClass, function() {
 
     	if(mapReference[newPageClass] && mapData) {
 

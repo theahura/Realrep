@@ -184,6 +184,10 @@ $('#login-new-user').click(function(){
 
     var initNum = Math.floor(global_friendsListUnmodified.length/5);
 
+    if(initNum <= 0) {
+        initNum = 1;
+    }
+
     var incomingObj = {
         name: 'addUser',
         hash: global_ID

@@ -203,7 +203,7 @@ function judgr_loadTag() {
 
 		var tag = "";
 
-		if(Math.random() <= global_randomAssociationNum) {
+		if(global_userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
 
 			var index = Math.floor(Math.random()*global_adj_associations.length);
 

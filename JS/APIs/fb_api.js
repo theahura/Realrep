@@ -8,16 +8,46 @@
 
 
 /**
-	Logs a user in and returns the id for that user
+	Logs a user in and returns the id for that user, as well as whether or not they allowed friend scopes.
 */
 function FBlogin(callback) {
+
+	var loginOpts = {
+		scope: 'public_profile,user_friends,user_likes,user_hometown,user_education_history,user_location',
+   		return_scopes: true
+	}
+
 	FB.login(function(response) {
-   		FB.api("/me", function(response) {
-			callback(response.id);
-			//console.log(response.id);
-		});
-   }, {scope: 'public_profile,user_friends,user_likes,user_hometown,user_education_history,user_location'});
+		if(response.authResponse.grantedScopes) {
+
+			var scopesList = response.authResponse.grantedScopes.split(',');
+			var friendScopeGiven = false;
+
+			for(index in scopesList) {
+				if(scopesList[index] === 'user_friends') {
+					friendScopeGiven = true;
+					break;
+				}
+			}
+
+			FB.api("/me", function(response) {
+				callback(response.id, friendScopeGiven);
+			});
+		}
+
+   }, loginOpts);
 };
+
+/**
+	Logs a user out
+*/
+function FBlogout(callback) {
+	FB.logout(function(response) {
+		if(callback) {
+			callback();
+		}
+	});
+}
 
 /**
 	Gets a name for a given id and returns the name

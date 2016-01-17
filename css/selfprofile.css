@@ -1,7 +1,7 @@
 .self-profile-page {
     color: #2e6391;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     background-image: url('../img/background2.png');
 }
 	
@@ -89,7 +89,7 @@
 	    /* background: #7EC0EE; */
 	    color: white;
 	    margin: auto;
-	    margin-top: 30%;
+	    margin-top: 20%;
 	    /* width: 75%; */
 	}
 

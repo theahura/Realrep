@@ -7,9 +7,14 @@
 */
 
 function toggle(page, callback) {
-	var minHeight = $(page).css('min-height');
+
+	var $page = $(page);
+
+	var minHeight = $page.css('min-height');
     
-    $(page).css('min-height',0).slideToggle(400, function() {
+    $page.css('min-height',0);
+
+    $page.slideToggle(400, function() {
         $(this).css('min-height', minHeight);
 
         if(callback)
@@ -53,8 +58,6 @@ function changePage(newPageClass, mapData, callback, onNavButton) {
     		if(isEmpty($('.' + mapReference[newPageClass]))) {
        			loadProfileMap('.' + mapReference[newPageClass], mapData);      
        		} else {
-       			console.log(newPageClass)
-       			console.log(mapReference[newPageClass])
     			d3.select("." + mapReference[newPageClass] + " svg").call(zoom, d3.select("." + mapReference[newPageClass] + " .networkContainer"));
        		}
 

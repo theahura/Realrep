@@ -14,9 +14,15 @@
 */
 function selfprofile_login(callback) {
 	//fb.js
-	FBlogin(function(id) {
+	FBlogin(function(id, friendsList_scope) {
 
 		if(!id) {
+			callback(false);
+			return;
+		}
+
+		if(!friendsList_scope) {
+			alert("Error: Friends list access not given.")
 			callback(false);
 			return;
 		}
@@ -94,4 +100,13 @@ $('.view-friendnetwork').click(function() {
 $('.self-profile-page .refresh-map').click(function() {
 	$('.' + mapReference['self-profile-page']).empty();
 	loadProfileMap('.' + mapReference['self-profile-page'], global_ID);
-})
+});
+
+/**
+	Loads the friend page (and friend network)
+**/
+$('.logout').click(function() {
+	FBlogout(function() {
+		location.reload();
+	});
+});

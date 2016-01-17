@@ -61,6 +61,9 @@ var global_state = {
 	'pageState': null
 };
 
+//The min height to set on nav changes
+//var global_minHeight = '830px';
+
 //Initial loading stuff
 document.title = docTitle + nameReference['initial-tag-page'];
 

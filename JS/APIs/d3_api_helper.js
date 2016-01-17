@@ -22,7 +22,6 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 
 	var deferredArray = [];
   
-	console.log(nodes.length)
 	var counter = 0;
 
 	for(node in nodes) {
@@ -46,7 +45,6 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 			} else if(!data) {
 				console.log('no data found');
 			} else {
-				console.log('got data')
 				var currentLoadingNodeLabel = data['hashtag']['S'];
 
 				var dataObj = stripDynamoSettings(data);

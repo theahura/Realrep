@@ -62,7 +62,9 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 		.attr("class", "link")
 		.style("stroke-width", function(d) { return 3; });
 
-	//nodes also have special params set for mouse over functionality
+	//nodes also have special params set for mouse over functionality and mouse click functionality
+	//Specifically, they fade and grow bigger on hover, displaying value if layer === 1;
+	//and they load correlation map if they are clicked
 	var node = networkContainer.selectAll(".node")
 		.data(graph.nodes)
 	.enter().append("g")
@@ -90,8 +92,16 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 			});
 
 			fade(d, 1);
+		})
+		.on("click", function(d) {
+			$('.correlation_mapcontainer').empty();
+			
+			changePage('correlation-page', null, function() {
+				loadProfileMap('.correlation_mapcontainer', d.label, 'getHashtag');
+			});
 		});
 
+	//Draws the rest of the node class
 	node.append('circle')
 		.attr("r", function(d) { return d.size; })
 		.attr("class", "node-circle")
@@ -177,8 +187,6 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 	@param: networkContainer; d3 element (g); element that contains the map in question 
 **/
 function zoom(selection, networkContainer) {
-	console.log(networkContainer)
-	console.log(selection)
 	var innerzoom = d3.behavior.zoom()
     	.scaleExtent([.1, 10])
     	.on("zoom", function() {

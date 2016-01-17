@@ -6,7 +6,6 @@
 	Login and Init panels
 */
 
-
 /**
     Mechanism to call the past user data. Logs into facebook, emits getProfile with the facebook userId on callback, and
     triggers UI change if successful login on both Facebook AND RealRep
@@ -15,7 +14,7 @@ function loginPastUser(callback) {
     selfprofile_login(function(success) {
 
         if(!success) {
-            alert("Make sure to allow Facebook permissions before proceeding.")
+            alert("Make sure to allow Facebook permissions, specifically friendslist access, before proceeding.")
             return;
         }
 
@@ -152,6 +151,13 @@ $('#theArrow').click(function() {
     Triggers sign-in process for old users. If data cannot be found for a FB userID, requests a new signup
 */
 $("#old-user-login").click(function() {
+    loginPastUser();
+});
+
+/**
+    Triggers sign-out process for old users. 
+*/
+$("#diff-user-login").click(function() {
     loginPastUser();
 });
 

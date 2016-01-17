@@ -238,11 +238,11 @@ function generateCheckboxList(fbTagList, tagArray) {
         $('.new-user-facebook-signup').fadeIn();
 
         for(index in fbTagList) {
-            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + fbTagList[index] + "\" value=\"" + fbTagList[index] + "\">" + fbTagList[index] + "<li>");
+            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + fbTagList[index] + "\" value=\"" + fbTagList[index] + "\">" + fbTagList[index].toLowerCase() + "<li>");
         }
 
         for(index in tagArray) {
-            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + tagArray[index] + "\" value=\"" + tagArray[index] + "\" checked>" + tagArray[index] + "<li>");
+            $('.checkbox-container').append("<li> <input type=\"checkbox\" name=\"" + tagArray[index] + "\" value=\"" + tagArray[index] + "\" checked>" + tagArray[index].toLowerCase() + "<li>");
         }
     });
 }

@@ -200,7 +200,9 @@ $('#login-new-user').click(function(){
     }
 
     $('.checkbox-container input:checked').each(function() {
-        incomingObj[this.value] = initNum;
+        var name = "" + this.value;
+
+        incomingObj[name.toLowerCase()] = initNum;
     });
 
     socket.emit('clientToServer', incomingObj, function(data, err) {

@@ -68,7 +68,13 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 	var node = networkContainer.selectAll(".node")
 		.data(graph.nodes)
 	.enter().append("g")
-		.attr("class", "node")
+		.attr("class", function(d) {
+			if(d.center) {
+				return "node";
+			} 
+
+			return "node button";
+		})
 		.call(force.drag)
 		.on("mouseover", function(d) {
 
@@ -94,11 +100,22 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 			fade(d, 1);
 		})
 		.on("click", function(d) {
-			$('.correlation_mapcontainer').empty();
+
+			if(d.center) {
+				return;
+			}
 			
-			changePage('correlation-page', null, function() {
-				loadProfileMap('.correlation_mapcontainer', d.label, 'getHashtag');
-			});
+			if(global_state.currentPage === 'correlation-page') {
+				$('.correlation_mapcontainer').fadeOut(function() {
+					$('.correlation_mapcontainer').empty().show();
+					loadProfileMap('.correlation_mapcontainer', d.label, 'getHashtag');
+				});
+			} else {
+				changePage('correlation-page', null, function() {
+					$('.correlation_mapcontainer').empty();
+					loadProfileMap('.correlation_mapcontainer', d.label, 'getHashtag');
+				});
+			}
 		});
 
 	//Draws the rest of the node class

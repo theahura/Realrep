@@ -108,6 +108,11 @@ function serverHandler(socket, incomingObj, callback) {
 		//		return;
 		//	}
 
+			if(incomingObj.attribute === hashtagTable.hashVal || incomingObj.attribute === userTable.hashVal) {
+				callback(null, {message: 'Error: invalid hash name or attribute name'});
+				return;
+			}
+
 			storageTools.updateScores(incomingObj, userTable, function(data) {
 				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
 				callback(data);

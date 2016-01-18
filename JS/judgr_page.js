@@ -143,6 +143,39 @@ function judgr_loadUser(fbID) {
 	});
 }
 
+/**
+	Load tags to HTML elements
+**/
+function judgr_loadTag() {
+	var global_userTags = currentLoadedFriend.fullHashtagList;
+
+	if(global_userTags.length > 0) { 
+
+		var tag = "";
+
+		if(global_userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
+
+			var index = Math.floor(Math.random()*global_adj_associations.length);
+
+			tag = global_adj_associations[index];
+
+		} else {
+
+			var index = Math.floor(Math.random()*global_userTags.length);
+
+			tag = global_userTags.splice(index, 1);
+
+		}
+
+		$('.hashtag').html(tag);
+	}
+	else {
+		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
+		$('.hashtag').html(tag);
+	}
+}
+
+
 //========================================================================================================================================
 
 
@@ -183,47 +216,8 @@ function judgr_updateUser(attribute, value) {
 	Load a new user in the judgr profile slot
 */
 $("#NewUserSelect").click(function() {
-	if (global_friendsList.length == 0) {
-		$(".profile-picture").attr("src", "../img/web1.png");
-		$(".hashtag").html("");
-	}
-	else {
-		judgr_loadUser();
-	}
+	judgr_loadUser();
 });
-
-
-/**
-	Load tags to HTML elements
-**/
-function judgr_loadTag() {
-	var global_userTags = currentLoadedFriend.fullHashtagList;
-
-	if(global_userTags.length > 0) { 
-
-		var tag = "";
-
-		if(global_userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
-
-			var index = Math.floor(Math.random()*global_adj_associations.length);
-
-			tag = global_adj_associations[index];
-
-		} else {
-
-			var index = Math.floor(Math.random()*global_userTags.length);
-
-			tag = global_userTags.splice(index, 1);
-
-		}
-
-		$('.hashtag').html(tag);
-	}
-	else {
-		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		$('.hashtag').html(tag);
-	}
-}
 
 /**
 	Select a hashtag to be associated with the profile that is currently loaded

@@ -74,12 +74,7 @@ module.exports = {
 	updateScores: function(incomingObj, table, callback) {
 
 		if(!incomingObj['value'])
-			incomingObj['value'] = 0;
-		else if(incomingObj['value'] > 1 || incomingObj['value'] < -1) {
-			callback(null, {message:"Value too high or too low"});
-			return;			
-		}
-		
+			incomingObj['value'] = 0;		
 
 		var requestObj = {
 							Key: {}, 

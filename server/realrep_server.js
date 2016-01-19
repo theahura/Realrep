@@ -113,6 +113,11 @@ function serverHandler(socket, incomingObj, callback) {
 				return;
 			}
 
+			if(!incomingObj['value'] || incomingObj['value'] > 1 || incomingObj['value'] < -1) {
+				callback(null, {message:"Value too high or too low or null"});
+				return;			
+			}
+
 			storageTools.updateScores(incomingObj, userTable, function(data) {
 				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
 				callback(data);
@@ -121,6 +126,9 @@ function serverHandler(socket, incomingObj, callback) {
 	}
 	else if(incomingObj.name === 'addUser') {
 		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);
+	}
+	else if(incomingObj.name === 'updateFriendsLength') {
+		storageTools.updateScores(incomingObj, userTable, callback);
 	}
 	//Error pipe
 	else {

@@ -51,8 +51,20 @@ function selfprofile_login(callback) {
 
 			global_friendsList = list.slice(0); 
 			global_friendsListUnmodified = list.slice(0);
-			
-			deferred_friends.resolve();
+
+			socket.emit('clientToServer', {
+				name: 'updateFriendsLength', 
+				hash: global_ID,
+				attribute: 'friendsListCount_079209086357678',
+				value: global_friendsListUnmodified.length
+			}, function(data, err) {
+				
+				if(err) {
+					console.log(err);
+				}
+
+				deferred_name.resolve();
+			});			
 		});
 
 		$.when.apply(deferred_name, deferred_friends).done(function() {

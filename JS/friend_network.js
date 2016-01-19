@@ -82,9 +82,9 @@ function setImageClick() {
 
 			if(data) {
 
-				changePage('other-profile-page', fbID);
-
-	    		judgr_loadUser(fbID);
+	    		judgr_loadUser(fbID, function() {
+					changePage('other-profile-page', fbID);
+	    		});
 
 			} else {
 				alert("User does not have any data stored");

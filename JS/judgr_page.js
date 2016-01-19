@@ -93,7 +93,7 @@ function judgr_loadedFriend(data, id, friendLength) {
 
 	@param: fbID; string; a facebook id
 */
-function judgr_loadUser(fbID) {
+function judgr_loadUser(fbID, callback) {
 
 	if(!fbID) {
 		if(global_friendsListUnmodified.length === 0) {
@@ -136,6 +136,7 @@ function judgr_loadUser(fbID) {
 
 			FBgetFriends(fbID, function(friends) {
 				currentLoadedFriend.friendLength = friends.length;
+				callback();
 			});
 
 			postLoadUser(fbID, assoclist);

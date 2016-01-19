@@ -74,6 +74,8 @@ function setImageClick() {
 			hash: fbID
 		}, function(data, err) {
 
+			//Make sure friend length data is not accidentally used here
+
 			if(err) {
 				alert(err);
 				console.log(err);

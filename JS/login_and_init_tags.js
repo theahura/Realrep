@@ -23,6 +23,8 @@ function loginPastUser(callback) {
             hash: global_ID
         }, function(data, err) {
 
+            //Make sure friend length data is not accidentally used here
+
             if(!data) {
                 if(!callback)
                     alert("Fill out the tags and create a new user");

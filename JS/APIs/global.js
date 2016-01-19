@@ -61,6 +61,9 @@ var global_state = {
 	'pageState': null
 };
 
+//Name for friend length count var
+global_friendLengthKey = 'friendsListCount_079209086357678';
+
 //The min height to set on nav changes
 //var global_minHeight = '830px';
 
@@ -97,11 +100,12 @@ function notEqual(array) {
 }
 
 /**
-	Returns a dynamo object as key value pairs 
+	Returns a dynamo object as key value pairs, deleting hash key data that shouldn't be pulled otherwise
 */
 function stripDynamoSettings(data) {
 	delete data['userId'];
-	delete data['hashtag']
+	delete data['hashtag'];
+	delete data[global_friendLengthKey];
 
 	var dataObj = {};
 

@@ -124,22 +124,37 @@ function judgr_loadUser(fbID, callback) {
 			return;
 		}
 
+		var deferredFriendLen = new $.Deferred();
+    	var deferredAssocHash = new $.Deferred();
+
+    	var friendLength;
+
+		if(data[global_friendLengthKey]) {
+			friendLength = data[global_friendLengthKey].N;
+			console.log(friendLength)	
+			deferredFriendLen.resolve();
+		} else {
+			FBgetFriends(fbID, function(friends) {
+				friendLength = friends.length;
+				deferredFriendLen.resolve();
+			});
+		}
+
 		data = stripDynamoSettings(data);
 
-		console.log(data);
-
 		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
+		currentLoadedFriend.friendLength = parseInt(friendLength);
 
 		judgr_getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;
 			currentLoadedFriend.hashtagRootObj = flippedHashtagObj;
 
-			FBgetFriends(fbID, function(friends) {
-				currentLoadedFriend.friendLength = friends.length;
-				callback();
-			});
-
 			postLoadUser(fbID, assoclist);
+			deferredAssocHash.resolve();
+		});
+
+		$.when.apply($, [deferredFriendLen, deferredAssocHash]).then(function() {
+		    callback();
 		});
 	});
 }

@@ -55,7 +55,7 @@ function selfprofile_login(callback) {
 			socket.emit('clientToServer', {
 				name: 'updateFriendsLength', 
 				hash: global_ID,
-				attribute: 'friendsListCount_079209086357678',
+				attribute: global_friendLengthKey,
 				value: global_friendsListUnmodified.length
 			}, function(data, err) {
 				

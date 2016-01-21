@@ -32,6 +32,13 @@
 			background: rgba(0, 0, 0, .4);
 		}
 
+			.self-profile-page .profile-hint {
+				color: gray;
+				width: 80%;
+				margin-left: 10%;
+				text-align: justify;
+			}
+
 		.self-profile-page .datacontainer {
 			width: 80%;
 			height: 100%;

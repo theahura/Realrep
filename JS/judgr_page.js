@@ -135,6 +135,11 @@ function judgr_loadUser(fbID, callback) {
 			deferredFriendLen.resolve();
 		} else {
 			FBgetFriends(fbID, function(friends) {
+				if(!friends) {
+					alert('Friend has disabled viewing their account');
+					return;
+				}
+				
 				friendLength = friends.length;
 				deferredFriendLen.resolve();
 			});

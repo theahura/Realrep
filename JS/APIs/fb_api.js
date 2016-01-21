@@ -77,6 +77,11 @@ function FBgetProfilePicture(id, callback) {
 function FBgetFriends(id, callback) {
 	var query = "/" + id + "/friends";
 	FB.api(query, function(response) {
+		if(response.error) {
+			callback(false);
+			return;
+		}
+
 		var friendsList = response.data;
 		var idList = [];
 		for (i=0; i<friendsList.length; i++) {

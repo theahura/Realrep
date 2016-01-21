@@ -10,11 +10,15 @@
 /**
 	Logs a user in and returns the id for that user, as well as whether or not they allowed friend scopes.
 */
-function FBlogin(callback) {
+function FBlogin(callback, authType) {
 
 	var loginOpts = {
 		scope: 'public_profile,user_friends,user_likes,user_hometown,user_education_history,user_location',
    		return_scopes: true
+	}
+
+	if(authType) {
+		loginOpts.auth_type = authType;
 	}
 
 	FB.login(function(response) {

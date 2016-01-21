@@ -22,15 +22,23 @@ function FBloginHelper(callback) {
             return;
         }
 
-        if(!friendsList_scope) {
-            alert("Error: Friends list access not given.")
-            callback(false);
-            return;
-        }
-
         global_ID = id;
 
-        callback(true);
+
+        if(!friendsList_scope) {
+            alert("Error: Friends list access not given. We need access to your friends list to make this app functional. Friends list count data
+                is used to determine how important different pieces of data are to your profile.");
+
+            FBlogin(function(id, friendsList_scope_two) {
+                if(!friendsList_scope_two) {
+                    callback(false);
+                } else {
+                    callback(true);
+                }
+            }, 'rerequest');
+        } else {
+            callback(true);
+        }
 
     });
 }
@@ -75,16 +83,6 @@ function loadGlobals(callback) {
     });
 
     FBgetFriends(global_ID, function(list) {
-
-        if(!list) {
-            alert("Error: Friends data not provided! Please provide friends permissions!");
-
-            if(callback)
-                callback(false);
-
-            return;
-        }
-
         global_friendsList = list.slice(0); 
         global_friendsListUnmodified = list.slice(0);
         deferred_friends.resolve();
@@ -104,7 +102,7 @@ function loginPastUser(callback) {
     FBloginHelper(function(successOne) {
 
         if(!successOne) {
-            alert("Make sure to allow Facebook permissions, specifically friendslist access, before proceeding.")
+            alert("We cannot proceed without the correct Facebook permissions. Thanks for checking out RealRep!");
             return;
         }
 

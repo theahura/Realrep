@@ -168,13 +168,21 @@ function judgr_loadUser(fbID, callback) {
 	Load tags to HTML elements
 **/
 function judgr_loadTag() {
-	var global_userTags = currentLoadedFriend.fullHashtagList;
+	var userTags = currentLoadedFriend.fullHashtagList;
 
-	if(global_userTags.length > 0) { 
+	//Check if judge count is high enough
+	global_judgesOnUser++;
+
+	if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
+		judgr_loadUser();
+		return;
+	}
+
+	if(userTags.length > 0) { 
 
 		var tag = "";
 
-		if(global_userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
+		if(userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
 
 			var index = Math.floor(Math.random()*global_adj_associations.length);
 
@@ -182,9 +190,9 @@ function judgr_loadTag() {
 
 		} else {
 
-			var index = Math.floor(Math.random()*global_userTags.length);
+			var index = Math.floor(Math.random()*userTags.length);
 
-			tag = global_userTags.splice(index, 1);
+			tag = userTags.splice(index, 1);
 
 		}
 
@@ -245,11 +253,14 @@ $("#NewUserSelect").click(function() {
 */
 $('.endorsebutton').click(function() {
 
-	if(!$('.hashtag').html()) {
+	var tag = $('.hashtag').html();
+	$('.hashtag').html("");
+
+	if(!tag) {
 		return;
 	}
 
-	judgr_updateUser($('.hashtag').html(), 1);
+	judgr_updateUser(tag, 1);
 
 	judgr_loadTag();
 });
@@ -258,8 +269,10 @@ $('.endorsebutton').click(function() {
 	Swipe against a hashtag that should not be associated with the profile that is currnetly loaded
 */
 $('.passbutton').click(function() {
+	var tag = $('.hashtag').html();
+	$('.hashtag').html("");
 
-	if(!$('.hashtag').html()) {
+	if(!tag) {
 		return;
 	}
 

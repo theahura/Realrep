@@ -19,13 +19,17 @@ var currentLoadedFriend = null;
 		obj tying an assoc hashtag to the original one
 */
 function judgr_getAssocHashtagList(hashtagList, callback) {
+
 	var deferredArray = [];
 
 	var assocHashtagObj = {};
 
 	var flippedHashtagObj = {};
 
+	var counter = 0;
+
 	console.log(hashtagList.length)
+
 	for(index in hashtagList) {	
 
 		deferred = new $.Deferred();
@@ -35,16 +39,19 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 			hash: hashtagList[index]
 		}, function(data, err) {
 
+			console.log(data)
+			console.log(err)
+
 			if(err) {
 				alert(err);
 				console.log(err);
 				return;
 			}
 
+			console.log(data)
+
 			if(data) {
 				var baseHashtag = hashtagList[index];
-
-				data = stripDynamoSettings(data);
 
 				flippedHashtagObj[baseHashtag] = baseHashtag;
 
@@ -55,9 +62,13 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 				jQuery.extend(assocHashtagObj, data);
 			}
 
+			console.log('what')
+
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
 					deferredArray[index].resolve();
+					counter++;
+					console.log(counter)
 					break;
 				}
 			}
@@ -111,7 +122,7 @@ function judgr_loadUser(fbID, callback) {
 	socket.emit('clientToServer', {
 		name: 'getProfile',
 		hash: fbID
-	}, function(data, err) {
+	}, function(data, err, requestedID, friendLength) {
 
 		if(err) {
 			alert(err);
@@ -127,14 +138,11 @@ function judgr_loadUser(fbID, callback) {
 		var deferredFriendLen = new $.Deferred();
     	var deferredAssocHash = new $.Deferred();
 
-    	var friendLength;
-
-		if(data[global_friendLengthKey]) {
-			friendLength = data[global_friendLengthKey].N;
-			console.log(friendLength)	
+		if(friendLength) {
 			deferredFriendLen.resolve();
 		} else {
 			FBgetFriends(fbID, function(friends) {
+
 				if(!friends) {
 					alert('Friend has disabled viewing their account');
 					return;
@@ -144,8 +152,6 @@ function judgr_loadUser(fbID, callback) {
 				deferredFriendLen.resolve();
 			});
 		}
-
-		data = stripDynamoSettings(data);
 
 		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
 		currentLoadedFriend.friendLength = parseInt(friendLength);

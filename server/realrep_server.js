@@ -11,23 +11,12 @@
 //export AWS_ACCESS_KEY_ID
 //export AWS_SECRET_ACCESS_KEY
 
-var AWS = require('aws-sdk');
-var loginTools = require('./loginTools');
-var storageTools = require('./storageTools');
-
-//AWS config
-AWS.config.region = 'us-east-1';
+var socketTools = require('./socketTools');
 
 var global_loggedInRoomName = 'loggedIn';
 
 //Sockets
 var io = require('socket.io').listen(6010);
-
-var hashtagTable = new AWS.DynamoDB({params: {TableName: 'rerep_hashtags'}});
-var userTable = new AWS.DynamoDB({params: {TableName: 'rerep_users'}});
-
-userTable.hashVal = "userId";
-hashtagTable.hashVal = "hashtag";
 
 /**
 	Checks an input string to make sure it is sanitized for database input
@@ -73,74 +62,41 @@ function serverError(socket, message) {
 	Generally handles all client requests from a socket. Takes incoming requests, parses by name, and runs necessary checks
 	on function inputs before sending data to the requested function. 
 
+	Also responsible for manipulating socket objects
+
 	@param: socket; socket.io connection; the connection to the client sending data
 	@param: incomingObj; obj; data sent from client
 */
 function serverHandler(socket, incomingObj, callback) {
 
-	//console.log(incomingObj.name)
-
 	if(incomingObj.name === 'getProfile') {
-		//load all of the hashtag data for a given user and send it back in callback
-		//incomingObj must contain: userId
-		storageTools.retrieveData(incomingObj, userTable, callback);
-	}
-	else if(incomingObj.name === 'checkUser') {
-		//Check if a user already exists
-		loginTools.checkUser(incomingObj, userTable, callback);
+		socketTools.getProfile(socket, incomingObj, callback);
 	}
 	else if(incomingObj.name === 'getHashtag') {
-		//load all of the related hashtag data 
-		//incomingObj must contain: hashtag
-		storageTools.retrieveData(incomingObj, hashtagTable, callback);
+		socketTools.getHashtag(socket, incomingObj, callback);
 	}
 	else if(incomingObj.name === 'updateProfileScores') {
-		//update the hashtag data in a profile
-		//incomingObj must contain userId and a root
-		if(!incomingObj.checkRoot) {
-			//callback(null, {message: 'Attribute root name not given'}, 'appError');
-			//return;
-		}
-
-		//storageTools.checkRoot(incomingObj, hashtagTable, function(err) {
-		//	if(err) {
-		//		callback(null, err);
-		//		return;
-		//	}
-
-			if(incomingObj.attribute === hashtagTable.hashVal || incomingObj.attribute === userTable.hashVal) {
-				callback(null, {message: 'Error: invalid hash name or attribute name'});
-				return;
-			}
-
-			if(!incomingObj['value'] || incomingObj['value'] > 1 || incomingObj['value'] < -1) {
-				callback(null, {message:"Value too high or too low or null"});
-				return;			
-			}
-
-			storageTools.updateScores(incomingObj, userTable, 'ADD', function(data) {
-				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
-				callback(data);
-			});		
-		//});
+		socketTools.updateProfileScores(socket, incomingObj, callback);
 	}
 	else if(incomingObj.name === 'addUser') {
-		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);
+		socketTools.addUser(socket, incomingObj, callback);
 	}
 	else if(incomingObj.name === 'updateFriendsLength') {
-		storageTools.updateScores(incomingObj, userTable, 'SET', callback);
+		socketTools.updateFriendsLength(socket, incomingObj, callback);
 	}
 	//Error pipe
 	else {
 		callback(null, {message: 'Login first/Name not recognized'}, 'appError');
 	}
-
 }
 
 //On an io socket connection...
 //Main
 io.sockets.on('connection', function(socket) {
-	console.log("CONNECTED")
+	console.log("CONNECTED");
+
+	socket.friendsList = {};
+	socket.hashtagList = {};
 
 	socket.on('disconnect', function() {
      	console.log('Got disconnect!');

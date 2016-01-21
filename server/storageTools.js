@@ -26,7 +26,7 @@ module.exports = {
 		table.getItem(requestObj, function(err, data)  {
 
 			if(err) {
-				console.log('got error')
+				console.log(err)
 				callback(null, err);
 			}
 			else if(data.Item) {
@@ -36,29 +36,6 @@ module.exports = {
 			else {
 				console.log('coundnt find anything')
 				callback(null);
-			}
-		});
-	},
-
-	/**
-		Checks if an attribute is under a root word
-
-		@param: incomingObj; {}
-		@param: table; dynamo db table; where to get data
-		@param: callback; function(data, err)
-	*/
-	checkRoot: function(incomingObj, table, callback) {
-		var retrieveDataObj = {};
-
-		retrieveDataObj['hash'] = incomingObj['checkRoot'];
-
-		this.retrieveData(retrieveDataObj, table, function(data) {
-
-			if(incomingObj['attribute'] in data || incomingObj['attribute'].toString() === data[table.hashVal]['S']) {
-				callback();
-			}
-			else {
-				callback({message: "Error: Attribute not found in root"});
 			}
 		});
 	},

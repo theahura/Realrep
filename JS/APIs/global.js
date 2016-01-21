@@ -108,27 +108,6 @@ function notEqual(array) {
 }
 
 /**
-	Returns a dynamo object as key value pairs, deleting hash key data that shouldn't be pulled otherwise
-*/
-function stripDynamoSettings(data) {
-	delete data['userId'];
-	delete data['hashtag'];
-	delete data[global_friendLengthKey];
-
-	var dataObj = {};
-
-	for(key in data) {
-		if('S' in data[key]) {
-			dataObj[key] = data[key].S
-		}
-		else if('N' in data[key])
-			dataObj[key] = parseInt(data[key].N)
-	}
-
-	return dataObj;
-}
-
-/**
 	returns a list of keys in order of property value
 */
 function sortObject(data) {

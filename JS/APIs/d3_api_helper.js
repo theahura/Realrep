@@ -38,16 +38,14 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 		socket.emit('clientToServer', {
 			name: 'getHashtag',
 			hash: nodes[node].label
-		}, function(data, err) {
+		}, function(dataObj, err, requestedHash) {
 
 			if(err) {
 				console.log(err);
-			} else if(!data) {
+			} else if(!dataObj) {
 				console.log('no data found');
 			} else {
-				var currentLoadingNodeLabel = data['hashtag']['S'];
-
-				var dataObj = stripDynamoSettings(data);
+				var currentLoadingNodeLabel = requestedHash;
 
 				var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 
@@ -184,8 +182,8 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement, id) {
 	@param: DOMelement; html element; where to load the map
 	@param: id; string; the hash call for the map to load
 	@param: command; string; the program server call for the map to load
-	@param: piChartElement; html element; where to load the pi chart
-	@param: otherDataElement; html element; where to load the other data info display
+	@param: piChartElement; html element; where to load the pi chart (not implemented)
+	@param: otherDataElement; html element; where to load the other data info display (not implemented)
 		should have a .title and a .data section underneath 
 */
 function loadProfileMap(DOMelement, id, command, piChartElement, otherDataElement) {
@@ -195,9 +193,7 @@ function loadProfileMap(DOMelement, id, command, piChartElement, otherDataElemen
 	socket.emit('clientToServer', {
 		name: command,
 		hash: id
-	}, function(data, err) {
-
-		var dataObj = stripDynamoSettings(data);
+	}, function(dataObj, err) {
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 

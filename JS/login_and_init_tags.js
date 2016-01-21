@@ -26,8 +26,7 @@ function FBloginHelper(callback) {
 
 
         if(!friendsList_scope) {
-            alert("Error: Friends list access not given. We need access to your friends list to make this app functional. Friends list count data
-                is used to determine how important different pieces of data are to your profile.");
+            alert("Error: Friends list access not given. We need access to your friends list to make this app functional. Friends list count data is used to determine how important different pieces of data are to your profile.");
 
             FBlogin(function(id, friendsList_scope_two) {
                 if(!friendsList_scope_two) {

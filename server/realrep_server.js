@@ -118,7 +118,7 @@ function serverHandler(socket, incomingObj, callback) {
 				return;			
 			}
 
-			storageTools.updateScores(incomingObj, userTable, function(data) {
+			storageTools.updateScores(incomingObj, userTable, 'ADD', function(data) {
 				storageTools.updateHashtags(incomingObj, hashtagTable, userTable, data);
 				callback(data);
 			});		
@@ -128,7 +128,7 @@ function serverHandler(socket, incomingObj, callback) {
 		storageTools.addUser(incomingObj, userTable, hashtagTable, callback);
 	}
 	else if(incomingObj.name === 'updateFriendsLength') {
-		storageTools.updateScores(incomingObj, userTable, callback);
+		storageTools.updateScores(incomingObj, userTable, 'SET', callback);
 	}
 	//Error pipe
 	else {

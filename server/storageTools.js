@@ -71,14 +71,20 @@ module.exports = {
 			'attribute': string -> the attribute being edited (so, for a user, which hashtag is being increased or decrased)
 			'value': number
 	*/
-	updateScores: function(incomingObj, table, callback) {
+	updateScores: function(incomingObj, table, command, callback) {
 
 		if(!incomingObj['value'])
-			incomingObj['value'] = 0;		
+			incomingObj['value'] = 0;	
+
+		if(command === 'ADD') {
+			command = "ADD #attrName :attrValue";
+		} else if(command === 'SET') {
+			command = "SET #attrName =:attrValue"
+		} 
 
 		var requestObj = {
 							Key: {}, 
-					 	    "UpdateExpression" : "ADD #attrName :attrValue",
+					 	    "UpdateExpression" : command,
 						    "ExpressionAttributeNames" : {
 						        "#attrName" : incomingObj['attribute']
 						    },

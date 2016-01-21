@@ -53,6 +53,8 @@ function changePage(newPageClass, mapData, callback, onNavButton) {
 
 	toggle('.' + newPageClass, function() {
 
+  		$("html, body").animate({ scrollTop: 0 }, "slow");
+
     	if(mapReference[newPageClass] && mapData) {
 
     		if(isEmpty($('.' + mapReference[newPageClass]))) {

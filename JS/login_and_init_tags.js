@@ -6,38 +6,126 @@
 	Login and Init panels
 */
 
+
+
+/**
+    Logs in a user to facebook. Loads the user's id, friends list. 
+
+    @param: callback; type: function; what to do when both user id and friends list have loaded
+*/
+function FBloginHelper(callback) {
+    //fb.js
+    FBlogin(function(id, friendsList_scope) {
+
+        if(!id) {
+            callback(false);
+            return;
+        }
+
+        if(!friendsList_scope) {
+            alert("Error: Friends list access not given.")
+            callback(false);
+            return;
+        }
+
+        global_ID = id;
+
+        callback(true);
+
+    });
+}
+
+/**
+    Checks if the profile exists, callsback with success if data exists for user on server
+**/
+function checkProfile(callback) {
+    socket.emit('clientToServer', {
+        name: 'getProfile',
+        hash: global_ID
+    }, function(data, err) {
+
+        if(err) {
+            console.log(err);
+            alert(err);
+            return;
+        }
+
+        //Make sure friend length data is not accidentally used here
+        if(!data) {
+            callback(false);
+        }
+        else {
+            callback(true);
+        }
+    });
+}
+
+/**
+    Loads global data from facebook
+**/
+function loadGlobals(callback) {
+
+    var deferred_name = new $.Deferred();
+    var deferred_friends = new $.Deferred();
+
+    FBgetName(global_ID, function(name) {
+        global_name = name;
+        $('.profile label').html(global_name);
+        deferred_name.resolve();
+    });
+
+    FBgetFriends(global_ID, function(list) {
+
+        if(!list) {
+            alert("Error: Friends data not provided! Please provide friends permissions!");
+
+            if(callback)
+                callback(false);
+
+            return;
+        }
+
+        global_friendsList = list.slice(0); 
+        global_friendsListUnmodified = list.slice(0);
+        deferred_friends.resolve();
+    });
+
+    $.when.apply(deferred_name, deferred_friends).done(function() {
+        if(callback)
+            callback(true);
+    });
+}
+
 /**
     Mechanism to call the past user data. Logs into facebook, emits getProfile with the facebook userId on callback, and
     triggers UI change if successful login on both Facebook AND RealRep
 */
 function loginPastUser(callback) {
-    selfprofile_login(function(success) {
+    FBloginHelper(function(successOne) {
 
-        if(!success) {
+        if(!successOne) {
             alert("Make sure to allow Facebook permissions, specifically friendslist access, before proceeding.")
             return;
         }
 
-        socket.emit('clientToServer', {
-            name: 'getProfile',
-            hash: global_ID
-        }, function(data, err) {
+        checkProfile(function(successTwo) {
 
-            //Make sure friend length data is not accidentally used here
-
-            if(!data) {
-                if(!callback)
-                    alert("Fill out the tags and create a new user");
-                else 
-                    callback();
-
+            if(!successTwo && !callback) {
+                alert("Create a new account first!");
                 return;
             }
-            else {
-                postLogin();
-            }
-        });
-              
+
+            loadGlobals(function(successThree) {
+                if(successThree) {
+                    if(callback)
+                        callback();
+                    else {     
+                        postLogin();
+                    }
+                }
+            });
+        
+        });              
     });
 }
 
@@ -208,6 +296,7 @@ $('#login-new-user').click(function(){
     });
 
     socket.emit('clientToServer', incomingObj, function(data, err) {
+
         if(err) {
             console.log(err);
         }
@@ -219,9 +308,21 @@ $('#login-new-user').click(function(){
 
 /**
     After signing in or signing up, opens up the user's personal map page
+    and updates friend length
 */
 function postLogin() {
-    $(".login-page").slideToggle();
+
+    socket.emit('clientToServer', {
+        name: 'updateFriendsLength', 
+        hash: global_ID,
+        attribute: global_friendLengthKey,
+        value: global_friendsListUnmodified.length
+    }, function(data, err) {
+        if(err) {
+            console.log(err);
+        }
+    });    
+
     changePage('self-profile-page', global_ID, function() {
         friendnetwork_loadFriends();
     });
@@ -248,22 +349,3 @@ function generateCheckboxList(fbTagList, tagArray) {
         }
     });
 }
-
-
-/**
-    Key binding for key up and key down with the downbounce arrow
-*/
-$( document ).keydown(function(e) {
-    switch(e.which) {
-        case 38: // up
-            scrollPage(".login-page");
-        break;
-
-        case 40: // down
-            scrollPage(".initial-tag-page");
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});

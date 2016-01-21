@@ -34,7 +34,6 @@ var mapReference = {};
 	mapReference['judgrpage'] = null;
 	mapReference['friend-network'] = null;
 	mapReference['initial-tag-page'] = null;
-	mapReference['login-page'] = null;
 
 //Stores a reference of class names of panels to userfriendly names
 var nameReference = {};
@@ -76,7 +75,6 @@ history.replaceState(global_state, "");
 	Triggers page load
 */
 $(window).load(function() {
-	$('.login-page').delay( 300 ).fadeIn(600);
 	$('.initial-tag-page').delay( 300 ).fadeIn(600);
 
 	$("#loginLogo").fadeIn("slow");

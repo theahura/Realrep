@@ -148,7 +148,7 @@ module.exports = {
 							value: 1
 						}
 
-						updateFunction(updateObj, hashtable, function(data, err) {
+						updateFunction(updateObj, hashtable, 'ADD', function(data, err) {
 							if(err) {
 								console.log(err);
 								return;
@@ -161,7 +161,7 @@ module.exports = {
 							value: 1
 						}
 
-						updateFunction(updateObj, hashtable, function(data, err) {
+						updateFunction(updateObj, hashtable, 'ADD', function(data, err) {
 							if(err) {
 								console.log(err);
 								return;
@@ -198,7 +198,7 @@ module.exports = {
 					value: 1
 				}
 
-				updateFunction(hashtagObject, secondaryTable, function(data, err) {
+				updateFunction(hashtagObject, secondaryTable, 'ADD', function(data, err) {
 					if(err) {
 						console.log(err);
 					}

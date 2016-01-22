@@ -12,51 +12,25 @@
 //export AWS_SECRET_ACCESS_KEY
 
 var socketTools = require('./socketTools');
+var judgrTools = require('./judgrTools');
 
 var global_loggedInRoomName = 'loggedIn';
 
 //Sockets
+/**
+	Each socket holds the following data:
+	friendsList: {}
+		key: fbID
+		value: {
+			data = {} of hashtags and values
+			friendsLen = number of FB friends
+			assocHashtagList = [] of hashtags
+		}
+	hashtagList: {}
+		key: hashtag
+		value: {} of hashtags and values
+**/
 var io = require('socket.io').listen(6010);
-
-/**
-	Checks an input string to make sure it is sanitized for database input
-
-	@param: inputString; string; the string to be checked
-
-	@return: true if alphanumeric string of some length, false otherwise
-*/
-function isSanitized(inputString) {
-	if(!inputString || typeof inputString !== 'string' || inputString.length === 0 || !/^[a-z0-9]+$/i.test(inputString))
-		return false;
-	return true;
-}
-
-/**
-	Checks if the userkey equals the login key stored on the server
-
-	@param: socket; socket.io connection; should have socket.userkey has sub param
-	@param: userKey; string; 
-*/
-function checkUserKey(socket, userKey) { 
-	if(userKey === socket.userKey)
-		return true;
-	else
-		return false;
-}
-
-
-/**
-	Generic error reply function. Sends a message to a socket with error as message header
-
-	@param: socket; socket.io connection; connection to user who needs to see error
-	@param: message; string; the message to send to the user
-*/
-function serverError(socket, message) {
-	socket.emit('serverToClient',{
-		name: 'Error',
-		message: message
-	});
-}
 
 /**
 	Generally handles all client requests from a socket. Takes incoming requests, parses by name, and runs necessary checks
@@ -83,6 +57,9 @@ function serverHandler(socket, incomingObj, callback) {
 	}
 	else if(incomingObj.name === 'updateFriendsLength') {
 		socketTools.updateFriendsLength(socket, incomingObj, callback);
+	}
+	else if(incomingObj.name === 'judgr_getHashtag') {
+
 	}
 	//Error pipe
 	else {

@@ -111,9 +111,6 @@ function judgr_loadUser(fbID, callback) {
 		hash: fbID
 	}, function(data, err, requestedID, friendLength) {
 
-		alert(requestedID);
-		alert(friendLength);
-
 		if(err) {
 			alert(err);
 			console.log(err);

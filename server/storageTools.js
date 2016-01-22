@@ -30,11 +30,11 @@ module.exports = {
 				callback(null, err);
 			}
 			else if(data.Item) {
-				console.log(data.ConsumedCapacity)
+				//console.log(data.ConsumedCapacity)
 				callback(data.Item);
 			}
 			else {
-				console.log('coundnt find anything')
+				//console.log('coundnt find anything')
 				callback(null);
 			}
 		});

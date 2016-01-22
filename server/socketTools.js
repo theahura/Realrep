@@ -1,16 +1,19 @@
 /**
 @author: Amol Kapoor
-@date: 7-20-15
+@date: 1-21-16
 @version: 0.1
 
-Socket manipulation module. Link from server to storage.
+Socket manipulation module. Link from server to storage. Saves data in socket caches. 
 */
 
 //AWS config and environment
 var AWS = require('aws-sdk');
+var async = require('async');
+
 AWS.config.region = 'us-east-1';
 
 var storageTools = require('./storageTools');
+var judgrTools = require('./judgrTools');
 
 var hashtagTable = new AWS.DynamoDB({params: {TableName: 'rerep_hashtags'}});
 var userTable = new AWS.DynamoDB({params: {TableName: 'rerep_users'}});
@@ -39,6 +42,53 @@ function stripDynamoSettings(data) {
 	return dataObj;
 }
 
+/**
+	Actually generates the relevant hashtag list and returns the list in callback
+**/
+function createAssocHashtagListHelper(socket, hashtagList, callback) {
+
+	var deferredArray = [];
+
+	var assocHashtagObj = {};
+
+	var flippedHashtagObj = {};
+
+	async.forEachOf(hashtagList, getHashtagWrapper, function(err) {
+
+		if(err) {
+			console.log(err);
+			if(callback) 
+				callback(err);
+			return;
+		}
+
+		var assocHashtagList = Object.keys(assocHashtagObj);
+
+		if(callback)
+			callback(assocHashtagList, flippedHashtagObj);
+	});
+
+	/**
+		Used by the Async module, takes in an item and if there is an error, pass callback with err message
+	**/
+	function getHashtagWrapper(hashtagVal, hashtag, callback) {
+
+		module.exports.getHashtag(socket, {hash: hashtag}, function(data, err) {
+
+			if(err) {
+				callback(err);
+				return;
+			}
+
+			if(data) {
+				for (var attrname in data) { assocHashtagObj[attrname] = data[attrname]; }
+			}
+
+			callback();
+		});
+	}
+}
+
 //Exposed functions
 module.exports = {
 
@@ -46,11 +96,10 @@ module.exports = {
 		Handles getting individual profiles. Will attempt to store that profile to the user socket
 		for caching. 
 
-		callback(data, error, requested hash)
+		callback(data, error, requested hash, friendLength)
 	**/
 	getProfile: function(socket, incomingObj, callback) {
 		if(socket.friendsList[incomingObj.hash]) {
-			console.log("???")
 			callback(socket.friendsList[incomingObj.hash].data, null, incomingObj.hash, socket.friendsList[incomingObj.hash].friendLen);
 			return;
 		}
@@ -73,18 +122,17 @@ module.exports = {
 				delete data['friendsListCount_079209086357678'];
 			}
 
-			console.log("?????????")
-
 			callback(data, null, incomingObj.hash, friendLength);
 
-			if(incomingObj.dataID === 'selfProfile') {
-				socket.selfProfile = incomingObj.hash;
-			}
-
+			//store data and friendlength
 			socket.friendsList[incomingObj.hash] = {
 				data: data, 
 				friendLen: friendLength
 			};
+
+			createAssocHashtagListHelper(socket, data, function(assocHashtagList, flippedHashtagObj) {
+				socket.friendsList[incomingObj.hash].assocHashtagList = assocHashtagList;
+			});
 		});
 	},
 

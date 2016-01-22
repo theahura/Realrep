@@ -87,7 +87,7 @@ function loadGlobals(callback) {
         deferred_friends.resolve();
     });
 
-    $.when.apply(deferred_name, deferred_friends).done(function() {
+    $.when.apply($, [deferred_name, deferred_friends]).done(function() {
         if(callback)
             callback(true);
     });

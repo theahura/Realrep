@@ -50,7 +50,8 @@ module.exports = {
 	**/
 	getProfile: function(socket, incomingObj, callback) {
 		if(socket.friendsList[incomingObj.hash]) {
-			callback(socket.friendsList[incomingObj.hash], null, incomingObj.hash);
+			console.log("???")
+			callback(socket.friendsList[incomingObj.hash].data, null, incomingObj.hash, socket.friendsList[incomingObj.hash].friendLen);
 			return;
 		}
 
@@ -72,13 +73,18 @@ module.exports = {
 				delete data['friendsListCount_079209086357678'];
 			}
 
+			console.log("?????????")
+
 			callback(data, null, incomingObj.hash, friendLength);
 
 			if(incomingObj.dataID === 'selfProfile') {
 				socket.selfProfile = incomingObj.hash;
 			}
 
-			socket.friendsList[incomingObj.hash] = data;
+			socket.friendsList[incomingObj.hash] = {
+				data: data, 
+				friendLen: friendLength
+			};
 		});
 	},
 

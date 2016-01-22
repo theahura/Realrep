@@ -35,12 +35,5 @@ socket.on('disconnect', function() {
 	    subject: subject,
 	    text: message
 	});
-
-	transporter.sendMail({
-	    from: 'diagraphicservermoniter@gmail.com',
-	    to: 'mhemani96@gmail.com',
-	    subject: subject,
-	    text: message
-	});
 });
 

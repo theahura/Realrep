@@ -26,10 +26,6 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 
 	var flippedHashtagObj = {};
 
-	var counter = 0;
-
-	console.log(hashtagList.length)
-
 	for(index in hashtagList) {	
 
 		deferred = new $.Deferred();
@@ -39,16 +35,11 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 			hash: hashtagList[index]
 		}, function(data, err) {
 
-			console.log(data)
-			console.log(err)
-
 			if(err) {
 				alert(err);
 				console.log(err);
 				return;
 			}
-
-			console.log(data)
 
 			if(data) {
 				var baseHashtag = hashtagList[index];
@@ -62,13 +53,9 @@ function judgr_getAssocHashtagList(hashtagList, callback) {
 				jQuery.extend(assocHashtagObj, data);
 			}
 
-			console.log('what')
-
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
 					deferredArray[index].resolve();
-					counter++;
-					console.log(counter)
 					break;
 				}
 			}
@@ -124,6 +111,9 @@ function judgr_loadUser(fbID, callback) {
 		hash: fbID
 	}, function(data, err, requestedID, friendLength) {
 
+		alert(requestedID);
+		alert(friendLength);
+
 		if(err) {
 			alert(err);
 			console.log(err);
@@ -135,10 +125,13 @@ function judgr_loadUser(fbID, callback) {
 			return;
 		}
 
+		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
+
 		var deferredFriendLen = new $.Deferred();
     	var deferredAssocHash = new $.Deferred();
 
 		if(friendLength) {
+			currentLoadedFriend.friendLength = friendLength;
 			deferredFriendLen.resolve();
 		} else {
 			FBgetFriends(fbID, function(friends) {
@@ -148,13 +141,10 @@ function judgr_loadUser(fbID, callback) {
 					return;
 				}
 				
-				friendLength = friends.length;
+				currentLoadedFriend.friendLength = friends.length;
 				deferredFriendLen.resolve();
 			});
 		}
-
-		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
-		currentLoadedFriend.friendLength = parseInt(friendLength);
 
 		judgr_getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
 			currentLoadedFriend.fullHashtagList = assoclist;

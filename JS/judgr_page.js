@@ -11,71 +11,6 @@
 var currentLoadedFriend = null;
 
 /**
-	Helper method that takes a list of hashtags and returns an associative list of hashtags
-
-	@param: hashtagList; the list of hashtags to search over
-	@param: callback; function(assocHashtagList, flippedHashtagObj)
-		list of the associated hashtags
-		obj tying an assoc hashtag to the original one
-*/
-function judgr_getAssocHashtagList(hashtagList, callback) {
-
-	var deferredArray = [];
-
-	var assocHashtagObj = {};
-
-	var flippedHashtagObj = {};
-
-	for(index in hashtagList) {	
-
-		deferred = new $.Deferred();
-
-		socket.emit('clientToServer', {
-			name: 'getHashtag', 
-			hash: hashtagList[index]
-		}, function(data, err) {
-
-			if(err) {
-				alert(err);
-				console.log(err);
-				return;
-			}
-
-			if(data) {
-				var baseHashtag = hashtagList[index];
-
-				flippedHashtagObj[baseHashtag] = baseHashtag;
-
-				for(key in data) {
-					flippedHashtagObj[key] = baseHashtag;
-				}
-
-				jQuery.extend(assocHashtagObj, data);
-			}
-
-			for(index in deferredArray) {
-				if(deferredArray[index].state() === 'pending') {
-					deferredArray[index].resolve();
-					break;
-				}
-			}
-		});
-
-		deferredArray.push(deferred);
-	}
-
-	//store information about file to dynamo through a server
-	$.when.apply($, deferredArray).then(function() {
-		var assocHashtagList = Object.keys(assocHashtagObj);
-
-		if(callback)
-			callback(assocHashtagList, flippedHashtagObj);
-	});
-} 
-
-//==============================================================================================================================
-
-/**
 	Defines parameters for a loaded friend
 */
 function judgr_loadedFriend(data, id, friendLength) {
@@ -105,7 +40,6 @@ function judgr_loadUser(fbID, callback) {
 		fbID = global_friendsList.splice(popIndex, 1)[0];
 	}
 	
-
 	socket.emit('clientToServer', {
 		name: 'getProfile',
 		hash: fbID
@@ -118,41 +52,31 @@ function judgr_loadUser(fbID, callback) {
 		}
 
 		if(!data) {
-			judgr_loadUser();
+
+			judgr_loadUser(null, callback);
+
 			return;
 		}
 
 		currentLoadedFriend = new judgr_loadedFriend(data, fbID);
 
 		var deferredFriendLen = new $.Deferred();
-    	var deferredAssocHash = new $.Deferred();
 
 		if(friendLength) {
 			currentLoadedFriend.friendLength = friendLength;
 			deferredFriendLen.resolve();
 		} else {
 			FBgetFriends(fbID, function(friends) {
-
-				if(!friends) {
-					alert('Friend has disabled viewing their account');
-					return;
-				}
-				
 				currentLoadedFriend.friendLength = friends.length;
 				deferredFriendLen.resolve();
 			});
 		}
 
-		judgr_getAssocHashtagList(currentLoadedFriend.fullHashtagList, function(assoclist, flippedHashtagObj) {
-			currentLoadedFriend.fullHashtagList = assoclist;
-			currentLoadedFriend.hashtagRootObj = flippedHashtagObj;
-
-			postLoadUser(fbID, assoclist);
-			deferredAssocHash.resolve();
-		});
-
-		$.when.apply($, [deferredFriendLen, deferredAssocHash]).then(function() {
-		    callback();
+		$.when.apply($, [deferredFriendLen]).then(function() {
+			postLoadUser(fbID);
+		    
+		    if(callback)
+		    	callback();
 		});
 	});
 }
@@ -160,41 +84,14 @@ function judgr_loadUser(fbID, callback) {
 /**
 	Load tags to HTML elements
 **/
-function judgr_loadTag() {
-	var userTags = currentLoadedFriend.fullHashtagList;
-
-	//Check if judge count is high enough
-	global_judgesOnUser++;
-
-	if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
-		judgr_loadUser();
-		return;
-	}
-
-	if(userTags.length > 0) { 
-
-		var tag = "";
-
-		if(userTags.length < 50 && Math.random() <= global_randomAssociationNum) {
-
-			var index = Math.floor(Math.random()*global_adj_associations.length);
-
-			tag = global_adj_associations[index];
-
-		} else {
-
-			var index = Math.floor(Math.random()*userTags.length);
-
-			tag = userTags.splice(index, 1);
-
-		}
-
-		$('.hashtag').html(tag);
-	}
-	else {
-		var tag = global_adj_associations[Math.floor(Math.random()*global_adj_associations.length)];
-		$('.hashtag').html(tag);
-	}
+function judgr_loadTag(callback) {
+	socket.emit('clientToServer', {
+		name: 'judgr_getHashtag',
+		hash: currentLoadedFriend.id
+	}, function(tag) {
+		if(callback)
+			callback(tag);
+	});
 }
 
 
@@ -244,33 +141,62 @@ $("#NewUserSelect").click(function() {
 /**
 	Select a hashtag to be associated with the profile that is currently loaded
 */
-$('.endorsebutton').click(function() {
+$('.passbutton').on('click', endorsebuttonHelper);
+
+function endorsebuttonHelper(e) {
+//Check if judge count is high enough
+	global_judgesOnUser++;
 
 	var tag = $('.hashtag').html();
-	$('.hashtag').html("");
-
-	if(!tag) {
-		return;
+	
+	if(tag) {
+		judgr_updateUser(tag, 1);
 	}
 
-	judgr_updateUser(tag, 1);
+	$('.endorsebutton').off('click')
 
-	judgr_loadTag();
-});
+
+	$('.hashtag').slideToggle('fast', function() {
+		$(this).html("");
+		if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
+			judgr_loadUser(null, function() {
+	    		$('.endorsebutton').on('click',endorsebuttonHelper);				
+			});
+		} else {
+			judgr_loadTag(function(newTag) {
+	    		$('.hashtag').html(newTag).slideToggle('fast', function() {
+	    		 	$('.endorsebutton').on('click',endorsebuttonHelper);
+	    		});
+			});
+		}
+	});
+}
 
 /**
 	Swipe against a hashtag that should not be associated with the profile that is currnetly loaded
 */
-$('.passbutton').click(function() {
-	var tag = $('.hashtag').html();
-	$('.hashtag').html("");
+$('.passbutton').on('click', passbuttonHelper);
 
-	if(!tag) {
-		return;
-	}
+function passbuttonHelper(e) {
+	global_judgesOnUser++;
 
-	judgr_loadTag();
-});
+	$('.passbutton').off('click')
+
+	$('.hashtag').slideToggle('fast', function() {
+		$(this).html("");
+		if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
+			judgr_loadUser(null, function() {
+				$('.passbutton').on('click',passbuttonHelper);
+			});
+		} else {
+			judgr_loadTag(function(newTag) {
+	    		$('.hashtag').html(newTag).slideToggle('fast', function() {
+	    		 	$('.passbutton').on('click',passbuttonHelper);
+	    		});
+			});
+		}
+	});
+}
 
 
 /**
@@ -295,7 +221,7 @@ $('.judgr-to-profile').click(function() {
 	@param: fbID; the id of the loaded friend
 	@param: hashtagList; the list to pop from
 **/
-function postLoadUser(fbID, hashtagList) {
+function postLoadUser(fbID) {
     FBgetProfilePicture(fbID, function(url) {
         $(".profile-picture").attr("src", url);
     });
@@ -306,8 +232,9 @@ function postLoadUser(fbID, hashtagList) {
 
     $('.' + mapReference['other-profile-page']).empty();
 
-    var tag = hashtagList[Math.floor(Math.random()*hashtagList.length)];
-    $(".hashtag").html(tag);
+    judgr_loadTag(function(tag) {
+    	$('.hashtag').html(tag).slideToggle('fast');
+    });
 
     global_state.pageState = {
     	loadedFriend: currentLoadedFriend

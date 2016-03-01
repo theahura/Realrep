@@ -59,7 +59,7 @@ function serverHandler(socket, incomingObj, callback) {
 		socketTools.updateFriendsLength(socket, incomingObj, callback);
 	}
 	else if(incomingObj.name === 'judgr_getHashtag') {
-
+		judgrTools.getHashtag(socket, incomingObj, callback);
 	}
 	//Error pipe
 	else {
@@ -74,6 +74,7 @@ io.sockets.on('connection', function(socket) {
 
 	socket.friendsList = {};
 	socket.hashtagList = {};
+	socket.globalFriendsMod = 5;
 
 	socket.on('disconnect', function() {
      	console.log('Got disconnect!');

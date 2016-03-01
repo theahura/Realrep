@@ -117,21 +117,29 @@ module.exports = {
 
 			var friendLength;
 
-			if(data['friendsListCount_079209086357678']) {
+			if(data['friendsListCount_079209086357678'] !== undefined) {
 				friendLength = data['friendsListCount_079209086357678'];
 				delete data['friendsListCount_079209086357678'];
-			}
-
-			callback(data, null, incomingObj.hash, friendLength);
-
-			//store data and friendlength
-			socket.friendsList[incomingObj.hash] = {
-				data: data, 
-				friendLen: friendLength
 			};
 
+
 			createAssocHashtagListHelper(socket, data, function(assocHashtagList, flippedHashtagObj) {
-				socket.friendsList[incomingObj.hash].assocHashtagList = assocHashtagList;
+
+				//store data and friendlength
+				var profObject = {
+					data: data, 
+					friendLen: friendLength
+					assocHashtagList: assocHashtagList
+				}
+
+
+				if(incomingObj.dataType === 'selfProfile') {
+					socket.selfProfile = profObject;
+				} else {
+					socket.friendsList[incomingObj.hash] = profObject;
+				}
+
+				callback(data, null, incomingObj.hash, friendLength);
 			});
 		});
 	},
@@ -213,7 +221,7 @@ module.exports = {
 	},
 
 	/**
-		Updates the length of friends stored for a user.
+		Updates the length of friends stored for a user, and triggers hashtag reduction if needed
 	**/
 	updateFriendsLength: function(socket, incomingObj, callback) {
 
@@ -224,6 +232,12 @@ module.exports = {
 
 		//pull friends length data
 		//if friends length update is greater, 1) pull profile and manipulate hashtag values; 2) update friends length
-		storageTools.updateScores(incomingObj, userTable, 'SET', callback);
+		if(socket.selfProfile['friendsLen'] < incomingObj.value) {
+
+			socket.selfProfile['friendsLen'] = incomingObj.value;
+
+			//update friends length
+			storageTools.updateScores(incomingObj, userTable, 'SET', callback);
+		}
 	}
 }

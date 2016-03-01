@@ -48,7 +48,8 @@ function FBloginHelper(callback) {
 function checkProfile(callback) {
     socket.emit('clientToServer', {
         name: 'getProfile',
-        hash: global_ID
+        hash: global_ID,
+        dataType: 'selfProfile'
     }, function(data, err) {
 
         if(err) {

@@ -132,17 +132,58 @@ function judgr_updateUser(attribute, value) {
 
 
 /**
-	Load a new user in the judgr profile slot
-*/
-$("#NewUserSelect").click(function() {
-	judgr_loadUser();
-});
+	After a user has been loaded to the judgr frontend, load all of the UI elements
+
+	@param: fbID; the id of the loaded friend
+	@param: hashtagList; the list to pop from
+**/
+function postLoadUser(fbID) {
+    FBgetProfilePicture(fbID, function(url) {
+        $(".profile-picture").attr("src", url);
+    });
+
+    FBgetName(fbID, function(name) {
+    	$(".friend-name").html(name);
+    });
+
+    $('.' + mapReference['other-profile-page']).empty();
+
+    judgr_loadTag(function(tag) {
+    	$('.hashtag').html(tag).slideToggle('fast');
+    });
+
+    global_state.pageState = {
+    	loadedFriend: currentLoadedFriend
+    };
+}
 
 /**
-	Select a hashtag to be associated with the profile that is currently loaded
-*/
-$('.passbutton').on('click', endorsebuttonHelper);
+	Pass button helper. Does the actual heavy lifting. 
+**/
+function passbuttonHelper(e) {
+	global_judgesOnUser++;
 
+	$('.passbutton').off('click')
+
+	$('.hashtag').slideToggle('fast', function() {
+		$(this).html("");
+		if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
+			judgr_loadUser(null, function() {
+				$('.passbutton').on('click',passbuttonHelper);
+			});
+		} else {
+			judgr_loadTag(function(newTag) {
+	    		$('.hashtag').html(newTag).slideToggle('fast', function() {
+	    		 	$('.passbutton').on('click',passbuttonHelper);
+	    		});
+			});
+		}
+	});
+}
+
+/**
+	Endorse button helper. Does the actual heavy lifting. 
+**/
 function endorsebuttonHelper(e) {
 //Check if judge count is high enough
 	global_judgesOnUser++;
@@ -172,32 +213,23 @@ function endorsebuttonHelper(e) {
 	});
 }
 
+
+/**
+	Load a new user in the judgr profile slot
+*/
+$("#NewUserSelect").click(function() {
+	judgr_loadUser();
+});
+
+/**
+	Select a hashtag to be associated with the profile that is currently loaded
+*/
+$('.endorsebutton').on('click', endorsebuttonHelper);
+
 /**
 	Swipe against a hashtag that should not be associated with the profile that is currnetly loaded
 */
 $('.passbutton').on('click', passbuttonHelper);
-
-function passbuttonHelper(e) {
-	global_judgesOnUser++;
-
-	$('.passbutton').off('click')
-
-	$('.hashtag').slideToggle('fast', function() {
-		$(this).html("");
-		if(global_judgesOnUser%global_judgesTillUserSwitch === 0) {
-			judgr_loadUser(null, function() {
-				$('.passbutton').on('click',passbuttonHelper);
-			});
-		} else {
-			judgr_loadTag(function(newTag) {
-	    		$('.hashtag').html(newTag).slideToggle('fast', function() {
-	    		 	$('.passbutton').on('click',passbuttonHelper);
-	    		});
-			});
-		}
-	});
-}
-
 
 /**
 	Loads the map for a friends profile on click from the profile picture
@@ -216,27 +248,19 @@ $('.judgr-to-profile').click(function() {
 
 
 /**
-	After a user has been loaded to the judgr frontend, load all of the UI elements
-
-	@param: fbID; the id of the loaded friend
-	@param: hashtagList; the list to pop from
+	Binds f and j keys to pass and endorse
 **/
-function postLoadUser(fbID) {
-    FBgetProfilePicture(fbID, function(url) {
-        $(".profile-picture").attr("src", url);
-    });
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 70: // f key
+        $('.endorsebutton').click();
+        break;
 
-    FBgetName(fbID, function(name) {
-    	$(".friend-name").html(name);
-    });
+        case 74: // j key
+        $('.passbutton').click();
+        break;
 
-    $('.' + mapReference['other-profile-page']).empty();
-
-    judgr_loadTag(function(tag) {
-    	$('.hashtag').html(tag).slideToggle('fast');
-    });
-
-    global_state.pageState = {
-    	loadedFriend: currentLoadedFriend
-    };
-}
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});

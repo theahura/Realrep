@@ -56,7 +56,7 @@ var global_friendLengthKey = 'friendsListCount_079209086357678';
 
 //GLOBAL VARS
 //Connection to Backend
-var socket = io('http://52.90.127.98:6010');
+var socket = io('http://54.164.115.173:6010');
 
 //the logged in user's facebook id 
 var global_ID = "";

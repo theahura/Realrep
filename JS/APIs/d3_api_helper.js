@@ -24,6 +24,8 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
   
 	var counter = 0;
 
+	console.log(nodes.length)
+
 	for(node in nodes) {
 
 		if(nodes[node].center) {
@@ -43,6 +45,7 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 			if(err) {
 				console.log(err);
 			} else if(!dataObj) {
+				console.log(nodes[node].label);
 				console.log('no data found');
 			} else {
 				var currentLoadingNodeLabel = requestedHash;
@@ -85,6 +88,7 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 			
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
+					console.log(index)
 					deferredArray[index].resolve();
 					break;
 				}			

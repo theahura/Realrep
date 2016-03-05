@@ -43,9 +43,7 @@ function ensureOthersAreClosed(pageToLoad) {
 	Handles changing pages, includes forward/next button magic. Loads global state to history. 
 
 	@param: newPageClass; string; class describing which page to load
-	@param: oldPageClass; deprecated
 	@param: mapData; string; id or some other information needed to load maps on various pages
-	@param: pageState; deprecated
 	@param: callback; function()
 	@param: onNavButton; bool; checks whether this is being called on a back or forward button call
 **/

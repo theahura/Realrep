@@ -128,7 +128,7 @@ module.exports = {
 				//store data and friendlength
 				var profObject = {
 					data: data, 
-					friendLen: friendLength
+					friendLen: friendLength,
 					assocHashtagList: assocHashtagList
 				}
 
@@ -211,30 +211,25 @@ module.exports = {
 			data = stripDynamoSettings(data);
 
 			callback(data);
-
-			if(incomingObj.dataID === 'selfProfile') {
-				socket.selfProfile = incomingObj.hash;
-			}
-
-			socket.friendsList[incomingObj.hash] = data;
 		});
 	},
 
 	/**
-		Updates the length of friends stored for a user, and triggers hashtag reduction if needed
+		Updates the length of friends stored for a user, and 
+		TODO: triggers hashtag reduction if needed
 	**/
 	updateFriendsLength: function(socket, incomingObj, callback) {
 
-		if(incomingObj.value === socket.friendsList[socket.selfProfile]) {
+		if(incomingObj.value === socket.selfProfile.friendLen) {
 			callback();
 			return;
 		}
 
 		//pull friends length data
 		//if friends length update is greater, 1) pull profile and manipulate hashtag values; 2) update friends length
-		if(socket.selfProfile['friendsLen'] < incomingObj.value) {
+		if(socket.selfProfile['friendLen'] < incomingObj.value) {
 
-			socket.selfProfile['friendsLen'] = incomingObj.value;
+			socket.selfProfile['friendLen'] = incomingObj.value;
 
 			//update friends length
 			storageTools.updateScores(incomingObj, userTable, 'SET', callback);

@@ -20,7 +20,7 @@
 **/
 function loadNodes(nodes, reverseNodes, edges, callback) {
 
-	var deferredArray = [];
+	deferredArray = [];
   
 	var counter = 0;
 
@@ -45,9 +45,10 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 			if(err) {
 				console.log(err);
 			} else if(!dataObj) {
-				console.log(nodes[node].label);
+				console.log(requestedHash);
 				console.log('no data found');
 			} else {
+
 				var currentLoadingNodeLabel = requestedHash;
 
 				var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
@@ -56,7 +57,6 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 
 					if(sortedKeys[index] === currentLoadingNodeLabel) 
 						continue;
-
 
 					if(reverseNodes[sortedKeys[index]] !== undefined) {
 
@@ -88,7 +88,6 @@ function loadNodes(nodes, reverseNodes, edges, callback) {
 			
 			for(index in deferredArray) {
 				if(deferredArray[index].state() === 'pending') {
-					console.log(index)
 					deferredArray[index].resolve();
 					break;
 				}			
@@ -149,7 +148,7 @@ function createGraph_helper(name, sortedKeys, dataObj, DOMelement, id) {
 			continue;
 
 		index = parseInt(index);
-		
+
 		var node = {
 			layer: 1, 
 			label: sortedKeys[index], 
@@ -198,6 +197,10 @@ function loadProfileMap(DOMelement, id, command, piChartElement, otherDataElemen
 		name: command,
 		hash: id
 	}, function(dataObj, err) {
+
+		console.log(dataObj)
+
+		delete dataObj[global_friendLengthKey]
 
 		var sortedKeys = Object.keys(dataObj).sort(function(a,b){return dataObj[a]-dataObj[b]});
 

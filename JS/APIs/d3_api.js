@@ -27,6 +27,10 @@ d3.selection.prototype.moveToFront = function() {
 
 */
 function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
+
+	alert("HELLO")
+
+
 	//Sets the initial graph parameters to the width and height of the screen
 	var width = Math.floor($(DOMelement).width()),
 	    height = Math.floor($(DOMelement).height());
@@ -46,6 +50,8 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
     //and apppends a grouping obj that will hold the rest of the map
 	var networkContainer = svg.append("g").attr("class", "networkContainer");
   	
+    alert("1")
+
   	//initializes the force graph
 	var force = d3.layout.force()
 	    .charge(-10000)
@@ -54,6 +60,9 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 		.nodes(graph.nodes)
 		.links(graph.links)
 		.start();
+
+    alert("2")
+
 
 	//Generates the links and nodes in the force graph
 	var link = networkContainer.selectAll(".link")
@@ -118,6 +127,9 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 			}
 		});
 
+    alert("3")
+
+
 	//Draws the rest of the node class
 	node.append('circle')
 		.attr("r", function(d) { return d.size; })
@@ -146,6 +158,9 @@ function createGraph(DOMelement, graph, piChartElement, otherInfoElement) {
 				return "translate(" + d.x + "," + d.y + ")"; 
 			});
 	});	
+
+    alert("4")
+
 
 	//makes the graph movable
 	svg.call(zoom, networkContainer);
